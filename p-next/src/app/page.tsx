@@ -705,7 +705,7 @@ export default function Home() {
           </div>
           
           <h1 className="hero-title text-[clamp(4rem,14vw,14rem)] font-black leading-[0.8] tracking-tighter text-white uppercase italic text-center">
-             <span className="reveal-text-line block">MUHAMMAD</span>
+             
              <span className="reveal-text-line block">YOGA</span>
              <span className="reveal-text-line block hero-gradient not-italic">ANANDA.</span>
           </h1>

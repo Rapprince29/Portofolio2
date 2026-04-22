@@ -883,12 +883,15 @@ export default function Home() {
             {[
               {
                 id: "01",
-                title: "moco web app",
+                title: "moco app system",
                 category: "pdbl project — 2024",
-                desc: "solusi komprehensif untuk pemantauan dan pengelolaan indikator data publik. terintegrasi dengan visualisasi canggih dan arsitektur aman.",
-                stack: ["next.js", "laravel", "postgresql", "tailwind"],
-                image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200",
-                link: "https://github.com/B4-PDBL-Team-2026/moco-web-app"
+                desc: "solusi komprehensif untuk pemantauan data publik. terintegrasi dengan visualisasi canggih dan tersedia di platform web serta android (playstore).",
+                stack: ["next.js", "laravel", "postgresql", "flutter"],
+                image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200",
+                links: [
+                  { label: "web app", url: "https://moco-app.web.id/" },
+                  { label: "play store", url: "https://play.google.com/store/apps/details?id=com.moco.moneycontrol" }
+                ]
               },
               {
                 id: "02",
@@ -920,7 +923,7 @@ export default function Home() {
                        />
                     </div>
                     {/* TECH STACK CHIPS ON HOVER */}
-                    <div className="absolute inset-0 bg-accent/20 opacity-0 group-hover:opacity-100 transition-opacity duration-700 flex flex-wrap gap-2 items-end p-8">
+                    <div className="absolute inset-0 bg-accent/20 opacity-0 group-hover/img:opacity-100 transition-opacity duration-700 flex flex-wrap gap-2 items-end p-8">
                        {proj.stack.map((s, idx) => (
                           <span key={idx} className="px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-[9px] font-mono text-white/80 uppercase tracking-widest border border-white/5">
                              {s}
@@ -928,16 +931,43 @@ export default function Home() {
                        ))}
                     </div>
                  </div>
-                 <div className="space-y-4">
-                    <span className="text-xs font-mono text-accent uppercase tracking-widest">{proj.category}</span>
-                    <h3 className="text-4xl font-bold text-white tracking-tight uppercase group-hover:text-accent transition-colors">{proj.title}</h3>
-                    <p className="text-white/40 font-light max-w-sm lowercase leading-relaxed">
-                       {proj.desc}
-                    </p>
+                 <div className="space-y-6">
+                    <div className="space-y-2">
+                       <span className="text-xs font-mono text-accent uppercase tracking-widest">{proj.category}</span>
+                       <h3 className="text-4xl font-bold text-white tracking-tight uppercase group-hover:text-accent transition-colors">{proj.title}</h3>
+                       <p className="text-white/40 font-light max-w-sm lowercase leading-relaxed">
+                          {proj.desc}
+                       </p>
+                    </div>
+
+                    {/* DYNAMIC LINKS */}
+                    <div className="flex flex-wrap gap-4 pt-4">
+                       {proj.links ? (
+                          proj.links.map((link, idx) => (
+                             <a 
+                               key={idx} 
+                               href={link.url} 
+                               target="_blank" 
+                               rel="noopener noreferrer"
+                               className="flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full text-[10px] font-mono text-white/60 hover:text-white transition-all uppercase tracking-widest group/link"
+                             >
+                                {link.label}
+                                <ArrowUpRight size={12} className="group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
+                             </a>
+                          ))
+                       ) : (
+                          <a 
+                             href={proj.link} 
+                             target="_blank" 
+                             rel="noopener noreferrer"
+                             className="flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full text-[10px] font-mono text-white/60 hover:text-white transition-all uppercase tracking-widest group/link"
+                          >
+                             view project
+                             <ArrowUpRight size={12} className="group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
+                          </a>
+                       )}
+                    </div>
                  </div>
-                 <a href={proj.link} target="_blank" rel="noopener noreferrer">
-                    <ArrowUpRight className="absolute top-12 right-12 text-white/20 group-hover:text-accent transition-colors cursor-pointer" size={32} />
-                 </a>
               </div>
             ))}
           </div>

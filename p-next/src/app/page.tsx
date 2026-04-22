@@ -1026,7 +1026,7 @@ export default function Home() {
                      speakers: "Harriz Vriza — Public Figure",
                      desc: "Seminar Nasional with Harriz Vriza on establishing a high-impact digital presence.",
                      icon: <User size={24} />,
-                     image: "" // Add image path here later
+                     image: "/certs/branding.png"
                   },
                   {
                      id: "C_02",
@@ -1037,7 +1037,7 @@ export default function Home() {
                      speakers: "Abi Atria — Professional Coach",
                      desc: "Training focus on 'Zero Point to High Point' with Abi Atria for strategic growth.",
                      icon: <Briefcase size={24} />,
-                     image: ""
+                     image: "/certs/entrepreneur.png"
                   },
                   {
                      id: "C_03",
@@ -1048,7 +1048,7 @@ export default function Home() {
                      speakers: "Dr. Charly Hongdiyanto — Speaker",
                      desc: "Advanced communication training with Dr. Charly Hongdiyanto.",
                      icon: <Camera size={24} />,
-                     image: ""
+                     image: "/certs/speaking.png"
                   },
                   {
                      id: "C_04",
@@ -1059,7 +1059,7 @@ export default function Home() {
                      speakers: "Yonathan S.Kom — Financial Planner",
                      desc: "Financial literacy and management strategy training with Yonathan S.Kom.",
                      icon: <Database size={24} />,
-                     image: ""
+                     image: "/certs/financial.png"
                   },
                   {
                      id: "C_05",
@@ -1070,7 +1070,7 @@ export default function Home() {
                      speakers: "Tifani Hernang — Content Strategist",
                      desc: "Professional training on social media monetization with Tifani Hernang.",
                      icon: <LayoutGrid size={24} />,
-                     image: ""
+                     image: "/certs/creator.png"
                   },
                   {
                      id: "C_06",
@@ -1081,7 +1081,7 @@ export default function Home() {
                      speakers: "Ahmad Miftahur Rif'at — Presiden BEM",
                      desc: "Leadership and management training at Politeknik Elektronika Negeri Surabaya.",
                      icon: <ShieldCheck size={24} />,
-                     image: ""
+                     image: "/certs/lkmmtd.png"
                   },
                   {
                      id: "C_07",
@@ -1092,7 +1092,7 @@ export default function Home() {
                      speakers: "Sawitri Dyah Kusuma Wardhani — Community Manager",
                      desc: "SurabayaDev Anniversary 11th on next-gen technology ecosystems.",
                      icon: <Cpu size={24} />,
-                     image: ""
+                     image: "/certs/surabayadev.jpg"
                   },
                   {
                      id: "C_08",

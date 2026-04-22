@@ -1,274 +1,23 @@
 'use client'
-// YOLUX_BUILD_SYNC: 2026-04-23-01-26
 import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import Image from 'next/image'
 import Navbar from '@/components/Navbar'
 import profileImg from '@/assets/profile.jpg'
+import Lenis from 'lenis'
+import NeuralBackground from '@/components/NeuralBackground'
+import DossierModal from '@/components/DossierModal'
+import EducationCard from '@/components/EducationCard'
+import CertificateCard from '@/components/CertificateCard'
+import { projects, academicHistory, certificates } from '@/constants/data'
+import { 
+  ArrowUpRight, Download, Award, X, Camera, Code2, 
+  Cpu, Database, User, Briefcase, LayoutGrid, ShieldCheck 
+} from 'lucide-react'
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger)
-}
-import { ArrowUpRight, Globe, Info, Mail, MousePointer2, Camera, Briefcase, Music, Clock, ArrowUp, Link2, User, Code2, Cpu, Database, Layout, Smartphone, Command, Award, CheckCircle2, ShieldCheck, FileCheck, LayoutGrid, X, Maximize2, Download, ChevronRight, Eye, ExternalLink } from 'lucide-react'
-import Lenis from 'lenis'
-import NeuralBackground from '@/components/NeuralBackground'
-
-// INTERACTIVE COMPONENT FOR EDUCATION
-const EducationCard = ({ edu }: { edu: any }) => {
-  const itemRef = useRef<HTMLDivElement>(null)
-  const [isExpanded, setIsExpanded] = useState(false)
-
-  const toggleExpand = () => {
-    const detailsEl = itemRef.current?.querySelector('.details-tray')
-    if (!detailsEl || gsap.isTweening(detailsEl)) return // PREVENT OVERLAP & NULL BUG
-
-    if (isExpanded) {
-      gsap.to(detailsEl, { height: 0, opacity: 0, duration: 0.6, ease: "expo.inOut" })
-    } else {
-      gsap.set(detailsEl, { height: "auto" })
-      const autoHeight = detailsEl?.clientHeight
-      gsap.fromTo(detailsEl, 
-        { height: 0, opacity: 0 }, 
-        { height: autoHeight, opacity: 1, duration: 0.8, ease: "expo.out" }
-      )
-    }
-    setIsExpanded(!isExpanded)
-  }
-
-  return (
-    <div 
-      ref={itemRef}
-      onClick={toggleExpand}
-      className={`reveal-item group glass-panel rounded-3xl p-8 md:p-12 transition-all duration-700 cursor-pointer ${isExpanded ? 'border-accent/40 bg-white/[0.04]' : 'hover:bg-white/[0.02]'}`}
-    >
-      <div className="flex flex-col md:flex-row justify-between items-center gap-8">
-        <div className="flex items-center gap-12">
-          <span className={`text-4xl font-black transition-all ${isExpanded ? 'text-accent scale-125' : 'text-accent opacity-20 group-hover:opacity-100'}`}>{edu.id}</span>
-          <div>
-            <span className="text-xs font-mono text-white/30 uppercase tracking-widest">{edu.year}</span>
-            <h3 className="text-3xl md:text-5xl font-black text-white tracking-tight uppercase transition-colors">{edu.school}</h3>
-          </div>
-        </div>
-        <div className="text-center md:text-right flex items-center gap-6">
-          <div className="hidden md:block text-left md:text-right">
-            <h4 className="text-lg font-mono text-white/60 mb-1 uppercase tracking-widest">{edu.degree}</h4>
-            <p className="text-xs font-light text-white/30 max-w-xs">{edu.desc}</p>
-          </div>
-          <ArrowUpRight className={`text-accent transition-transform duration-500 ${isExpanded ? 'rotate-90 scale-125' : 'opacity-20 group-hover:opacity-100'}`} size={32} />
-        </div>
-      </div>
-
-      {/* DETAILS TRAY */}
-      <div className="details-tray h-0 opacity-0 overflow-hidden">
-        <div className="pt-12 border-t border-white/5 mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-left">
-          {edu.details.map((detail: any, dIdx: number) => (
-            <div key={dIdx} className="glass-panel p-6 rounded-2xl bg-white/[0.02] border-white/5 hover:border-accent/30 transition-colors">
-              <span className="block text-[9px] font-mono text-accent uppercase tracking-widest mb-2">{detail.label}</span>
-              <h5 className="text-lg font-black text-white uppercase leading-tight mb-1">{detail.company}</h5>
-              <p className="text-[11px] font-mono text-white/30 uppercase">{detail.duration}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  )
-}
-
-// INTERACTIVE COMPONENT FOR CERTIFICATES
-const CertificateCard = ({ cert }: { cert: any }) => {
-  const itemRef = useRef<HTMLDivElement>(null)
-  const [isExpanded, setIsExpanded] = useState(false)
-  const [showModal, setShowModal] = useState(false)
-
-  const toggleExpand = () => {
-    const detailsEl = itemRef.current?.querySelector('.details-tray')
-    if (!detailsEl || gsap.isTweening(detailsEl)) return
-
-    if (isExpanded) {
-      gsap.to(detailsEl, { height: 0, opacity: 0, duration: 0.6, ease: "expo.inOut" })
-    } else {
-      gsap.set(detailsEl, { height: "auto" })
-      const autoHeight = detailsEl?.clientHeight
-      gsap.fromTo(detailsEl, 
-        { height: 0, opacity: 0 }, 
-        { height: autoHeight, opacity: 1, duration: 0.8, ease: "expo.out" }
-      )
-    }
-    setIsExpanded(!isExpanded)
-  }
-
-  return (
-    <>
-      <div 
-        ref={itemRef}
-        onClick={() => setShowModal(true)}
-        className="reveal-item group relative bg-[#0a0a0a] rounded-[2rem] border border-white/5 transition-all duration-700 cursor-pointer overflow-hidden shadow-2xl hover:border-accent/30"
-      >
-        {/* UPPER IMAGE SECTION (THE HERO) */}
-        <div className="relative aspect-[4/3] w-full overflow-hidden">
-           {cert.image ? (
-             <Image 
-               src={cert.image} 
-               alt={cert.title} 
-               fill 
-               className="object-cover transition-all duration-1000 grayscale group-hover:grayscale-0 group-hover:scale-110"
-             />
-           ) : (
-             <div className="absolute inset-0 bg-white/[0.02] flex items-center justify-center">
-                <Camera className="text-white/10" size={48} />
-             </div>
-           )}
-           
-           {/* IMAGE OVERLAYS (CYBER STYLE) */}
-           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
-           
-           <div className="absolute top-6 left-6 flex flex-col gap-1">
-              <span className="px-3 py-1 bg-accent/20 backdrop-blur-md border border-accent/30 rounded-full text-[8px] font-mono text-accent uppercase tracking-[0.2em] w-fit">
-                 ENCRYPTED_DOC
-              </span>
-           </div>
-
-           <div className="absolute bottom-6 left-8 right-8 z-10 transition-transform duration-700 group-hover:-translate-y-2">
-              <div className="flex flex-col gap-1">
-                 <span className="text-[10px] font-mono text-accent uppercase tracking-[0.3em] font-black">{cert.issuer}</span>
-                 <h3 className="text-3xl font-black text-white leading-none uppercase italic tracking-tighter shadow-black drop-shadow-md">
-                    {cert.title.split(' ')[0]}<br/>
-                    <span className="text-white/60 group-hover:text-white transition-colors">{cert.title.split(' ').slice(1).join(' ')}</span>
-                 </h3>
-              </div>
-           </div>
-
-           {/* SCANLINE OVERLAY */}
-           <div className="absolute inset-0 bg-[linear-gradient(rgba(112,0,255,0.03)_1px,transparent_1px)] bg-[length:100%_4px] pointer-events-none" />
-        </div>
-
-        {/* LOWER UTILITY BAR */}
-        <div className="relative px-8 py-6 flex items-center justify-between bg-white/[0.02] backdrop-blur-xl border-t border-white/5">
-           <div className="flex items-center gap-4">
-              <div className="p-2 rounded-lg bg-accent/10 border border-accent/20 text-accent group-hover:bg-accent group-hover:text-white transition-colors duration-500">
-                 <Award size={16} />
-              </div>
-              <div className="flex flex-col">
-                 <span className="text-[10px] font-mono text-white/80 tracking-widest uppercase">{cert.year} {cert.issuer}</span>
-                 <span className="text-[8px] font-mono text-white/20 uppercase tracking-tighter">DATA_KEY: {cert.id}</span>
-              </div>
-           </div>
-
-           <div className="flex items-center gap-3 text-accent group/btn">
-              <span className="text-[10px] font-mono tracking-[0.2em] font-black uppercase">VIEW_DETAIL</span>
-              <div className="p-1.5 rounded-full border border-accent/20 group-hover:bg-accent group-hover:text-white transition-all duration-500 group-hover:translate-x-1">
-                 <ArrowUpRight size={12} />
-              </div>
-           </div>
-        </div>
-      </div>
-
-      {/* 5. CREDENTIAL DOSSIER MODAL (YOLUX VERSION) */}
-      {showModal && (
-        <div 
-          className="fixed inset-0 z-[2000000] flex items-center justify-center p-4 md:p-10 animate-in fade-in duration-500"
-          onClick={() => setShowModal(false)}
-        >
-           {/* BACKDROP */}
-           <div className="absolute inset-0 bg-black/98 backdrop-blur-3xl" />
-
-           {/* MODAL CONTENT */}
-           <div 
-             className="relative w-full max-w-6xl bg-[#080808] border border-white/10 rounded-[2.5rem] overflow-hidden flex flex-col md:flex-row shadow-[0_0_100px_rgba(112,0,255,0.1)]"
-             onClick={(e) => e.stopPropagation()}
-           >
-              {/* LEFT SIDE: THE ASSET DISPLAY */}
-              <div className="flex-1 relative bg-white/[0.01] flex items-center justify-center p-6 md:p-12 border-b md:border-b-0 md:border-r border-white/10 min-h-[400px]">
-                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(112,0,255,0.05)_0%,transparent_70%)]" />
-                 
-                 <div className="relative w-full h-full flex items-center justify-center group/modal-img">
-                    {cert.image ? (
-                      <div className="relative w-full h-full max-h-[70vh] aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl border border-white/5 transition-transform duration-700 group-hover/modal-img:scale-[1.02]">
-                         <Image 
-                           src={cert.image} 
-                           alt={cert.title} 
-                           fill 
-                           className="object-contain"
-                         />
-                      </div>
-                    ) : (
-                      <div className="text-white/10 flex flex-col items-center gap-4">
-                         <Camera size={80} />
-                         <span className="font-mono text-[10px] tracking-widest">[ ASSET_NOT_FOUND ]</span>
-                      </div>
-                    )}
-                 </div>
-              </div>
-
-              {/* RIGHT SIDE: THE TECHNICAL INTEL */}
-              <div className="w-full md:w-[400px] p-8 md:p-12 flex flex-col bg-black">
-                 {/* HEADER */}
-                 <div className="flex justify-between items-start mb-12">
-                     <span className="flex items-center gap-2 px-3 py-1.5 bg-accent/10 border border-accent/20 rounded-full text-[9px] font-mono text-accent uppercase tracking-widest">
-                        <ShieldCheck size={12} />
-                        Verified Credential
-                     </span>
-                     <button 
-                       onClick={() => setShowModal(false)}
-                       className="p-2 hover:bg-white/5 rounded-full transition-colors text-white/40 hover:text-white"
-                     >
-                        <X size={24} />
-                     </button>
-                 </div>
-
-                 {/* TITLES */}
-                 <div className="mb-12">
-                    <h2 className="text-4xl font-black text-white italic leading-tight uppercase tracking-tighter mb-4">
-                       {cert.title}
-                    </h2>
-                    <div className="h-1 w-12 bg-accent rounded-full" />
-                 </div>
-
-                 {/* METADATA GRID - SIMPLIFIED */}
-                 <div className="space-y-8 flex-1">
-                    <div className="flex gap-5">
-                       <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-accent/60">
-                          <Award size={22} />
-                       </div>
-                       <div className="flex flex-col">
-                          <span className="text-[10px] font-mono text-white/30 uppercase tracking-widest mb-1">Issued By</span>
-                          <p className="text-sm font-bold text-white/90 uppercase leading-snug">{cert.issuer}</p>
-                       </div>
-                    </div>
-
-                    <div className="flex gap-5">
-                       <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-accent/60">
-                          <Clock size={22} />
-                       </div>
-                       <div className="flex flex-col">
-                          <span className="text-[10px] font-mono text-white/30 uppercase tracking-widest mb-1">Date Earned</span>
-                          <p className="text-sm font-bold text-white/90 uppercase leading-snug">{cert.year}</p>
-                       </div>
-                    </div>
-                 </div>
-
-                 {/* FOOTER ACTIONS */}
-                 <div className="mt-12 space-y-6">
-                    <a 
-                      href={cert.image} 
-                      download 
-                      className="group relative w-full py-5 bg-accent text-white rounded-2xl font-black text-sm tracking-widest uppercase flex items-center justify-center gap-3 transition-all duration-500 hover:shadow-[0_0_40px_rgba(112,0,255,0.3)] active:scale-95"
-                    >
-                       Download Asset
-                       <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
-                    </a>
-                    
-                    <div className="text-center">
-                       <span className="text-[9px] font-mono text-white/20 uppercase tracking-[0.4em]">REF: {cert.id}</span>
-                    </div>
-                 </div>
-              </div>
-           </div>
-        </div>
-      )}
-    </>
-  )
 }
 
 export default function Home() {
@@ -276,6 +25,7 @@ export default function Home() {
   const cursorRef = useRef<HTMLDivElement>(null)
   const profileImgRef = useRef<HTMLDivElement>(null)
   const lenisRef = useRef<any>(null)
+  
   const [isLoading, setIsLoading] = useState(true)
   const [progress, setProgress] = useState(0)
   const [time, setTime] = useState('')
@@ -283,6 +33,18 @@ export default function Home() {
   const [cursorIcon, setCursorIcon] = useState<string | null>(null)
   const [isMounted, setIsMounted] = useState(false)
   const [hoveredProject, setHoveredProject] = useState<number | null>(null)
+  const [selectedCert, setSelectedCert] = useState<any>(null)
+  const [showModal, setShowModal] = useState(false)
+  
+  const handleOpenModal = (cert: any) => {
+    setSelectedCert(cert)
+    setShowModal(true)
+  }
+
+  const handleCloseModal = () => {
+    setShowModal(false)
+    setSelectedCert(null)
+  }
 
   // TERMINAL STATES
   const [isTerminalOpen, setIsTerminalOpen] = useState(false)
@@ -925,35 +687,10 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-20">
-            {[
-              {
-                id: "01",
-                title: "moco app system",
-                category: "pdbl project — 2024",
-                desc: "solusi komprehensif untuk pemantauan data publik. terintegrasi dengan visualisasi canggih dan tersedia di platform web serta android (playstore).",
-                stack: ["next.js", "laravel", "postgresql", "flutter"],
-                image: "/projects/moco.png",
-                links: [
-                  { label: "web app", url: "https://moco-app.web.id/" },
-                  { label: "play store", url: "https://play.google.com/store/apps/details?id=com.moco.moneycontrol" }
-                ]
-              },
-              {
-                id: "02",
-                title: "digital architect v.1",
-                category: "creative lab — 2025",
-                desc: "mengeksplorasi titik temu antara rekayasa gerak dan prototipe UI berbasis performa.",
-                stack: ["gsap", "three.js", "framer"],
-                image: "https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=1200",
-                link: "#"
-              }
-            ].map((proj, i) => (
+            {projects.map((proj, i) => (
               <div 
                 key={i} 
-                onMouseEnter={() => {
-                  setHoveredProject(i)
-                  
-                }}
+                onMouseEnter={() => setHoveredProject(i)}
                 onMouseLeave={() => setHoveredProject(null)}
                 className={`reveal-item project-item tilt-card group relative glass-panel rounded-3xl p-6 md:p-12 transition-all duration-700 
                 ${hoveredProject !== null && hoveredProject !== i ? 'opacity-30 blur-sm scale-[0.98]' : 'scale-100 opacity-100 blur-none'}`}
@@ -967,7 +704,6 @@ export default function Home() {
                          alt={proj.title}
                        />
                     </div>
-                    {/* TECH STACK CHIPS ON HOVER */}
                     <div className="absolute inset-0 bg-accent/20 opacity-0 group-hover:opacity-100 transition-opacity duration-700 flex flex-wrap gap-2 items-end p-8">
                        {proj.stack.map((s, idx) => (
                           <span key={idx} className="px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-[9px] font-mono text-white/80 uppercase tracking-widest border border-white/5">
@@ -985,10 +721,9 @@ export default function Home() {
                        </p>
                     </div>
 
-                    {/* DYNAMIC LINKS */}
                     <div className="flex flex-wrap gap-4 pt-4">
                        {proj.links ? (
-                          proj.links.map((link, idx) => (
+                          proj.links.map((link: any, idx: number) => (
                              <a 
                                key={idx} 
                                href={link.url} 
@@ -1029,42 +764,7 @@ export default function Home() {
             </div>
 
             <div className="grid grid-cols-1 gap-6">
-               {[
-                  {
-                     id: "01",
-                     year: "2018 — 2020",
-                     school: "smp negeri 1 sukodono",
-                     degree: "Sekolah Menengah Pertama",
-                     desc: "langkah awal dalam eksplorasi dunia digital dan logika dasar.",
-                     details: [
-                        { label: "waiter", company: "defins art cafe", duration: "3 years (2019-2021)" },
-                        { label: "champion", company: "basketball competition", duration: "2019" }
-                     ]
-                  },
-                  {
-                     id: "02",
-                     year: "2021 — 2024",
-                     school: "smk antartika 2 sidoarjo",
-                     degree: "Sekolah Menengah Kejuruan",
-                     desc: "mendalami fondasi pemrograman, sistem komputer, dan praktek industri.",
-                     details: [
-                        { label: "professional", company: "the hidden castle", duration: "1 year (2023)" },
-                        { label: "internship", company: "cv barotera", duration: "4 months (2022)" }
-                     ]
-                  },
-                  {
-                     id: "03",
-                     year: "2024 — sekarang",
-                     school: "pens surabaya",
-                     degree: "d3 teknik informatika",
-                     desc: "mengasah keahlian software engineering tingkat lanjut di kampus pens.",
-                     details: [
-                        { label: "part-time", company: "sowan cafe", duration: "present" },
-                        { label: "part-time", company: "cafe playgo", duration: "2025" },
-                        { label: "part-time", company: "vlog cafe", duration: "2025" }
-                     ]
-                  }
-               ].map((edu, idx) => (
+               {academicHistory.map((edu, idx) => (
                   <div key={idx} className="tilt-card">
                      <EducationCard edu={edu} />
                   </div>
@@ -1090,108 +790,8 @@ export default function Home() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
-               {[
-                  {
-                     id: "C_01",
-                     title: "PERSONAL BRANDING",
-                     issuer: "B1GFAIR RISE",
-                     year: "2025",
-                     serial: "03175/1/BF/PB/SBY/I/2025",
-                     speakers: "Harriz Vriza — Public Figure",
-                     desc: "Seminar Nasional with Harriz Vriza on establishing a high-impact digital presence.",
-                     icon: <User size={24} />,
-                     image: "/certs/branding.png"
-                  },
-                  {
-                     id: "C_02",
-                     title: "ENTREPRENEURSHIP",
-                     issuer: "B1GFAIR RISE",
-                     year: "2025",
-                     serial: "03175/2/BF/E/SBY/I/2025",
-                     speakers: "Abi Atria — Professional Coach",
-                     desc: "Training focus on 'Zero Point to High Point' with Abi Atria for strategic growth.",
-                     icon: <Briefcase size={24} />,
-                     image: "/certs/entrepreneur.png"
-                  },
-                  {
-                     id: "C_03",
-                     title: "PUBLIC SPEAKING",
-                     issuer: "B1GFAIR RISE",
-                     year: "2025",
-                     serial: "03175/3/BF/PS/SBY/I/2025",
-                     speakers: "Dr. Charly Hongdiyanto — Speaker",
-                     desc: "Advanced communication training with Dr. Charly Hongdiyanto.",
-                     icon: <Camera size={24} />,
-                     image: "/certs/speaking.png"
-                  },
-                  {
-                     id: "C_04",
-                     title: "FINANCIAL PLANNING",
-                     issuer: "B1GFAIR RISE",
-                     year: "2025",
-                     serial: "03175/4/BF/FP/SBY/I/2025",
-                     speakers: "Yonathan S.Kom — Financial Planner",
-                     desc: "Financial literacy and management strategy training with Yonathan S.Kom.",
-                     icon: <Database size={24} />,
-                     image: "/certs/financial.png"
-                  },
-                  {
-                     id: "C_05",
-                     title: "CONTENT CREATOR",
-                     issuer: "B1GFAIR RISE",
-                     year: "2025",
-                     serial: "03175/5/BF/CC/SBY/I/2025",
-                     speakers: "Tifani Hernang — Content Strategist",
-                     desc: "Professional training on social media monetization with Tifani Hernang.",
-                     icon: <LayoutGrid size={24} />,
-                     image: "/certs/creator.png"
-                  },
-                  {
-                     id: "C_06",
-                     title: "LKMM-TD PENS",
-                     issuer: "BEM PENS",
-                     year: "2025",
-                     serial: "1055/PL14/KM.03.00.02/VI/2025",
-                     speakers: "Ahmad Miftahur Rif'at — Presiden BEM",
-                     desc: "Leadership and management training at Politeknik Elektronika Negeri Surabaya.",
-                     icon: <ShieldCheck size={24} />,
-                     image: "/certs/lkmmtd.png"
-                  },
-                  {
-                     id: "C_07",
-                     title: "NEXTGEN TECHVERSE",
-                     issuer: "SURABAYADEV",
-                     year: "2025",
-                     serial: "261/SBYDEV/SERT/XI/2025",
-                     speakers: "Sawitri Dyah Kusuma Wardhani — Community Manager",
-                     desc: "SurabayaDev Anniversary 11th on next-gen technology ecosystems.",
-                     icon: <Cpu size={24} />,
-                     image: "/certs/surabayadev.jpg"
-                  },
-                  {
-                     id: "C_08",
-                     title: "WEB TECHNOLOGY INTERN",
-                     issuer: "CV BAROTERA",
-                     year: "2022",
-                     serial: "B_INTERN_2022_09",
-                     speakers: "Barotera Engineering Team",
-                     desc: "Certification of completion for professional web architecture and system deployment.",
-                     icon: <Code2 size={24} />,
-                     image: ""
-                  },
-                  {
-                     id: "C_09",
-                     title: "LEARNING REACT.JS",
-                     issuer: "H-TECH CORP",
-                     year: "2024",
-                     serial: "2773/HTECH/SH/XI/2024",
-                     speakers: "Tegar Aprilian — CEO & Founder H-Tech Corp",
-                     desc: "Certification for successful participation in the React.js short class organized by H-Tech Corp.",
-                     icon: <Code2 size={24} />,
-                     image: "/certs/react-class.png"
-                  }
-               ].map((cert, i) => (
-                  <CertificateCard key={i} cert={cert} />
+               {certificates.map((cert, i) => (
+                  <CertificateCard key={i} cert={cert} onOpen={handleOpenModal} />
                ))}
             </div>
          </div>
@@ -1383,6 +983,12 @@ export default function Home() {
           </div>
         </div>
       )}
+      {/* 5. DOSSIER MODAL SYSTEM */}
+      <DossierModal 
+        show={showModal} 
+        cert={selectedCert} 
+        onClose={handleCloseModal} 
+      />
     </main>
   )
 }

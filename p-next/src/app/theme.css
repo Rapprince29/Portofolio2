@@ -176,3 +176,21 @@ body::before {
 .animate-scanline {
   animation: scanline 3s linear infinite;
 }
+
+/* RESPONSIVE OPTIMIZATIONS */
+@media (max-width: 768px) {
+  .glass-panel {
+    padding: 1.5rem !important;
+  }
+}
+
+@media (pointer: coarse) {
+  #custom-cursor {
+    display: none !important;
+  }
+  
+  /* Disable hover effects that might be sticky on touch */
+  .tilt-card {
+    transform: none !important;
+  }
+}

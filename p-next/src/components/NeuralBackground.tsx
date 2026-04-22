@@ -11,8 +11,9 @@ export default function NeuralBackground() {
     if (!ctx) return
 
     let particles: Particle[] = []
-    const particleCount = 60
-    const connectionDistance = 150
+    const isMobile = window.innerWidth < 768
+    const particleCount = isMobile ? 30 : 60
+    const connectionDistance = isMobile ? 100 : 150
     let mouse = { x: 0, y: 0 }
 
     class Particle {

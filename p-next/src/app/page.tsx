@@ -290,7 +290,7 @@ export default function Home() {
       return
     }
     addLog('Finalizing_Transmission...')
-    const text = `Halo Yoga! Nama saya *${formData.name}* (${formData.email}).\n\n*Pesan:* ${formData.message}`
+    const text = `Halo Muhammad Yoga! Nama saya *${formData.name}* (${formData.email}).\n\n*Pesan:* ${formData.message}`
     const waLink = `https://wa.me/6285804709019?text=${encodeURIComponent(text)}`
     
     setTimeout(() => {
@@ -673,8 +673,9 @@ export default function Home() {
 
       {/* ULTRA-LIGHT ICON CURSOR */}
       <div 
+        id="custom-cursor"
         ref={cursorRef} 
-        className="fixed top-0 left-0 w-6 h-6 rounded-full border border-accent pointer-events-none z-[99999] flex items-center justify-center mix-blend-difference will-change-transform"
+        className="fixed top-0 left-0 w-6 h-6 rounded-full border border-accent pointer-events-none z-[99999] hidden lg:flex items-center justify-center mix-blend-difference will-change-transform"
       >
         {cursorIcon === 'top' && <ArrowUp size={10} className="text-white animate-in zoom-in duration-300" />}
         {cursorIcon === 'view' && <ArrowUpRight size={10} className="text-white animate-in zoom-in duration-300" />}
@@ -710,7 +711,7 @@ export default function Home() {
              <span className="reveal-text-line block hero-gradient not-italic">ANANDA.</span>
           </h1>
 
-          <p className="reveal-sub max-w-xl mx-auto text-lg md:text-xl text-white/50 font-light leading-relaxed">
+          <p className="reveal-sub max-w-xl mx-auto text-lg md:text-xl text-white/50 font-light leading-relaxed px-4 md:px-0">
             Crafting immersive digital experiences where <span className="text-white italic">code meets high-art</span>. Next-gen frontend engineer at PENS.
           </p>
 

@@ -887,6 +887,22 @@ export default function Home() {
                   },
                   {
                      id: "C_06",
+                     title: "LKMM-TD PENS",
+                     issuer: "BEM PENS",
+                     year: "2025",
+                     desc: "Leadership and management training at Politeknik Elektronika Negeri Surabaya.",
+                     icon: <ShieldCheck size={24} />
+                  },
+                  {
+                     id: "C_07",
+                     title: "NEXTGEN TECHVERSE",
+                     issuer: "SURABAYADEV",
+                     year: "2025",
+                     desc: "SurabayaDev Anniversary 11th on next-gen technology ecosystems.",
+                     icon: <Cpu size={24} />
+                  },
+                  {
+                     id: "C_08",
                      title: "WEB TECHNOLOGY INTERN",
                      issuer: "CV BAROTERA",
                      year: "2022",

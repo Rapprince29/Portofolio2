@@ -9,7 +9,7 @@ import profileImg from '@/assets/profile.jpg'
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger)
 }
-import { ArrowUpRight, Globe, Info, Mail, MousePointer2, Camera, Briefcase, Music, Clock, ArrowUp, Link2, User, Code2, Cpu, Database, Layout, Smartphone, Command, Award, CheckCircle2, ShieldCheck, FileCheck } from 'lucide-react'
+import { ArrowUpRight, Globe, Info, Mail, MousePointer2, Camera, Briefcase, Music, Clock, ArrowUp, Link2, User, Code2, Cpu, Database, Layout, Smartphone, Command, Award, CheckCircle2, ShieldCheck, FileCheck, LayoutGrid } from 'lucide-react'
 import Lenis from 'lenis'
 import NeuralBackground from '@/components/NeuralBackground'
 
@@ -534,6 +534,7 @@ export default function Home() {
           </div>
           
           <h1 className="hero-title text-[clamp(4rem,14vw,14rem)] font-black leading-[0.8] tracking-tighter text-white uppercase italic text-center">
+             <span className="reveal-text-line block">MUHAMMAD</span>
              <span className="reveal-text-line block">YOGA</span>
              <span className="reveal-text-line block hero-gradient not-italic">ANANDA.</span>
           </h1>
@@ -846,35 +847,51 @@ export default function Home() {
                {[
                   {
                      id: "C_01",
-                     title: "WEB TECHNOLOGY INTERNSHIP",
+                     title: "PERSONAL BRANDING",
+                     issuer: "B1GFAIR RISE",
+                     year: "2025",
+                     desc: "Seminar Nasional with Harriz Vriza on establishing a high-impact digital presence.",
+                     icon: <User size={24} />
+                  },
+                  {
+                     id: "C_02",
+                     title: "ENTREPRENEURSHIP",
+                     issuer: "B1GFAIR RISE",
+                     year: "2025",
+                     desc: "Training focus on 'Zero Point to High Point' with Abi Atria for strategic growth.",
+                     icon: <Briefcase size={24} />
+                  },
+                  {
+                     id: "C_03",
+                     title: "PUBLIC SPEAKING",
+                     issuer: "B1GFAIR RISE",
+                     year: "2025",
+                     desc: "Advanced communication training with Dr. Charly Hongdiyanto.",
+                     icon: <Camera size={24} />
+                  },
+                  {
+                     id: "C_04",
+                     title: "FINANCIAL PLANNING",
+                     issuer: "B1GFAIR RISE",
+                     year: "2025",
+                     desc: "Financial literacy and management strategy training with Yonathan S.Kom.",
+                     icon: <Database size={24} />
+                  },
+                  {
+                     id: "C_05",
+                     title: "CONTENT CREATOR",
+                     issuer: "B1GFAIR RISE",
+                     year: "2025",
+                     desc: "Professional training on social media monetization with Tifani Hernang.",
+                     icon: <LayoutGrid size={24} />
+                  },
+                  {
+                     id: "C_06",
+                     title: "WEB TECHNOLOGY INTERN",
                      issuer: "CV BAROTERA",
                      year: "2022",
                      desc: "Certification of completion for professional web architecture and system deployment.",
                      icon: <Code2 size={24} />
-                  },
-                  {
-                     id: "C_02",
-                     title: "UX DESIGN ARCHITECTURE",
-                     issuer: "PENS LAB",
-                     year: "2024",
-                     desc: "Advanced logic in user experience and interface engineering frameworks.",
-                     icon: <Layout size={24} />
-                  },
-                  {
-                     id: "C_03",
-                     title: "DATA ARCHITECT FUNDAMENTALS",
-                     issuer: "ACADEMIC MODULE",
-                     year: "2023",
-                     desc: "Core principles of structured data systems and relational logic.",
-                     icon: <Database size={24} />
-                  },
-                  {
-                     id: "C_04",
-                     title: "JAVASCRIPT LOGIC EXPERT",
-                     issuer: "HACKATHON SERIES",
-                     year: "2025",
-                     desc: "High-frequency problem solving and algorithmic implementation strategies.",
-                     icon: <Command size={24} />
                   }
                ].map((cert, i) => (
                   <div 

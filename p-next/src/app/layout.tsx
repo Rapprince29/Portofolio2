@@ -12,7 +12,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "YOGA ANANDA — DIGITAL ARCHITECT",
+  title: "MUHAMMAD YOGA ANANDA SATRIA — DIGITAL ARCHITECT",
   description: "Next-Gen Portfolio Experience built with Next.js 15 and GSAP.",
 };
 

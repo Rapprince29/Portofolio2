@@ -2,7 +2,7 @@
 import { useEffect, useRef } from 'react'
 import Image from 'next/image'
 import gsap from 'gsap'
-import { X, Award, ShieldCheck, Download, Code2, User } from 'lucide-react'
+import { X, Award, ShieldCheck, Download, Code2, User, Cpu } from 'lucide-react'
 
 interface DossierModalProps {
   show: boolean;

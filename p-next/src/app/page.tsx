@@ -154,7 +154,7 @@ const CertificateCard = ({ cert, addLog }: { cert: any, addLog: (msg: string) =>
                          <span className="text-[10px] font-mono text-white/20 uppercase tracking-widest">[ Aset_Holografik_Menunggu ]</span>
                       </div>
                     )}
-                    <div className="absolute inset-0 bg-accent/20 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center">
+                    <div className="absolute inset-0 bg-accent/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                        <div className="p-3 rounded-full bg-black/60 backdrop-blur-md border border-white/20">
                           <Maximize2 size={20} className="text-white" />
                        </div>
@@ -923,7 +923,7 @@ export default function Home() {
                        />
                     </div>
                     {/* TECH STACK CHIPS ON HOVER */}
-                    <div className="absolute inset-0 bg-accent/20 opacity-0 group-hover/img:opacity-100 transition-opacity duration-700 flex flex-wrap gap-2 items-end p-8">
+                    <div className="absolute inset-0 bg-accent/20 opacity-0 group-hover:opacity-100 transition-opacity duration-700 flex flex-wrap gap-2 items-end p-8">
                        {proj.stack.map((s, idx) => (
                           <span key={idx} className="px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-[9px] font-mono text-white/80 uppercase tracking-widest border border-white/5">
                              {s}

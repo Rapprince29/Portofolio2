@@ -216,16 +216,110 @@ const CertificateCard = ({ cert }: { cert: any }) => {
           className="fixed inset-0 z-[2000000] flex items-center justify-center p-4 md:p-10 animate-in fade-in duration-500"
           onClick={() => setShowModal(false)}
         >
-                    To link the physical certificate, place the image file in the public directory and update the `image` property in the source code_
-                  </p>
-               </div>
-             )}
-          </div>
-          
-          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-center space-y-2 pointer-events-none">
-             <h4 className="text-white font-black uppercase italic tracking-tighter text-xl">{cert.title}</h4>
-             <p className="text-white/30 font-mono text-[10px] uppercase tracking-[0.3em]">{cert.issuer}</p>
-          </div>
+           {/* BACKDROP */}
+           <div className="absolute inset-0 bg-black/98 backdrop-blur-3xl" />
+
+           {/* MODAL CONTENT */}
+           <div 
+             className="relative w-full max-w-6xl bg-[#080808] border border-white/10 rounded-[2.5rem] overflow-hidden flex flex-col md:flex-row shadow-[0_0_100px_rgba(112,0,255,0.1)]"
+             onClick={(e) => e.stopPropagation()}
+           >
+              {/* LEFT SIDE: THE ASSET DISPLAY */}
+              <div className="flex-1 relative bg-white/[0.01] flex items-center justify-center p-6 md:p-12 border-b md:border-b-0 md:border-r border-white/10 min-h-[400px]">
+                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(112,0,255,0.05)_0%,transparent_70%)]" />
+                 
+                 <div className="relative w-full h-full flex items-center justify-center group/modal-img">
+                    {cert.image ? (
+                      <div className="relative w-full h-full max-h-[70vh] aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl border border-white/5 transition-transform duration-700 group-hover/modal-img:scale-[1.02]">
+                         <Image 
+                           src={cert.image} 
+                           alt={cert.title} 
+                           fill 
+                           className="object-contain"
+                         />
+                      </div>
+                    ) : (
+                      <div className="text-white/10 flex flex-col items-center gap-4">
+                         <Camera size={80} />
+                         <span className="font-mono text-[10px] tracking-widest">[ ASSET_NOT_FOUND ]</span>
+                      </div>
+                    )}
+                 </div>
+              </div>
+
+              {/* RIGHT SIDE: THE TECHNICAL INTEL */}
+              <div className="w-full md:w-[400px] p-8 md:p-12 flex flex-col bg-black">
+                 {/* HEADER */}
+                 <div className="flex justify-between items-start mb-12">
+                     <span className="flex items-center gap-2 px-3 py-1.5 bg-accent/10 border border-accent/20 rounded-full text-[9px] font-mono text-accent uppercase tracking-widest">
+                        <ShieldCheck size={12} />
+                        Verified Credential
+                     </span>
+                     <button 
+                       onClick={() => setShowModal(false)}
+                       className="p-2 hover:bg-white/5 rounded-full transition-colors text-white/40 hover:text-white"
+                     >
+                        <X size={24} />
+                     </button>
+                 </div>
+
+                 {/* TITLES */}
+                 <div className="mb-12">
+                    <h2 className="text-4xl font-black text-white italic leading-tight uppercase tracking-tighter mb-4">
+                       {cert.title}
+                    </h2>
+                    <div className="h-1 w-12 bg-accent rounded-full" />
+                 </div>
+
+                 {/* METADATA GRID */}
+                 <div className="space-y-8 flex-1">
+                    <div className="flex gap-5">
+                       <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-accent/60">
+                          <Award size={22} />
+                       </div>
+                       <div className="flex flex-col">
+                          <span className="text-[10px] font-mono text-white/30 uppercase tracking-widest mb-1">Issued By</span>
+                          <p className="text-sm font-bold text-white/90 uppercase leading-snug">{cert.issuer}</p>
+                       </div>
+                    </div>
+
+                    <div className="flex gap-5">
+                       <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-accent/60">
+                          <Clock size={22} />
+                       </div>
+                       <div className="flex flex-col">
+                          <span className="text-[10px] font-mono text-white/30 uppercase tracking-widest mb-1">Date Earned</span>
+                          <p className="text-sm font-bold text-white/90 uppercase leading-snug">{cert.year}</p>
+                       </div>
+                    </div>
+
+                    <div className="p-6 rounded-2xl bg-accent/5 border border-accent/10 relative overflow-hidden group/intel">
+                       <div className="absolute top-0 right-0 p-2 opacity-5">
+                          <Info size={32} />
+                       </div>
+                       <p className="text-[11px] text-white/60 leading-relaxed uppercase italic relative z-10">
+                          {cert.desc}
+                       </p>
+                    </div>
+                 </div>
+
+                 {/* FOOTER ACTIONS */}
+                 <div className="mt-12 space-y-6">
+                    <a 
+                      href={cert.image} 
+                      download 
+                      className="group relative w-full py-5 bg-accent text-white rounded-2xl font-black text-sm tracking-widest uppercase flex items-center justify-center gap-3 transition-all duration-500 hover:shadow-[0_0_40px_rgba(112,0,255,0.3)] active:scale-95"
+                    >
+                       Download Asset
+                       <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                    </a>
+                    
+                    <div className="text-center">
+                       <span className="text-[9px] font-mono text-white/20 uppercase tracking-[0.4em]">ID: {cert.serial || cert.id}</span>
+                    </div>
+                 </div>
+              </div>
+           </div>
         </div>
       )}
     </>
@@ -1307,7 +1401,10 @@ export default function Home() {
           className="fixed inset-0 z-[2000000] bg-black/95 backdrop-blur-3xl p-6 md:p-12 overflow-y-auto animate-in fade-in duration-500"
           onClick={() => setShowCVViewer(false)}
         >
-          <div className="max-w-4xl mx-auto space-y-12 py-12">
+          <div 
+            className="max-w-4xl mx-auto space-y-12 py-12"
+            onClick={(e) => e.stopPropagation()}
+          >
             <div className="flex flex-col md:flex-row justify-between items-center gap-6 sticky top-0 z-10 bg-black/40 backdrop-blur-lg p-6 rounded-2xl border border-white/5">
               <div>
                 <h3 className="text-2xl font-black text-white italic uppercase tracking-tighter">Identity_Archives</h3>

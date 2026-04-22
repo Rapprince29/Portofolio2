@@ -3,6 +3,8 @@ import { useState, useEffect, useRef } from 'react'
 import { Menu, X, ArrowRight, Circle } from 'lucide-react'
 import gsap from 'gsap'
 
+import Image from 'next/image'
+
 const navLinks = [
   { name: 'INDEX', href: '#' },
   { name: 'WORKS', href: '#projects' },
@@ -53,8 +55,11 @@ export default function Navbar() {
           {/* EXPANDED CONTENT */}
           {!isCollapsed && (
             <div className="flex items-center gap-8 w-full animate-in fade-in zoom-in-95 duration-500">
-               <a href="#" className="text-sm font-black tracking-tighter text-white whitespace-nowrap">
-                 Y.ANANDA<span className="text-accent underline">_</span>
+               <a href="#" className="flex items-center gap-3 group">
+                 <div className="relative w-8 h-8 rounded-full overflow-hidden border border-white/10 group-hover:border-accent transition-colors">
+                    <Image src="/logo.png" alt="Logo" fill className="object-cover" />
+                 </div>
+                 <span className="text-sm font-black tracking-tighter text-white whitespace-nowrap hidden sm:block">Y.ANANDA<span className="text-accent underline">_</span></span>
                </a>
 
                <div className="hidden lg:flex items-center gap-3 px-4 py-1.5 border-l border-white/10 ml-2">
@@ -85,7 +90,9 @@ export default function Navbar() {
           {/* COLLAPSED CONTENT (ZEN ORB) */}
           {isCollapsed && (
             <div className="flex items-center justify-center w-full h-full animate-in fade-in zoom-in-75 duration-700">
-               <Menu size={20} className="text-white hover:text-accent transition-colors" />
+               <div className="relative w-8 h-8 rounded-full overflow-hidden border border-white/20">
+                  <Image src="/logo.png" alt="Logo" fill className="object-cover" />
+               </div>
             </div>
           )}
         </div>

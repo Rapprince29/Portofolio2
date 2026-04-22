@@ -9,7 +9,8 @@ import profileImg from '@/assets/profile.jpg'
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger)
 }
-import { ArrowUpRight, Globe, Info, Mail, MousePointer2, Camera, Briefcase, Music, Clock, ArrowUp, Link2, User, Code2, Cpu, Database, Layout, Smartphone, Command, Award, CheckCircle2, ShieldCheck, FileCheck, LayoutGrid } from 'lucide-react'
+import { ArrowUpRight, Globe, Info, Mail, MousePointer2, Camera, Briefcase, Music, Clock, ArrowUp, Link2, User, Code2, Cpu, Database, Layout, Smartphone, Command, Award, CheckCircle2, ShieldCheck, FileCheck, LayoutGrid, X, Maximize2 } from 'lucide-react'
+import Image from 'next/image'
 import Lenis from 'lenis'
 import NeuralBackground from '@/components/NeuralBackground'
 
@@ -71,6 +72,176 @@ const EducationCard = ({ edu }: { edu: any }) => {
         </div>
       </div>
     </div>
+  )
+}
+
+// INTERACTIVE COMPONENT FOR CERTIFICATES
+const CertificateCard = ({ cert, addLog }: { cert: any, addLog: (msg: string) => void }) => {
+  const itemRef = useRef<HTMLDivElement>(null)
+  const [isExpanded, setIsExpanded] = useState(false)
+  const [showModal, setShowModal] = useState(false)
+
+  const toggleExpand = () => {
+    const detailsEl = itemRef.current?.querySelector('.details-tray')
+    if (!detailsEl || gsap.isTweening(detailsEl)) return
+
+    if (isExpanded) {
+      gsap.to(detailsEl, { height: 0, opacity: 0, duration: 0.6, ease: "expo.inOut" })
+    } else {
+      gsap.set(detailsEl, { height: "auto" })
+      const autoHeight = detailsEl?.clientHeight
+      gsap.fromTo(detailsEl, 
+        { height: 0, opacity: 0 }, 
+        { height: autoHeight, opacity: 1, duration: 0.8, ease: "expo.out" }
+      )
+      addLog(`Declassifying_Credential_${cert.id}...`)
+    }
+    setIsExpanded(!isExpanded)
+  }
+
+  return (
+    <>
+      <div 
+        ref={itemRef}
+        onClick={toggleExpand}
+        className={`reveal-item tilt-card group relative glass-panel p-8 rounded-3xl border-white/5 transition-all duration-700 cursor-pointer overflow-hidden ${isExpanded ? 'border-accent/60 bg-white/[0.04]' : 'hover:border-accent/40'}`}
+      >
+        <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-20 transition-opacity">
+           <ShieldCheck size={120} className="text-accent" />
+        </div>
+        
+        <div className="relative z-10 space-y-8">
+           <div className="flex justify-between items-start">
+              <div className="w-12 h-12 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-white transition-all duration-500">
+                 {cert.icon}
+              </div>
+              <span className="text-[10px] font-mono text-white/20 uppercase tracking-widest">{cert.year}</span>
+           </div>
+
+           <div>
+              <span className="block text-[10px] font-mono text-accent uppercase tracking-widest mb-2">{cert.issuer}</span>
+              <h3 className="text-2xl font-black text-white tracking-tighter uppercase leading-tight group-hover:text-accent transition-colors">{cert.title}</h3>
+           </div>
+
+           {!isExpanded && (
+             <p className="text-xs text-white/30 font-light leading-relaxed uppercase animate-in fade-in duration-700">
+                {cert.desc}
+             </p>
+           )}
+
+           {/* DETAILS TRAY */}
+           <div className="details-tray h-0 opacity-0 overflow-hidden">
+              <div className="pt-8 border-t border-white/5 space-y-8">
+                 {/* IMAGE PREVIEW */}
+                 <div 
+                   className="relative aspect-video rounded-2xl overflow-hidden glass-panel border-white/10 group/img cursor-zoom-in"
+                   onClick={(e) => {
+                     e.stopPropagation();
+                     setShowModal(true);
+                     addLog(`Loading_Full_Resolution_Asset_0${cert.id}...`);
+                   }}
+                 >
+                    {cert.image ? (
+                      <Image 
+                        src={cert.image} 
+                        alt={cert.title} 
+                        fill 
+                        className="object-cover transition-transform duration-700 group-hover/img:scale-110"
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                      />
+                    ) : (
+                      <div className="absolute inset-0 flex flex-col items-center justify-center space-y-4 bg-white/[0.02]">
+                         <Camera className="text-white/10" size={32} />
+                         <span className="text-[10px] font-mono text-white/20 uppercase tracking-widest">[ Holographic_Asset_Pending ]</span>
+                      </div>
+                    )}
+                    <div className="absolute inset-0 bg-accent/20 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center">
+                       <div className="p-3 rounded-full bg-black/60 backdrop-blur-md border border-white/20">
+                          <Maximize2 size={20} className="text-white" />
+                       </div>
+                    </div>
+                 </div>
+
+                 <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-1">
+                       <span className="text-[9px] font-mono text-white/20 uppercase tracking-widest">Serial_No</span>
+                       <p className="text-xs font-mono text-accent">{cert.serial || "VERIFIED-ARCH-2025"}</p>
+                    </div>
+                    <div className="space-y-1">
+                       <span className="text-[9px] font-mono text-white/20 uppercase tracking-widest">Type</span>
+                       <p className="text-xs font-mono text-white/60">GOVERNMENTAL_VALIDATED</p>
+                    </div>
+                 </div>
+                 {cert.speakers && (
+                   <div className="space-y-1">
+                      <span className="text-[9px] font-mono text-white/20 uppercase tracking-widest">Authorized_By</span>
+                      <p className="text-[11px] font-bold text-white/80 uppercase italic">{cert.speakers}</p>
+                 </div>
+                 )}
+                 <div className="glass-panel p-4 rounded-xl border-accent/10 bg-accent/5">
+                    <p className="text-[10px] text-white/40 leading-relaxed uppercase">
+                       This digital credential serves as an immutable node in the architecture of {cert.issuer}, validating high-frequency mastery in {cert.title}.
+                    </p>
+                 </div>
+              </div>
+           </div>
+
+           <div className="pt-6 flex items-center justify-between border-t border-white/5">
+              <span className="text-[10px] font-mono text-white/10 uppercase tracking-widest">{cert.id}</span>
+              <div className="flex items-center gap-2 text-accent">
+                 <span className="text-[10px] font-mono tracking-widest uppercase">{isExpanded ? 'Minimize' : 'View Details'}</span>
+                 <ArrowUpRight size={12} className={`transition-transform duration-500 ${isExpanded ? 'rotate-90' : 'group-hover:translate-x-1 group-hover:-translate-y-1'}`} />
+              </div>
+           </div>
+        </div>
+
+        {/* SCANLINE EFFECT */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/5 to-transparent h-[20%] w-full -top-full group-hover:animate-scanline pointer-events-none" />
+      </div>
+
+      {/* FULLSCREEN LIGHTBOX MODAL */}
+      {showModal && (
+        <div 
+          className="fixed inset-0 z-[9999] flex items-center justify-center p-4 md:p-12 bg-black/95 backdrop-blur-xl animate-in fade-in zoom-in duration-300"
+          onClick={() => setShowModal(false)}
+        >
+          <button 
+            className="absolute top-8 right-8 p-3 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 transition-colors z-[10000]"
+            onClick={() => setShowModal(false)}
+          >
+            <X size={24} className="text-white" />
+          </button>
+          
+          <div className="relative w-full h-full max-w-6xl max-h-[85vh]">
+             {cert.image ? (
+               <Image 
+                 src={cert.image} 
+                 alt={cert.title} 
+                 fill 
+                 className="object-contain"
+                 priority
+               />
+             ) : (
+               <div className="w-full h-full flex flex-col items-center justify-center space-y-6 text-center">
+                  <Camera size={120} className="text-white/5" />
+                  <div className="space-y-2">
+                    <h3 className="text-3xl font-black text-white italic uppercase">{cert.title}</h3>
+                    <p className="text-accent font-mono text-xs uppercase tracking-[0.5em]">[ Image_Asset_Not_Linked ]</p>
+                  </div>
+                  <p className="max-w-md text-white/30 text-xs uppercase leading-relaxed font-light mt-8">
+                    To link the physical certificate, place the image file in the public directory and update the `image` property in the source code_
+                  </p>
+               </div>
+             )}
+          </div>
+          
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-center space-y-2 pointer-events-none">
+             <h4 className="text-white font-black uppercase italic tracking-tighter text-xl">{cert.title}</h4>
+             <p className="text-white/30 font-mono text-[10px] uppercase tracking-[0.3em]">{cert.issuer}</p>
+          </div>
+        </div>
+      )}
+    </>
   )
 }
 
@@ -850,104 +1021,91 @@ export default function Home() {
                      title: "PERSONAL BRANDING",
                      issuer: "B1GFAIR RISE",
                      year: "2025",
+                     serial: "03175/1/BF/PB/SBY/I/2025",
+                     speakers: "Harriz Vriza — Public Figure",
                      desc: "Seminar Nasional with Harriz Vriza on establishing a high-impact digital presence.",
-                     icon: <User size={24} />
+                     icon: <User size={24} />,
+                     image: "" // Add image path here later
                   },
                   {
                      id: "C_02",
                      title: "ENTREPRENEURSHIP",
                      issuer: "B1GFAIR RISE",
                      year: "2025",
+                     serial: "03175/2/BF/E/SBY/I/2025",
+                     speakers: "Abi Atria — Professional Coach",
                      desc: "Training focus on 'Zero Point to High Point' with Abi Atria for strategic growth.",
-                     icon: <Briefcase size={24} />
+                     icon: <Briefcase size={24} />,
+                     image: ""
                   },
                   {
                      id: "C_03",
                      title: "PUBLIC SPEAKING",
                      issuer: "B1GFAIR RISE",
                      year: "2025",
+                     serial: "03175/3/BF/PS/SBY/I/2025",
+                     speakers: "Dr. Charly Hongdiyanto — Speaker",
                      desc: "Advanced communication training with Dr. Charly Hongdiyanto.",
-                     icon: <Camera size={24} />
+                     icon: <Camera size={24} />,
+                     image: ""
                   },
                   {
                      id: "C_04",
                      title: "FINANCIAL PLANNING",
                      issuer: "B1GFAIR RISE",
                      year: "2025",
+                     serial: "03175/4/BF/FP/SBY/I/2025",
+                     speakers: "Yonathan S.Kom — Financial Planner",
                      desc: "Financial literacy and management strategy training with Yonathan S.Kom.",
-                     icon: <Database size={24} />
+                     icon: <Database size={24} />,
+                     image: ""
                   },
                   {
                      id: "C_05",
                      title: "CONTENT CREATOR",
                      issuer: "B1GFAIR RISE",
                      year: "2025",
+                     serial: "03175/5/BF/CC/SBY/I/2025",
+                     speakers: "Tifani Hernang — Content Strategist",
                      desc: "Professional training on social media monetization with Tifani Hernang.",
-                     icon: <LayoutGrid size={24} />
+                     icon: <LayoutGrid size={24} />,
+                     image: ""
                   },
                   {
                      id: "C_06",
                      title: "LKMM-TD PENS",
                      issuer: "BEM PENS",
                      year: "2025",
+                     serial: "1055/PL14/KM.03.00.02/VI/2025",
+                     speakers: "Ahmad Miftahur Rif'at — Presiden BEM",
                      desc: "Leadership and management training at Politeknik Elektronika Negeri Surabaya.",
-                     icon: <ShieldCheck size={24} />
+                     icon: <ShieldCheck size={24} />,
+                     image: ""
                   },
                   {
                      id: "C_07",
                      title: "NEXTGEN TECHVERSE",
                      issuer: "SURABAYADEV",
                      year: "2025",
+                     serial: "261/SBYDEV/SERT/XI/2025",
+                     speakers: "Sawitri Dyah Kusuma Wardhani — Community Manager",
                      desc: "SurabayaDev Anniversary 11th on next-gen technology ecosystems.",
-                     icon: <Cpu size={24} />
+                     icon: <Cpu size={24} />,
+                     image: ""
                   },
                   {
                      id: "C_08",
                      title: "WEB TECHNOLOGY INTERN",
                      issuer: "CV BAROTERA",
                      year: "2022",
+                     serial: "B_INTERN_2022_09",
+                     speakers: "Barotera Engineering Team",
                      desc: "Certification of completion for professional web architecture and system deployment.",
-                     icon: <Code2 size={24} />
+                     icon: <Code2 size={24} />,
+                     image: ""
                   }
                ].map((cert, i) => (
-                  <div 
-                    key={i} 
-                    onMouseEnter={() => addLog(`Verifying_${cert.id}_Packet...`)}
-                    className="reveal-item tilt-card group relative glass-panel p-8 rounded-3xl border-white/5 hover:border-accent/40 transition-all duration-700 overflow-hidden"
-                  >
-                     <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-20 transition-opacity">
-                        <ShieldCheck size={120} className="text-accent" />
-                     </div>
-                     
-                     <div className="relative z-10 space-y-8">
-                        <div className="flex justify-between items-start">
-                           <div className="w-12 h-12 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-white transition-all duration-500">
-                              {cert.icon}
-                           </div>
-                           <span className="text-[10px] font-mono text-white/20 uppercase tracking-widest">{cert.year}</span>
-                        </div>
-
-                        <div>
-                           <span className="block text-[10px] font-mono text-accent uppercase tracking-widest mb-2">{cert.issuer}</span>
-                           <h3 className="text-2xl font-black text-white tracking-tighter uppercase leading-tight group-hover:text-accent transition-colors">{cert.title}</h3>
-                        </div>
-
-                        <p className="text-xs text-white/30 font-light leading-relaxed uppercase">
-                           {cert.desc}
-                        </p>
-
-                        <div className="pt-6 flex items-center justify-between border-t border-white/5">
-                           <span className="text-[10px] font-mono text-white/10 uppercase tracking-widest">{cert.id}</span>
-                           <div className="flex items-center gap-2 text-accent opacity-0 group-hover:opacity-100 transition-all duration-500 translate-x-4 group-hover:translate-x-0">
-                              <span className="text-[10px] font-mono tracking-widest uppercase">Validated</span>
-                              <CheckCircle2 size={12} />
-                           </div>
-                        </div>
-                     </div>
-
-                     {/* SCANLINE EFFECT */}
-                     <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/5 to-transparent h-[20%] w-full -top-full group-hover:animate-scanline pointer-events-none" />
-                  </div>
+                  <CertificateCard key={i} cert={cert} addLog={addLog} />
                ))}
             </div>
          </div>

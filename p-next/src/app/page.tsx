@@ -151,7 +151,7 @@ const CertificateCard = ({ cert, addLog }: { cert: any, addLog: (msg: string) =>
                     ) : (
                       <div className="absolute inset-0 flex flex-col items-center justify-center space-y-4 bg-white/[0.02]">
                          <Camera className="text-white/10" size={32} />
-                         <span className="text-[10px] font-mono text-white/20 uppercase tracking-widest">[ Holographic_Asset_Pending ]</span>
+                         <span className="text-[10px] font-mono text-white/20 uppercase tracking-widest">[ Aset_Holografik_Menunggu ]</span>
                       </div>
                     )}
                     <div className="absolute inset-0 bg-accent/20 opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center">
@@ -163,7 +163,7 @@ const CertificateCard = ({ cert, addLog }: { cert: any, addLog: (msg: string) =>
 
                  <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-1">
-                       <span className="text-[9px] font-mono text-white/20 uppercase tracking-widest">Serial_No</span>
+                       <span className="text-[9px] font-mono text-white/20 uppercase tracking-widest">No_Seri</span>
                        <p className="text-xs font-mono text-accent">{cert.serial || "VERIFIED-ARCH-2025"}</p>
                     </div>
                     <div className="space-y-1">
@@ -173,13 +173,13 @@ const CertificateCard = ({ cert, addLog }: { cert: any, addLog: (msg: string) =>
                  </div>
                  {cert.speakers && (
                    <div className="space-y-1">
-                      <span className="text-[9px] font-mono text-white/20 uppercase tracking-widest">Authorized_By</span>
+                      <span className="text-[9px] font-mono text-white/20 uppercase tracking-widest">Disahkan_Oleh</span>
                       <p className="text-[11px] font-bold text-white/80 uppercase italic">{cert.speakers}</p>
                  </div>
                  )}
                  <div className="glass-panel p-4 rounded-xl border-accent/10 bg-accent/5">
                     <p className="text-[10px] text-white/40 leading-relaxed uppercase">
-                       This digital credential serves as an immutable node in the architecture of {cert.issuer}, validating high-frequency mastery in {cert.title}.
+                       Kredensial digital ini berfungsi sebagai bukti kuat dalam arsitektur {cert.issuer}, memvalidasi keahlian tingkat tinggi dalam {cert.title}.
                     </p>
                  </div>
               </div>
@@ -188,7 +188,7 @@ const CertificateCard = ({ cert, addLog }: { cert: any, addLog: (msg: string) =>
            <div className="pt-6 flex items-center justify-between border-t border-white/5">
               <span className="text-[10px] font-mono text-white/10 uppercase tracking-widest">{cert.id}</span>
               <div className="flex items-center gap-2 text-accent">
-                 <span className="text-[10px] font-mono tracking-widest uppercase">{isExpanded ? 'Minimize' : 'View Details'}</span>
+                 <span className="text-[10px] font-mono tracking-widest uppercase">{isExpanded ? 'Tutup Detail' : 'Lihat Detail'}</span>
                  <ArrowUpRight size={12} className={`transition-transform duration-500 ${isExpanded ? 'rotate-90' : 'group-hover:translate-x-1 group-hover:-translate-y-1'}`} />
               </div>
            </div>
@@ -225,7 +225,7 @@ const CertificateCard = ({ cert, addLog }: { cert: any, addLog: (msg: string) =>
                   <Camera size={120} className="text-white/5" />
                   <div className="space-y-2">
                     <h3 className="text-3xl font-black text-white italic uppercase">{cert.title}</h3>
-                    <p className="text-accent font-mono text-xs uppercase tracking-[0.5em]">[ Image_Asset_Not_Linked ]</p>
+                    <p className="text-accent font-mono text-xs uppercase tracking-[0.5em]">[ Aset_Gambar_Belum_Tautan ]</p>
                   </div>
                   <p className="max-w-md text-white/30 text-xs uppercase leading-relaxed font-light mt-8">
                     To link the physical certificate, place the image file in the public directory and update the `image` property in the source code_

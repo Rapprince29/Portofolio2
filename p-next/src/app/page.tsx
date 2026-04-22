@@ -9,7 +9,7 @@ import profileImg from '@/assets/profile.jpg'
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger)
 }
-import { ArrowUpRight, Globe, Info, Mail, MousePointer2, Camera, Briefcase, Music, Clock, ArrowUp, Link2, User, Code2, Cpu, Database, Layout, Smartphone, Command, Award, CheckCircle2, ShieldCheck, FileCheck, LayoutGrid, X, Maximize2 } from 'lucide-react'
+import { ArrowUpRight, Globe, Info, Mail, MousePointer2, Camera, Briefcase, Music, Clock, ArrowUp, Link2, User, Code2, Cpu, Database, Layout, Smartphone, Command, Award, CheckCircle2, ShieldCheck, FileCheck, LayoutGrid, X, Maximize2, Download, ChevronRight } from 'lucide-react'
 import Lenis from 'lenis'
 import NeuralBackground from '@/components/NeuralBackground'
 
@@ -706,12 +706,22 @@ export default function Home() {
             Menciptakan pengalaman digital yang imersif di mana <span className="text-white italic">kode bertemu seni tingkat tinggi</span>. Next-gen frontend engineer di PENS.
           </p>
 
-          <div className="reveal-sub pt-10 flex gap-12 justify-center items-center">
-             <a href="#projects" className="group flex items-center gap-4 text-xs font-mono tracking-widest text-white/40 hover:text-white transition-colors">
-                LIHAT KARYA <ArrowUpRight size={14} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+          <div className="reveal-sub pt-12 flex flex-col sm:flex-row gap-6 justify-center items-center">
+             <a 
+               href="#projects" 
+               className="group relative px-10 py-5 bg-accent text-white rounded-full font-black text-sm tracking-widest uppercase flex items-center gap-3 transition-all duration-500 hover:scale-105 hover:shadow-[0_0_40px_rgba(112,0,255,0.4)] active:scale-95"
+             >
+                View My Work
+                <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
              </a>
-             <a href="#contact" className="group flex items-center gap-4 text-xs font-mono tracking-widest text-white/40 hover:text-white transition-colors">
-                MULAI PROYEK <MousePointer2 size={14} className="group-hover:scale-125 transition-transform" />
+             
+             <a 
+               href="/CV_Yoga_Ananda.pdf" 
+               download
+               className="group px-10 py-5 border border-white/10 bg-white/[0.02] text-white rounded-full font-black text-sm tracking-widest uppercase flex items-center gap-3 transition-all duration-500 hover:bg-white/5 hover:border-white/30 active:scale-95"
+             >
+                <Download size={18} className="text-accent group-hover:animate-bounce" />
+                Download CV
              </a>
           </div>
         </div>

@@ -188,19 +188,24 @@ const CertificateCard = ({ cert }: { cert: any }) => {
 
               <div 
                 onClick={(e) => { e.stopPropagation(); setShowModal(true); }}
-                className="group/img relative aspect-video rounded-xl overflow-hidden border border-white/10 cursor-zoom-in"
+                className="group/img relative aspect-video rounded-xl overflow-hidden border border-white/20 cursor-zoom-in bg-white/[0.02]"
               >
-                  {cert.image && <Image src={cert.image} alt="" fill className="object-cover opacity-60 group-hover/img:opacity-100 transition-opacity" />}
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover/img:opacity-100 transition-all duration-500 bg-accent/20">
-                     <div className="px-4 py-2 bg-black/80 backdrop-blur-md rounded-full border border-white/20 text-[10px] font-mono text-white tracking-widest uppercase">
-                        Expand_View
+                  {cert.image && <Image src={cert.image} alt={cert.title} fill className="object-contain opacity-80 group-hover/img:opacity-100 transition-opacity duration-500" />}
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover/img:opacity-100 transition-all duration-500 bg-accent/20 backdrop-blur-[2px]">
+                     <div className="px-6 py-3 bg-black/80 backdrop-blur-md rounded-xl border border-white/20 text-[10px] font-mono text-white tracking-[0.3em] uppercase flex items-center gap-3">
+                        <Maximize2 size={14} className="text-accent" />
+                        Explore_Archive
                      </div>
                   </div>
               </div>
               
-              <p className="text-[11px] text-white/40 leading-relaxed uppercase p-2 border-l border-accent/40 italic">
-                 Kredensial digital ini memvalidasi keahlian tingkat tinggi dalam arsitektur sistem {cert.issuer}.
-              </p>
+              <div className="space-y-2 p-4 bg-white/[0.01] rounded-xl border border-white/5 relative overflow-hidden group/desc">
+                 <div className="absolute top-0 left-0 w-1 h-full bg-accent/40 group-hover/desc:bg-accent transition-colors" />
+                 <span className="text-[8px] font-mono text-accent uppercase tracking-widest block mb-1">[ BRIEF_REPORT ]</span>
+                 <p className="text-[11px] text-white/70 leading-relaxed uppercase italic">
+                    {cert.desc || `Kredensial digital ini memvalidasi keahlian tingkat tinggi dalam arsitektur sistem ${cert.issuer}.`}
+                 </p>
+              </div>
            </div>
         </div>
       </div>

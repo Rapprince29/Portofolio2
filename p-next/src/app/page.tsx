@@ -948,8 +948,8 @@ export default function Home() {
       <section id="education" className="relative py-40 px-6 md:px-12 bg-background">
          <div className="max-w-7xl mx-auto space-y-32">
             <div className="reveal-item text-center space-y-6">
-               <span className="text-xs font-mono text-accent uppercase tracking-[0.5em]">[ akademik & jejak ]</span>
-               <h2 className="text-5xl md:text-[8rem] font-black text-white tracking-tighter uppercase leading-none">sang <span className="text-gradient">fondasi.</span></h2>
+               <span className="text-xs font-mono text-accent uppercase tracking-[0.5em]">[ academic & track ]</span>
+               <h2 className="text-5xl md:text-[8rem] font-black text-white tracking-tighter uppercase leading-none">the <span className="text-gradient">foundation.</span></h2>
                <p className="text-white/20 font-mono text-[10px] uppercase tracking-widest animate-pulse">klik untuk memperluas riwayat_</p>
             </div>
 
@@ -1128,7 +1128,7 @@ export default function Home() {
            <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 mb-32">
               <div className="reveal-item space-y-12">
                  <h2 className="text-6xl md:text-[8rem] font-black tracking-tighter text-white uppercase italic leading-[0.85] text-gradient">
-                    Mari Bangun <br />Masa Depan.
+                    Let&apos;s Build <br />The Future.
                  </h2>
                  <p className="text-xl text-white/40 font-light max-w-md">
                     ready to initiate a new digital architecture? send a signal or link up directly via the hotline.

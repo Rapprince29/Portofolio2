@@ -210,36 +210,12 @@ const CertificateCard = ({ cert }: { cert: any }) => {
         </div>
       </div>
 
-      {/* FULLSCREEN LIGHTBOX MODAL */}
+      {/* 5. CREDENTIAL DOSSIER MODAL (YOLUX VERSION) */}
       {showModal && (
         <div 
-          className="fixed inset-0 z-[9999] flex items-center justify-center p-4 md:p-12 bg-black/95 backdrop-blur-xl animate-in fade-in zoom-in duration-300"
+          className="fixed inset-0 z-[2000000] flex items-center justify-center p-4 md:p-10 animate-in fade-in duration-500"
           onClick={() => setShowModal(false)}
         >
-          <button 
-            className="absolute top-8 right-8 p-3 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 transition-colors z-[10000]"
-            onClick={() => setShowModal(false)}
-          >
-            <X size={24} className="text-white" />
-          </button>
-          
-          <div className="relative w-full h-full max-w-6xl max-h-[85vh]">
-             {cert.image ? (
-               <Image 
-                 src={cert.image} 
-                 alt={cert.title} 
-                 fill 
-                 className="object-contain"
-                 priority
-               />
-             ) : (
-               <div className="w-full h-full flex flex-col items-center justify-center space-y-6 text-center">
-                  <Camera size={120} className="text-white/5" />
-                  <div className="space-y-2">
-                    <h3 className="text-3xl font-black text-white italic uppercase">{cert.title}</h3>
-                    <p className="text-accent font-mono text-xs uppercase tracking-[0.5em]">[ Aset_Gambar_Belum_Tautan ]</p>
-                  </div>
-                  <p className="max-w-md text-white/30 text-xs uppercase leading-relaxed font-light mt-8">
                     To link the physical certificate, place the image file in the public directory and update the `image` property in the source code_
                   </p>
                </div>

@@ -225,7 +225,7 @@ const CertificateCard = ({ cert }: { cert: any }) => {
                     <div className="h-1 w-12 bg-accent rounded-full" />
                  </div>
 
-                 {/* METADATA GRID */}
+                 {/* METADATA GRID - SIMPLIFIED */}
                  <div className="space-y-8 flex-1">
                     <div className="flex gap-5">
                        <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-accent/60">
@@ -246,15 +246,6 @@ const CertificateCard = ({ cert }: { cert: any }) => {
                           <p className="text-sm font-bold text-white/90 uppercase leading-snug">{cert.year}</p>
                        </div>
                     </div>
-
-                    <div className="p-6 rounded-2xl bg-accent/5 border border-accent/10 relative overflow-hidden group/intel">
-                       <div className="absolute top-0 right-0 p-2 opacity-5">
-                          <Info size={32} />
-                       </div>
-                       <p className="text-[11px] text-white/60 leading-relaxed uppercase italic relative z-10">
-                          {cert.desc}
-                       </p>
-                    </div>
                  </div>
 
                  {/* FOOTER ACTIONS */}
@@ -269,7 +260,7 @@ const CertificateCard = ({ cert }: { cert: any }) => {
                     </a>
                     
                     <div className="text-center">
-                       <span className="text-[9px] font-mono text-white/20 uppercase tracking-[0.4em]">ID: {cert.serial || cert.id}</span>
+                       <span className="text-[9px] font-mono text-white/20 uppercase tracking-[0.4em]">REF: {cert.id}</span>
                     </div>
                  </div>
               </div>

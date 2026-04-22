@@ -700,7 +700,7 @@ export default function Home() {
         <div className="relative z-10 space-y-6">
           <div className="reveal-sub flex items-center justify-center gap-4 text-xs font-mono tracking-[0.5em] text-accent uppercase opacity-60">
             <span className="w-12 h-[1px] bg-accent/30" />
-            BASED IN INDONESIA — 2025
+            BERBASIS DI INDONESIA — 2025
             <span className="w-12 h-[1px] bg-accent/30" />
           </div>
           
@@ -711,15 +711,15 @@ export default function Home() {
           </h1>
 
           <p className="reveal-sub max-w-xl mx-auto text-lg md:text-xl text-white/50 font-light leading-relaxed px-4 md:px-0">
-            Crafting immersive digital experiences where <span className="text-white italic">code meets high-art</span>. Next-gen frontend engineer at PENS.
+            Menciptakan pengalaman digital yang imersif di mana <span className="text-white italic">kode bertemu seni tingkat tinggi</span>. Next-gen frontend engineer di PENS.
           </p>
 
           <div className="reveal-sub pt-10 flex gap-12 justify-center items-center">
              <a href="#projects" className="group flex items-center gap-4 text-xs font-mono tracking-widest text-white/40 hover:text-white transition-colors">
-                VIEW WORK <ArrowUpRight size={14} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                LIHAT KARYA <ArrowUpRight size={14} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
              </a>
              <a href="#contact" className="group flex items-center gap-4 text-xs font-mono tracking-widest text-white/40 hover:text-white transition-colors">
-                START A PROJECT <MousePointer2 size={14} className="group-hover:scale-125 transition-transform" />
+                MULAI PROYEK <MousePointer2 size={14} className="group-hover:scale-125 transition-transform" />
              </a>
           </div>
         </div>
@@ -727,7 +727,7 @@ export default function Home() {
         {/* SCROLL INDICATOR */}
         <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 opacity-30">
           <div className="w-[1px] h-20 bg-gradient-to-b from-accent to-transparent" />
-          <span className="text-[10px] font-mono tracking-widest uppercase">Scroll</span>
+          <span className="text-[10px] font-mono tracking-widest uppercase">Gulir</span>
         </div>
       </section>
 
@@ -770,7 +770,7 @@ export default function Home() {
 
                <div className="reveal-item grid grid-cols-2 gap-8 pt-8 border-t border-white/5">
                   <div>
-                     <span className="block text-[10px] font-mono text-white/20 uppercase mb-4 tracking-widest">specialization</span>
+                     <span className="block text-[10px] font-mono text-white/20 uppercase mb-4 tracking-widest">spesialisasi</span>
                      <ul className="text-sm text-white/60 space-y-2 uppercase font-medium">
                         <li>— react / next.js</li>
                         <li>— gsap motion engineering</li>
@@ -778,7 +778,7 @@ export default function Home() {
                      </ul>
                   </div>
                   <div>
-                     <span className="block text-[10px] font-mono text-white/20 uppercase mb-4 tracking-widest">current status</span>
+                     <span className="block text-[10px] font-mono text-white/20 uppercase mb-4 tracking-widest">status saat ini</span>
                      <p className="text-sm text-white/60 uppercase font-medium">
                         d3 teknik informatika<br />
                         politeknik elektronika negeri surabaya
@@ -798,7 +798,7 @@ export default function Home() {
                  <span className="text-gradient not-italic">arsenal.</span>
               </h2>
               <p className="max-w-xs text-[10px] font-mono text-white/20 uppercase tracking-[0.3em] leading-relaxed text-right">
-                 leveraging cutting-edge tools to build high-frequency digital architectures_
+                 memanfaatkan alat mutakhir untuk membangun arsitektur digital frekuensi tinggi_
               </p>
            </div>
 
@@ -875,7 +875,7 @@ export default function Home() {
               <span className="text-gradient not-italic">visions.</span>
             </h2>
             <p className="max-w-xs text-sm font-mono text-white/30 uppercase leading-relaxed text-right">
-              exploring the limits of interactive web development. each project is a unique digital architecture.
+              mengeksplorasi batas pengembangan web interaktif. setiap proyek adalah arsitektur digital yang unik.
             </p>
           </div>
 
@@ -885,7 +885,7 @@ export default function Home() {
                 id: "01",
                 title: "moco web app",
                 category: "pdbl project — 2024",
-                desc: "a comprehensive solution for monitoring and managing public data indicators. integrated with advanced visualization and secure architecture.",
+                desc: "solusi komprehensif untuk pemantauan dan pengelolaan indikator data publik. terintegrasi dengan visualisasi canggih dan arsitektur aman.",
                 stack: ["next.js", "laravel", "postgresql", "tailwind"],
                 image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200",
                 link: "https://github.com/B4-PDBL-Team-2026/moco-web-app"
@@ -894,7 +894,7 @@ export default function Home() {
                 id: "02",
                 title: "digital architect v.1",
                 category: "creative lab — 2025",
-                desc: "exploring the intersection of motion engineering and performance-driven ui prototypes.",
+                desc: "mengeksplorasi titik temu antara rekayasa gerak dan prototipe UI berbasis performa.",
                 stack: ["gsap", "three.js", "framer"],
                 image: "https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=1200",
                 link: "#"
@@ -948,9 +948,9 @@ export default function Home() {
       <section id="education" className="relative py-40 px-6 md:px-12 bg-background">
          <div className="max-w-7xl mx-auto space-y-32">
             <div className="reveal-item text-center space-y-6">
-               <span className="text-xs font-mono text-accent uppercase tracking-[0.5em]">[ academic & track ]</span>
-               <h2 className="text-5xl md:text-[8rem] font-black text-white tracking-tighter uppercase leading-none">the <span className="text-gradient">foundation.</span></h2>
-               <p className="text-white/20 font-mono text-[10px] uppercase tracking-widest animate-pulse">click to expand history_</p>
+               <span className="text-xs font-mono text-accent uppercase tracking-[0.5em]">[ akademik & jejak ]</span>
+               <h2 className="text-5xl md:text-[8rem] font-black text-white tracking-tighter uppercase leading-none">sang <span className="text-gradient">fondasi.</span></h2>
+               <p className="text-white/20 font-mono text-[10px] uppercase tracking-widest animate-pulse">klik untuk memperluas riwayat_</p>
             </div>
 
             <div className="grid grid-cols-1 gap-6">
@@ -959,7 +959,7 @@ export default function Home() {
                      id: "01",
                      year: "2018 — 2020",
                      school: "smp negeri 1 sukodono",
-                     degree: "junior high school",
+                     degree: "Sekolah Menengah Pertama",
                      desc: "langkah awal dalam eksplorasi dunia digital dan logika dasar.",
                      details: [
                         { label: "waiter", company: "defins art cafe", duration: "3 years (2019-2021)" },
@@ -970,7 +970,7 @@ export default function Home() {
                      id: "02",
                      year: "2021 — 2024",
                      school: "smk antartika 2 sidoarjo",
-                     degree: "vocational high school",
+                     degree: "Sekolah Menengah Kejuruan",
                      desc: "mendalami fondasi pemrograman, sistem komputer, dan praktek industri.",
                      details: [
                         { label: "professional", company: "the hidden castle", duration: "1 year (2023)" },
@@ -1010,7 +1010,7 @@ export default function Home() {
                   </h2>
                </div>
                <p className="max-w-xs text-sm font-mono text-white/30 uppercase leading-relaxed text-right pb-4">
-                  architectural milestones and professional certifications validating the core logic of my craft_
+                  pencapaian arsitektural dan sertifikasi profesional yang memvalidasi logika inti dari karya saya_
                </p>
             </div>
 
@@ -1128,7 +1128,7 @@ export default function Home() {
            <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 mb-32">
               <div className="reveal-item space-y-12">
                  <h2 className="text-6xl md:text-[8rem] font-black tracking-tighter text-white uppercase italic leading-[0.85] text-gradient">
-                    Let&apos;s Build <br />The Future.
+                    Mari Bangun <br />Masa Depan.
                  </h2>
                  <p className="text-xl text-white/40 font-light max-w-md">
                     ready to initiate a new digital architecture? send a signal or link up directly via the hotline.
@@ -1144,7 +1144,7 @@ export default function Home() {
                       className="group relative w-fit glass-panel px-8 py-5 rounded-full flex items-center gap-4 border-accent/20 hover:border-accent transition-all duration-500 overflow-hidden"
                     >
                        <div className="absolute inset-0 bg-accent/10 opacity-0 group-hover:opacity-100 transition-opacity" />
-                       <span className="text-xs font-mono tracking-[0.3em] text-white uppercase z-10">Direct_WhatsApp_Line</span>
+                       <span className="text-xs font-mono tracking-[0.3em] text-white uppercase z-10">Jalur_WhatsApp_Langsung</span>
                        <ArrowUpRight size={18} className="text-accent group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform z-10" />
                     </a>
                  </div>
@@ -1196,7 +1196,7 @@ export default function Home() {
            
            <div className="grid grid-cols-1 md:grid-cols-3 w-full gap-20 items-center border-t border-white/[0.05] pt-20">
               <div className="flex flex-col gap-6">
-                 <span className="text-xs font-mono text-white/20 uppercase tracking-widest">Social Connections</span>
+                 <span className="text-xs font-mono text-white/20 uppercase tracking-widest">Koneksi Sosial</span>
                  <div className="flex gap-8">
                     <a href="https://linkedin.com/in/yoga-ananda" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-accent transition-colors"><Briefcase size={20} /></a>
                     <a href="https://github.com/Rapprince29" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-accent transition-colors"><Globe size={20} /></a>
@@ -1214,7 +1214,7 @@ export default function Home() {
                  <div className="w-16 h-16 rounded-full glass-panel flex items-center justify-center animate-bounce group-hover:border-accent transition-all duration-500">
                     <ArrowUpRight size={24} className="-rotate-90 text-accent group-hover:scale-150 group-hover:opacity-0 transition-all duration-300" />
                  </div>
-                 <span className="text-xs font-mono text-accent uppercase tracking-widest group-hover:text-white transition-colors">Back to top</span>
+                 <span className="text-xs font-mono text-accent uppercase tracking-widest group-hover:text-white transition-colors">Kembali ke atas</span>
               </div>
 
               <div className="text-right flex flex-col gap-2">

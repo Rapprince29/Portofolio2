@@ -7,10 +7,10 @@ import Image from 'next/image'
 
 const navLinks = [
   { name: 'INDEX', href: '#' },
-  { name: 'WORKS', href: '#projects' },
+  { name: 'KARYA', href: '#projects' },
   { name: 'ABOUT', href: '#about' },
-  { name: 'CREDENTIALS', href: '#certificates' },
-  { name: 'CONNECT', href: '#contact' },
+  { name: 'SERTIFIKASI', href: '#certificates' },
+  { name: 'HUBUNGI', href: '#contact' },
 ]
 
 export default function Navbar() {
@@ -78,7 +78,7 @@ export default function Navbar() {
                </div>
 
                <a href="#contact" className="hidden md:flex items-center gap-3 bg-white text-black px-6 py-2 rounded-full text-[10px] font-mono font-bold tracking-widest hover:bg-accent hover:text-white transition-all whitespace-nowrap">
-                 LET&apos;S TALK <ArrowRight size={14} />
+                 AYO BICARA <ArrowRight size={14} />
                </a>
 
                <button className="md:hidden text-white ml-auto" onClick={() => setIsOpen(true)}>

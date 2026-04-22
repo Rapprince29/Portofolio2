@@ -13,7 +13,8 @@ import CertificateCard from '@/components/CertificateCard'
 import { projects, academicHistory, certificates } from '@/constants/data'
 import { 
   ArrowUpRight, Download, Award, X, Camera, Code2, 
-  Cpu, Database, User, Briefcase, LayoutGrid, ShieldCheck 
+  Cpu, Database, User, Briefcase, LayoutGrid, ShieldCheck,
+  Globe, Mail, Music
 } from 'lucide-react'
 
 if (typeof window !== 'undefined') {

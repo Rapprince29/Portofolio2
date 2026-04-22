@@ -282,6 +282,10 @@ export default function Home() {
   ])
   const inputRef = useRef<HTMLInputElement>(null)
 
+  // CV VIEWER STATES
+  const [showCVViewer, setShowCVViewer] = useState(false)
+  const cvPages = ['/cv-1.webp', '/cv-2.webp', '/cv-3.webp', '/cv-4.webp']
+
   // FORM STATES
   const [formData, setFormData] = useState({ name: '', email: '', message: '' })
 
@@ -736,14 +740,13 @@ export default function Home() {
              
              {/* ACTION: CV CONTROLLER */}
              <div className="flex items-center gap-2 p-1.5 glass-panel rounded-2xl border-white/10">
-                <a 
-                  href="/CV_Yoga_Ananda.pdf" 
-                  target="_blank"
+                <button 
+                  onClick={() => setShowCVViewer(true)}
                   className="px-6 py-3.5 bg-white/5 text-white/80 rounded-xl font-bold text-xs tracking-widest uppercase flex items-center gap-2 hover:bg-white/10 hover:text-white transition-all"
                 >
                    <Eye size={16} className="text-accent" />
                    View CV
-                </a>
+                </button>
                 <div className="w-[1px] h-6 bg-white/10 mx-1" />
                 <a 
                   href="/CV_Yoga_Ananda.pdf" 
@@ -1087,7 +1090,7 @@ export default function Home() {
                      speakers: "Harriz Vriza — Public Figure",
                      desc: "Seminar Nasional with Harriz Vriza on establishing a high-impact digital presence.",
                      icon: <User size={24} />,
-                     image: "/certs/branding.png"
+                     image: "/certs/branding.webp"
                   },
                   {
                      id: "C_02",
@@ -1098,7 +1101,7 @@ export default function Home() {
                      speakers: "Abi Atria — Professional Coach",
                      desc: "Training focus on 'Zero Point to High Point' with Abi Atria for strategic growth.",
                      icon: <Briefcase size={24} />,
-                     image: "/certs/entrepreneur.png"
+                     image: "/certs/entrepreneur.webp"
                   },
                   {
                      id: "C_03",
@@ -1109,7 +1112,7 @@ export default function Home() {
                      speakers: "Dr. Charly Hongdiyanto — Speaker",
                      desc: "Advanced communication training with Dr. Charly Hongdiyanto.",
                      icon: <Camera size={24} />,
-                     image: "/certs/speaking.png"
+                     image: "/certs/speaking.webp"
                   },
                   {
                      id: "C_04",
@@ -1120,7 +1123,7 @@ export default function Home() {
                      speakers: "Yonathan S.Kom — Financial Planner",
                      desc: "Financial literacy and management strategy training with Yonathan S.Kom.",
                      icon: <Database size={24} />,
-                     image: "/certs/financial.png"
+                     image: "/certs/financial.webp"
                   },
                   {
                      id: "C_05",
@@ -1131,7 +1134,7 @@ export default function Home() {
                      speakers: "Tifani Hernang — Content Strategist",
                      desc: "Professional training on social media monetization with Tifani Hernang.",
                      icon: <LayoutGrid size={24} />,
-                     image: "/certs/creator.png"
+                     image: "/certs/creator.webp"
                   },
                   {
                      id: "C_06",
@@ -1142,7 +1145,7 @@ export default function Home() {
                      speakers: "Ahmad Miftahur Rif'at — Presiden BEM",
                      desc: "Leadership and management training at Politeknik Elektronika Negeri Surabaya.",
                      icon: <ShieldCheck size={24} />,
-                     image: "/certs/lkmmtd.png"
+                     image: "/certs/lkmmtd.webp"
                   },
                   {
                      id: "C_07",
@@ -1153,7 +1156,7 @@ export default function Home() {
                      speakers: "Sawitri Dyah Kusuma Wardhani — Community Manager",
                      desc: "SurabayaDev Anniversary 11th on next-gen technology ecosystems.",
                      icon: <Cpu size={24} />,
-                     image: "/certs/surabayadev.jpg"
+                     image: "/certs/surabayadev.webp"
                   },
                   {
                      id: "C_08",
@@ -1175,7 +1178,7 @@ export default function Home() {
                      speakers: "Tegar Aprilian — CEO & Founder H-Tech Corp",
                      desc: "Certification for successful participation in the React.js short class organized by H-Tech Corp.",
                      icon: <Code2 size={24} />,
-                     image: "/certs/react-class.png"
+                     image: "/certs/react-class.webp"
                   }
                ].map((cert, i) => (
                   <CertificateCard key={i} cert={cert} />
@@ -1326,6 +1329,47 @@ export default function Home() {
           </div>
         </div>
       </div>
+
+      {/* 4. CV VIEWER OVERLAY */}
+      {showCVViewer && (
+        <div 
+          className="fixed inset-0 z-[2000000] bg-black/95 backdrop-blur-3xl p-6 md:p-12 overflow-y-auto animate-in fade-in duration-500"
+          onClick={() => setShowCVViewer(false)}
+        >
+          <div className="max-w-4xl mx-auto space-y-12 py-12">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-6 sticky top-0 z-10 bg-black/40 backdrop-blur-lg p-6 rounded-2xl border border-white/5">
+              <div>
+                <h3 className="text-2xl font-black text-white italic uppercase tracking-tighter">Identity_Archives</h3>
+                <p className="text-[10px] font-mono text-accent uppercase tracking-widest">[ Yoga Ananda Satria — Ver. 2025 ]</p>
+              </div>
+              <div className="flex items-center gap-4">
+                 <a href="/CV_Yoga_Ananda.pdf" download className="p-3 bg-accent text-white rounded-xl hover:scale-110 transition-transform"><Download size={20} /></a>
+                 <button onClick={() => setShowCVViewer(false)} className="p-3 bg-white/5 text-white rounded-xl hover:bg-white/10 transition-colors"><X size={20} /></button>
+              </div>
+            </div>
+
+            <div className="space-y-6">
+              {cvPages.map((page, i) => (
+                <div key={i} className="relative w-full aspect-[1/1.4] bg-white/5 rounded-3xl overflow-hidden border border-white/10 group">
+                   <Image 
+                     src={page} 
+                     alt={`CV Page ${i+1}`} 
+                     fill 
+                     className="object-contain"
+                   />
+                   <div className="absolute bottom-6 right-6 px-4 py-2 bg-black/60 backdrop-blur-md border border-white/10 rounded-full text-[9px] font-mono text-white/40 uppercase tracking-widest">
+                      Section_0{i+1}
+                   </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="text-center pb-20">
+               <p className="text-white/20 text-[10px] font-mono uppercase tracking-[0.5em]">--- End of Transmission ---</p>
+            </div>
+          </div>
+        </div>
+      )}
     </main>
   )
 }

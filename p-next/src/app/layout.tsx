@@ -12,8 +12,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "MUHAMMAD YOGA ANANDA SATRIA — DIGITAL ARCHITECT",
-  description: "Next-Gen Portfolio Experience built with Next.js 15 and GSAP.",
+  title: "YOLUX — DIGITAL ARCHITECT",
+  description: "Official Digital Portfolio of Yoga Ananda. High-end UI Engineering and Cyber-Aesthetic Design.",
 };
 
 export default function RootLayout({

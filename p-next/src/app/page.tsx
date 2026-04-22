@@ -93,7 +93,6 @@ const CertificateCard = ({ cert }: { cert: any }) => {
         { height: 0, opacity: 0 }, 
         { height: autoHeight, opacity: 1, duration: 0.8, ease: "expo.out" }
       )
-      
     }
     setIsExpanded(!isExpanded)
   }
@@ -103,116 +102,107 @@ const CertificateCard = ({ cert }: { cert: any }) => {
       <div 
         ref={itemRef}
         onClick={toggleExpand}
-        className={`reveal-item tilt-card group relative glass-panel p-8 rounded-3xl border-white/5 transition-all duration-700 cursor-pointer overflow-hidden ${isExpanded ? 'border-accent/60 bg-white/[0.04]' : 'hover:border-accent/40'}`}
+        className={`reveal-item group relative bg-[#0a0a0a] rounded-[2rem] border border-white/5 transition-all duration-700 cursor-pointer overflow-hidden shadow-2xl ${isExpanded ? 'border-accent/40 shadow-accent/10' : 'hover:border-accent/30'}`}
       >
-        {/* CERTIFICATE PREVIEW WATERMARK (OUTER VIEW) */}
-        <div className="absolute inset-0 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity pointer-events-none grayscale group-hover:grayscale-0 group-hover:scale-110 duration-1000">
-          {cert.image && <Image src={cert.image} alt="" fill className="object-cover" />}
-        </div>
-
-        <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-20 transition-opacity">
-           <ShieldCheck size={120} className="text-accent" />
-        </div>
-        
-        <div className="relative z-10 space-y-8">
-           <div className="flex justify-between items-start">
-              <div className="w-12 h-12 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-white transition-all duration-500">
-                 {cert.icon}
-              </div>
-              <div className="flex flex-col items-end">
-                <span className="text-[10px] font-mono text-white/20 uppercase tracking-widest">{cert.year}</span>
-                <span className="text-[8px] font-mono text-accent uppercase tracking-tighter">[ STANDARDIZED ]</span>
-              </div>
-           </div>
-
-           <div>
-              <span className="block text-[10px] font-mono text-accent uppercase tracking-widest mb-2 flex items-center gap-2">
-                <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
-                {cert.issuer}
+        {/* UPPER IMAGE SECTION (THE HERO) */}
+        <div className="relative aspect-[4/3] w-full overflow-hidden">
+           {cert.image ? (
+             <Image 
+               src={cert.image} 
+               alt={cert.title} 
+               fill 
+               className="object-cover transition-all duration-1000 grayscale group-hover:grayscale-0 group-hover:scale-110"
+             />
+           ) : (
+             <div className="absolute inset-0 bg-white/[0.02] flex items-center justify-center">
+                <Camera className="text-white/10" size={48} />
+             </div>
+           )}
+           
+           {/* IMAGE OVERLAYS (CYBER STYLE) */}
+           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
+           
+           <div className="absolute top-6 left-6 flex flex-col gap-1">
+              <span className="px-3 py-1 bg-accent/20 backdrop-blur-md border border-accent/30 rounded-full text-[8px] font-mono text-accent uppercase tracking-[0.2em] w-fit">
+                 ENCRYPTED_DOC
               </span>
-              <h3 className="text-2xl font-black text-white tracking-tighter uppercase leading-tight group-hover:text-accent transition-colors">{cert.title}</h3>
            </div>
 
-           {/* MINI DESCRIPTION (ALWAYS VISIBLE BUT DIM) */}
-           <p className="text-[10px] text-white/30 font-light leading-relaxed uppercase max-w-[80%]">
-              {cert.desc.substring(0, 80)}...
-           </p>
-
-           {/* DETAILS TRAY */}
-           <div className="details-tray h-0 opacity-0 overflow-hidden">
-              <div className="pt-8 border-t border-white/5 space-y-8">
-                 {/* IMAGE PREVIEW */}
-                 <div 
-                   className="relative aspect-video rounded-2xl overflow-hidden glass-panel border-white/10 group/img cursor-zoom-in shadow-2xl"
-                   onClick={(e) => {
-                     e.stopPropagation();
-                     setShowModal(true);
-                   }}
-                 >
-                    {cert.image ? (
-                      <Image 
-                        src={cert.image} 
-                        alt={cert.title} 
-                        fill 
-                        className="object-cover transition-transform duration-700 group-hover/img:scale-110"
-                        sizes="(max-width: 768px) 100vw, 33vw"
-                      />
-                    ) : (
-                      <div className="absolute inset-0 flex flex-col items-center justify-center space-y-4 bg-white/[0.02]">
-                         <Camera className="text-white/10" size={32} />
-                         <span className="text-[10px] font-mono text-white/20 uppercase tracking-widest">[ Aset_Holografik_Menunggu ]</span>
-                      </div>
-                    )}
-                    <div className="absolute inset-0 bg-accent/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                       <div className="p-3 rounded-full bg-black/60 backdrop-blur-md border border-white/20">
-                          <Maximize2 size={20} className="text-white" />
-                       </div>
-                    </div>
-                 </div>
-
-                 <div className="grid grid-cols-2 gap-4">
-                    <div className="p-4 rounded-xl border border-white/5 bg-white/[0.01]">
-                       <span className="text-[9px] font-mono text-white/20 uppercase tracking-widest block mb-1">No_Seri</span>
-                       <p className="text-xs font-mono text-accent truncate">{cert.serial || "VERIFIED-ARCH-2025"}</p>
-                    </div>
-                    <div className="p-4 rounded-xl border border-white/5 bg-white/[0.01]">
-                       <span className="text-[9px] font-mono text-white/20 uppercase tracking-widest block mb-1">Status</span>
-                       <div className="flex items-center gap-2">
-                         <div className="w-1 h-1 rounded-full bg-green-500 shadow-[0_0_5px_green]" />
-                         <p className="text-[9px] font-mono text-white/60">VALIDATED_BY_NETWORK</p>
-                       </div>
-                    </div>
-                 </div>
-
-                 {cert.speakers && (
-                   <div className="space-y-1 px-2">
-                      <span className="text-[9px] font-mono text-white/20 uppercase tracking-widest">Disahkan_Oleh</span>
-                      <p className="text-[11px] font-bold text-white/80 uppercase italic border-l-2 border-accent pl-3">{cert.speakers}</p>
-                 </div>
-                 )}
-
-                 <div className="glass-panel p-5 rounded-xl border-accent/20 bg-accent/5 relative overflow-hidden">
-                    <div className="absolute top-0 right-0 p-2 opacity-10">
-                       <Award size={40} />
-                    </div>
-                    <p className="text-[10px] text-white/60 leading-relaxed uppercase relative z-10">
-                       <span className="text-accent font-bold">Logika Terverifikasi:</span> Kredensial digital ini berfungsi sebagai bukti kuat dalam arsitektur {cert.issuer}, memvalidasi keahlian tingkat tinggi dalam <span className="text-white">{cert.title}</span>.
-                    </p>
-                 </div>
+           <div className="absolute bottom-6 left-8 right-8 z-10 transition-transform duration-700 group-hover:-translate-y-2">
+              <div className="flex flex-col gap-1">
+                 <span className="text-[10px] font-mono text-accent uppercase tracking-[0.3em] font-black">{cert.issuer}</span>
+                 <h3 className="text-3xl font-black text-white leading-none uppercase italic tracking-tighter shadow-black drop-shadow-md">
+                    {cert.title.split(' ')[0]}<br/>
+                    <span className="text-white/60 group-hover:text-white transition-colors">{cert.title.split(' ').slice(1).join(' ')}</span>
+                 </h3>
               </div>
            </div>
 
-           <div className="pt-6 flex items-center justify-between border-t border-white/5">
-              <span className="text-[10px] font-mono text-white/10 uppercase tracking-widest">{cert.id}</span>
-              <div className="flex items-center gap-2 text-accent">
-                 <span className="text-[10px] font-mono tracking-widest uppercase">{isExpanded ? 'Tutup Detail' : 'Lihat Detail'}</span>
-                 <ArrowUpRight size={12} className={`transition-transform duration-500 ${isExpanded ? 'rotate-90' : 'group-hover:translate-x-1 group-hover:-translate-y-1'}`} />
+           {/* SCANLINE OVERLAY */}
+           <div className="absolute inset-0 bg-[linear-gradient(rgba(112,0,255,0.03)_1px,transparent_1px)] bg-[length:100%_4px] pointer-events-none" />
+        </div>
+
+        {/* LOWER UTILITY BAR */}
+        <div className="relative px-8 py-6 flex items-center justify-between bg-white/[0.02] backdrop-blur-xl border-t border-white/5">
+           <div className="flex items-center gap-4">
+              <div className="p-2 rounded-lg bg-accent/10 border border-accent/20 text-accent">
+                 <Award size={16} />
+              </div>
+              <div className="flex flex-col">
+                 <span className="text-[10px] font-mono text-white/80 tracking-widest uppercase">{cert.year} {cert.issuer}</span>
+                 <span className="text-[8px] font-mono text-white/20 uppercase tracking-tighter">DATA_KEY: {cert.id}</span>
+              </div>
+           </div>
+
+           <div className="flex items-center gap-3 text-accent group/btn">
+              <span className="text-[10px] font-mono tracking-[0.2em] font-black uppercase">{isExpanded ? 'CLOSE' : 'DETAIL'}</span>
+              <div className={`p-1.5 rounded-full border border-accent/20 transition-all duration-500 ${isExpanded ? 'rotate-90 bg-accent text-white' : 'group-hover:translate-x-1'}`}>
+                 <ArrowUpRight size={12} />
               </div>
            </div>
         </div>
 
-        {/* SCANLINE EFFECT */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/10 to-transparent h-[30%] w-full -top-full group-hover:animate-scanline pointer-events-none opacity-40" />
+        {/* EXPANDABLE DETAILS TRAY */}
+        <div className="details-tray h-0 opacity-0 overflow-hidden bg-black/40">
+           <div className="p-8 border-t border-white/5 space-y-6">
+              <div className="grid grid-cols-2 gap-4">
+                 <div className="p-4 rounded-xl border border-white/5 bg-white/[0.01]">
+                    <span className="text-[9px] font-mono text-white/20 uppercase tracking-widest block mb-1">Serial_Key</span>
+                    <p className="text-xs font-mono text-accent truncate">{cert.serial || "VERIFIED-ARCH-2025"}</p>
+                 </div>
+                 <div className="p-4 rounded-xl border border-white/5 bg-white/[0.01]">
+                    <span className="text-[9px] font-mono text-white/20 uppercase tracking-widest block mb-1">Status</span>
+                    <div className="flex items-center gap-2">
+                       <div className="w-1 h-1 rounded-full bg-green-500 animate-pulse shadow-[0_0_5px_green]" />
+                       <p className="text-[9px] font-mono text-green-500/80">VALIDATED</p>
+                    </div>
+                 </div>
+              </div>
+
+              {cert.speakers && (
+                <div className="p-4 rounded-xl border border-white/5 bg-white/[0.01]">
+                   <span className="text-[9px] font-mono text-white/20 uppercase tracking-widest block mb-2">Verified_By</span>
+                   <p className="text-[11px] font-bold text-white uppercase italic">{cert.speakers}</p>
+                </div>
+              )}
+
+              <div 
+                onClick={(e) => { e.stopPropagation(); setShowModal(true); }}
+                className="group/img relative aspect-video rounded-xl overflow-hidden border border-white/10 cursor-zoom-in"
+              >
+                  {cert.image && <Image src={cert.image} alt="" fill className="object-cover opacity-60 group-hover/img:opacity-100 transition-opacity" />}
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover/img:opacity-100 transition-all duration-500 bg-accent/20">
+                     <div className="px-4 py-2 bg-black/80 backdrop-blur-md rounded-full border border-white/20 text-[10px] font-mono text-white tracking-widest uppercase">
+                        Expand_View
+                     </div>
+                  </div>
+              </div>
+              
+              <p className="text-[11px] text-white/40 leading-relaxed uppercase p-2 border-l border-accent/40 italic">
+                 Kredensial digital ini memvalidasi keahlian tingkat tinggi dalam arsitektur sistem {cert.issuer}.
+              </p>
+           </div>
+        </div>
       </div>
 
       {/* FULLSCREEN LIGHTBOX MODAL */}

@@ -556,7 +556,7 @@ export default function Home() {
         scaleX: 1,
         ease: "none",
         scrollTrigger: {
-          trigger: "body",
+          trigger: containerRef.current,
           start: "top top",
           end: "bottom bottom",
           scrub: 0.3

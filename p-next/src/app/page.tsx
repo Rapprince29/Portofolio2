@@ -271,7 +271,7 @@ export default function Home() {
 
   const handleCursorEnter = (iconType: string, scale = 3) => {
     setCursorIcon(iconType)
-    gsap.to(cursorRef.current, { scale: scale, backgroundColor: "rgba(112, 0, 255, 0.05)", duration: 0.4, ease: "back.out(1.7)" })
+    gsap.to(cursorRef.current, { scale: scale, backgroundColor: "rgba(139, 92, 246, 0.05)", duration: 0.4, ease: "back.out(1.7)" })
   }
 
   const handleCursorLeave = () => {
@@ -501,7 +501,7 @@ export default function Home() {
                ease: "power2.out"
             })
             gsap.to(profileImg, {
-               boxShadow: "0 0 50px rgba(112, 0, 255, 0.2)",
+               boxShadow: "0 0 50px rgba(139, 92, 246, 0.2)",
                scale: 1.02,
                duration: 0.5
             })
@@ -514,7 +514,7 @@ export default function Home() {
                ease: "power2.out"
             })
             gsap.to(profileImg, {
-               boxShadow: "0 0 0px rgba(112, 0, 255, 0)",
+               boxShadow: "0 0 0px rgba(139, 92, 246, 0)",
                scale: 1,
                duration: 0.5
             })

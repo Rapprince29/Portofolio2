@@ -1189,7 +1189,7 @@ export default function Home() {
                  <div className="flex gap-8">
                     <a href="https://linkedin.com/in/yoga-ananda" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-accent transition-colors"><Briefcase size={20} /></a>
                     <a href="https://github.com/Rapprince29" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-accent transition-colors"><Globe size={20} /></a>
-                    <a href="https://instagram.com/rizki.ananda_" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-accent transition-colors"><Camera size={20} /></a>
+                    <a href="https://instagram.com/yoga_ananda29" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-accent transition-colors"><Camera size={20} /></a>
                     <a href="https://tiktok.com/@rapprince29" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-accent transition-colors"><Music size={20} /></a>
                  </div>
               </div>

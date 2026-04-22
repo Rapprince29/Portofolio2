@@ -75,7 +75,7 @@ const EducationCard = ({ edu }: { edu: any }) => {
 }
 
 // INTERACTIVE COMPONENT FOR CERTIFICATES
-const CertificateCard = ({ cert }: { cert: any }) {
+const CertificateCard = ({ cert }: { cert: any }) => {
   const itemRef = useRef<HTMLDivElement>(null)
   const [isExpanded, setIsExpanded] = useState(false)
   const [showModal, setShowModal] = useState(false)
@@ -358,8 +358,6 @@ export default function Home() {
           
           
           // BRAIN TUTORIAL LOGS
-          setTimeout(() => , 1000)
-          setTimeout(() => , 2500)
         }
       })
 
@@ -818,7 +816,6 @@ export default function Home() {
                     key={i} 
                     onMouseMove={handleMagneticMove}
                     onMouseLeave={handleMagneticLeave}
-                    onMouseEnter={() => }
                     className="reveal-item skill-tile glass-panel p-6 rounded-2xl flex flex-col items-center justify-center text-center gap-4 group transition-colors hover:bg-white/[0.04] cursor-none"
                  >
                     <div className="w-12 h-12 rounded-full border border-white/5 flex items-center justify-center text-xl font-black text-white group-hover:text-accent group-hover:border-accent/40 transition-all duration-300">
@@ -1187,7 +1184,6 @@ export default function Home() {
                          value={formData.name}
                          onChange={(e) => setFormData({...formData, name: e.target.value})}
                          placeholder="NAME"
-                         onFocus={() => }
                          className="w-full bg-white/[0.02] border border-white/5 rounded-xl px-4 py-3 text-sm font-mono focus:border-accent outline-none transition-colors"
                        />
                     </div>
@@ -1211,7 +1207,6 @@ export default function Home() {
                       required
                       value={formData.message}
                       onChange={(e) => setFormData({...formData, message: e.target.value})}
-                      onFocus={() => }
                       className="w-full bg-white/[0.02] border border-white/5 rounded-xl px-4 py-3 text-sm font-mono focus:border-accent outline-none transition-colors resize-none"
                     ></textarea>
                  </div>

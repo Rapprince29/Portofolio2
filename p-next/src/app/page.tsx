@@ -10,7 +10,6 @@ if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger)
 }
 import { ArrowUpRight, Globe, Info, Mail, MousePointer2, Camera, Briefcase, Music, Clock, ArrowUp, Link2, User, Code2, Cpu, Database, Layout, Smartphone, Command, Award, CheckCircle2, ShieldCheck, FileCheck, LayoutGrid, X, Maximize2 } from 'lucide-react'
-import Image from 'next/image'
 import Lenis from 'lenis'
 import NeuralBackground from '@/components/NeuralBackground'
 

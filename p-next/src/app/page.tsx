@@ -9,7 +9,7 @@ import profileImg from '@/assets/profile.jpg'
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger)
 }
-import { ArrowUpRight, Globe, Info, Mail, MousePointer2, Camera, Briefcase, Music, Clock, ArrowUp, Link2, User, Code2, Cpu, Database, Layout, Smartphone, Command, Award, CheckCircle2, ShieldCheck, FileCheck, LayoutGrid, X, Maximize2, Download, ChevronRight } from 'lucide-react'
+import { ArrowUpRight, Globe, Info, Mail, MousePointer2, Camera, Briefcase, Music, Clock, ArrowUp, Link2, User, Code2, Cpu, Database, Layout, Smartphone, Command, Award, CheckCircle2, ShieldCheck, FileCheck, LayoutGrid, X, Maximize2, Download, ChevronRight, Eye, ExternalLink } from 'lucide-react'
 import Lenis from 'lenis'
 import NeuralBackground from '@/components/NeuralBackground'
 
@@ -105,6 +105,11 @@ const CertificateCard = ({ cert }: { cert: any }) => {
         onClick={toggleExpand}
         className={`reveal-item tilt-card group relative glass-panel p-8 rounded-3xl border-white/5 transition-all duration-700 cursor-pointer overflow-hidden ${isExpanded ? 'border-accent/60 bg-white/[0.04]' : 'hover:border-accent/40'}`}
       >
+        {/* CERTIFICATE PREVIEW WATERMARK (OUTER VIEW) */}
+        <div className="absolute inset-0 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity pointer-events-none grayscale group-hover:grayscale-0 group-hover:scale-110 duration-1000">
+          {cert.image && <Image src={cert.image} alt="" fill className="object-cover" />}
+        </div>
+
         <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-20 transition-opacity">
            <ShieldCheck size={120} className="text-accent" />
         </div>
@@ -114,30 +119,34 @@ const CertificateCard = ({ cert }: { cert: any }) => {
               <div className="w-12 h-12 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-white transition-all duration-500">
                  {cert.icon}
               </div>
-              <span className="text-[10px] font-mono text-white/20 uppercase tracking-widest">{cert.year}</span>
+              <div className="flex flex-col items-end">
+                <span className="text-[10px] font-mono text-white/20 uppercase tracking-widest">{cert.year}</span>
+                <span className="text-[8px] font-mono text-accent uppercase tracking-tighter">[ STANDARDIZED ]</span>
+              </div>
            </div>
 
            <div>
-              <span className="block text-[10px] font-mono text-accent uppercase tracking-widest mb-2">{cert.issuer}</span>
+              <span className="block text-[10px] font-mono text-accent uppercase tracking-widest mb-2 flex items-center gap-2">
+                <div className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
+                {cert.issuer}
+              </span>
               <h3 className="text-2xl font-black text-white tracking-tighter uppercase leading-tight group-hover:text-accent transition-colors">{cert.title}</h3>
            </div>
 
-           {!isExpanded && (
-             <p className="text-xs text-white/30 font-light leading-relaxed uppercase animate-in fade-in duration-700">
-                {cert.desc}
-             </p>
-           )}
+           {/* MINI DESCRIPTION (ALWAYS VISIBLE BUT DIM) */}
+           <p className="text-[10px] text-white/30 font-light leading-relaxed uppercase max-w-[80%]">
+              {cert.desc.substring(0, 80)}...
+           </p>
 
            {/* DETAILS TRAY */}
            <div className="details-tray h-0 opacity-0 overflow-hidden">
               <div className="pt-8 border-t border-white/5 space-y-8">
                  {/* IMAGE PREVIEW */}
                  <div 
-                   className="relative aspect-video rounded-2xl overflow-hidden glass-panel border-white/10 group/img cursor-zoom-in"
+                   className="relative aspect-video rounded-2xl overflow-hidden glass-panel border-white/10 group/img cursor-zoom-in shadow-2xl"
                    onClick={(e) => {
                      e.stopPropagation();
                      setShowModal(true);
-                     ;
                    }}
                  >
                     {cert.image ? (
@@ -162,24 +171,32 @@ const CertificateCard = ({ cert }: { cert: any }) => {
                  </div>
 
                  <div className="grid grid-cols-2 gap-4">
-                    <div className="space-y-1">
-                       <span className="text-[9px] font-mono text-white/20 uppercase tracking-widest">No_Seri</span>
-                       <p className="text-xs font-mono text-accent">{cert.serial || "VERIFIED-ARCH-2025"}</p>
+                    <div className="p-4 rounded-xl border border-white/5 bg-white/[0.01]">
+                       <span className="text-[9px] font-mono text-white/20 uppercase tracking-widest block mb-1">No_Seri</span>
+                       <p className="text-xs font-mono text-accent truncate">{cert.serial || "VERIFIED-ARCH-2025"}</p>
                     </div>
-                    <div className="space-y-1">
-                       <span className="text-[9px] font-mono text-white/20 uppercase tracking-widest">Type</span>
-                       <p className="text-xs font-mono text-white/60">GOVERNMENTAL_VALIDATED</p>
+                    <div className="p-4 rounded-xl border border-white/5 bg-white/[0.01]">
+                       <span className="text-[9px] font-mono text-white/20 uppercase tracking-widest block mb-1">Status</span>
+                       <div className="flex items-center gap-2">
+                         <div className="w-1 h-1 rounded-full bg-green-500 shadow-[0_0_5px_green]" />
+                         <p className="text-[9px] font-mono text-white/60">VALIDATED_BY_NETWORK</p>
+                       </div>
                     </div>
                  </div>
+
                  {cert.speakers && (
-                   <div className="space-y-1">
+                   <div className="space-y-1 px-2">
                       <span className="text-[9px] font-mono text-white/20 uppercase tracking-widest">Disahkan_Oleh</span>
-                      <p className="text-[11px] font-bold text-white/80 uppercase italic">{cert.speakers}</p>
+                      <p className="text-[11px] font-bold text-white/80 uppercase italic border-l-2 border-accent pl-3">{cert.speakers}</p>
                  </div>
                  )}
-                 <div className="glass-panel p-4 rounded-xl border-accent/10 bg-accent/5">
-                    <p className="text-[10px] text-white/40 leading-relaxed uppercase">
-                       Kredensial digital ini berfungsi sebagai bukti kuat dalam arsitektur {cert.issuer}, memvalidasi keahlian tingkat tinggi dalam {cert.title}.
+
+                 <div className="glass-panel p-5 rounded-xl border-accent/20 bg-accent/5 relative overflow-hidden">
+                    <div className="absolute top-0 right-0 p-2 opacity-10">
+                       <Award size={40} />
+                    </div>
+                    <p className="text-[10px] text-white/60 leading-relaxed uppercase relative z-10">
+                       <span className="text-accent font-bold">Logika Terverifikasi:</span> Kredensial digital ini berfungsi sebagai bukti kuat dalam arsitektur {cert.issuer}, memvalidasi keahlian tingkat tinggi dalam <span className="text-white">{cert.title}</span>.
                     </p>
                  </div>
               </div>
@@ -195,7 +212,7 @@ const CertificateCard = ({ cert }: { cert: any }) => {
         </div>
 
         {/* SCANLINE EFFECT */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/5 to-transparent h-[20%] w-full -top-full group-hover:animate-scanline pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/10 to-transparent h-[30%] w-full -top-full group-hover:animate-scanline pointer-events-none opacity-40" />
       </div>
 
       {/* FULLSCREEN LIGHTBOX MODAL */}
@@ -706,23 +723,37 @@ export default function Home() {
             Menciptakan pengalaman digital yang imersif di mana <span className="text-white italic">kode bertemu seni tingkat tinggi</span>. Next-gen frontend engineer di PENS.
           </p>
 
-          <div className="reveal-sub pt-12 flex flex-col sm:flex-row gap-6 justify-center items-center">
+          <div className="reveal-sub pt-12 flex flex-col md:flex-row gap-6 justify-center items-center">
+             {/* ACTION: WORK */}
              <a 
                href="#projects" 
-               className="group relative px-10 py-5 bg-accent text-white rounded-full font-black text-sm tracking-widest uppercase flex items-center gap-3 transition-all duration-500 hover:scale-105 hover:shadow-[0_0_40px_rgba(112,0,255,0.4)] active:scale-95"
+               className="group relative px-10 py-5 bg-accent text-white rounded-2xl font-black text-sm tracking-widest uppercase flex items-center gap-3 transition-all duration-500 hover:rounded-[2rem] hover:shadow-[0_0_50px_rgba(112,0,255,0.4)] active:scale-95 overflow-hidden"
              >
-                View My Work
-                <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+                <span className="relative z-10">Launch Vision</span>
+                <ChevronRight size={18} className="relative z-10 group-hover:translate-x-1 transition-transform" />
              </a>
              
-             <a 
-               href="/CV_Yoga_Ananda.pdf" 
-               download
-               className="group px-10 py-5 border border-white/10 bg-white/[0.02] text-white rounded-full font-black text-sm tracking-widest uppercase flex items-center gap-3 transition-all duration-500 hover:bg-white/5 hover:border-white/30 active:scale-95"
-             >
-                <Download size={18} className="text-accent group-hover:animate-bounce" />
-                Download CV
-             </a>
+             {/* ACTION: CV CONTROLLER */}
+             <div className="flex items-center gap-2 p-1.5 glass-panel rounded-2xl border-white/10">
+                <a 
+                  href="/CV_Yoga_Ananda.pdf" 
+                  target="_blank"
+                  className="px-6 py-3.5 bg-white/5 text-white/80 rounded-xl font-bold text-xs tracking-widest uppercase flex items-center gap-2 hover:bg-white/10 hover:text-white transition-all"
+                >
+                   <Eye size={16} className="text-accent" />
+                   View CV
+                </a>
+                <div className="w-[1px] h-6 bg-white/10 mx-1" />
+                <a 
+                  href="/CV_Yoga_Ananda.pdf" 
+                  download
+                  className="px-6 py-3.5 text-white/40 rounded-xl font-bold text-xs tracking-widest uppercase flex items-center gap-2 hover:bg-accent/10 hover:text-accent transition-all"
+                >
+                   <Download size={16} />
+                   PDF
+                </a>
+             </div>
           </div>
         </div>
 

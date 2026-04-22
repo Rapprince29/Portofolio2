@@ -284,7 +284,7 @@ export default function Home() {
 
   // CV VIEWER STATES
   const [showCVViewer, setShowCVViewer] = useState(false)
-  const cvPages = ['/cv-1.webp', '/cv-2.webp', '/cv-3.webp', '/cv-4.webp']
+  const cvPages = ['/cv-1.png', '/cv-2.png', '/cv-3.png', '/cv-4.png']
 
   // FORM STATES
   const [formData, setFormData] = useState({ name: '', email: '', message: '' })
@@ -1090,7 +1090,7 @@ export default function Home() {
                      speakers: "Harriz Vriza — Public Figure",
                      desc: "Seminar Nasional with Harriz Vriza on establishing a high-impact digital presence.",
                      icon: <User size={24} />,
-                     image: "/certs/branding.webp"
+                     image: "/certs/branding.png"
                   },
                   {
                      id: "C_02",
@@ -1101,7 +1101,7 @@ export default function Home() {
                      speakers: "Abi Atria — Professional Coach",
                      desc: "Training focus on 'Zero Point to High Point' with Abi Atria for strategic growth.",
                      icon: <Briefcase size={24} />,
-                     image: "/certs/entrepreneur.webp"
+                     image: "/certs/entrepreneur.png"
                   },
                   {
                      id: "C_03",
@@ -1112,7 +1112,7 @@ export default function Home() {
                      speakers: "Dr. Charly Hongdiyanto — Speaker",
                      desc: "Advanced communication training with Dr. Charly Hongdiyanto.",
                      icon: <Camera size={24} />,
-                     image: "/certs/speaking.webp"
+                     image: "/certs/speaking.png"
                   },
                   {
                      id: "C_04",
@@ -1123,7 +1123,7 @@ export default function Home() {
                      speakers: "Yonathan S.Kom — Financial Planner",
                      desc: "Financial literacy and management strategy training with Yonathan S.Kom.",
                      icon: <Database size={24} />,
-                     image: "/certs/financial.webp"
+                     image: "/certs/financial.png"
                   },
                   {
                      id: "C_05",
@@ -1134,7 +1134,7 @@ export default function Home() {
                      speakers: "Tifani Hernang — Content Strategist",
                      desc: "Professional training on social media monetization with Tifani Hernang.",
                      icon: <LayoutGrid size={24} />,
-                     image: "/certs/creator.webp"
+                     image: "/certs/creator.png"
                   },
                   {
                      id: "C_06",
@@ -1145,7 +1145,7 @@ export default function Home() {
                      speakers: "Ahmad Miftahur Rif'at — Presiden BEM",
                      desc: "Leadership and management training at Politeknik Elektronika Negeri Surabaya.",
                      icon: <ShieldCheck size={24} />,
-                     image: "/certs/lkmmtd.webp"
+                     image: "/certs/lkmmtd.png"
                   },
                   {
                      id: "C_07",
@@ -1156,7 +1156,7 @@ export default function Home() {
                      speakers: "Sawitri Dyah Kusuma Wardhani — Community Manager",
                      desc: "SurabayaDev Anniversary 11th on next-gen technology ecosystems.",
                      icon: <Cpu size={24} />,
-                     image: "/certs/surabayadev.webp"
+                     image: "/certs/surabayadev.jpg"
                   },
                   {
                      id: "C_08",
@@ -1178,7 +1178,7 @@ export default function Home() {
                      speakers: "Tegar Aprilian — CEO & Founder H-Tech Corp",
                      desc: "Certification for successful participation in the React.js short class organized by H-Tech Corp.",
                      icon: <Code2 size={24} />,
-                     image: "/certs/react-class.webp"
+                     image: "/certs/react-class.png"
                   }
                ].map((cert, i) => (
                   <CertificateCard key={i} cert={cert} />

@@ -281,17 +281,14 @@ export default function Home() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    if (!formData.name || !formData.message) {
-      
-      return
-    }
+    if (!formData.name || !formData.message) return
     
-    const text = `Halo Muhammad Yoga! Nama saya *${formData.name}* (${formData.email}).\n\n*Pesan:* ${formData.message}`
-    const waLink = `https://wa.me/6285804709019?text=${encodeURIComponent(text)}`
+    const subject = `Portfolio Feedback — ${formData.name}`
+    const body = `Halo Muhammad Yoga!\n\nNama: ${formData.name}\nEmail: ${formData.email}\n\nPesan:\n${formData.message}`
+    const mailtoLink = `mailto:yogaananda205@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
     
     setTimeout(() => {
-      window.open(waLink, '_blank')
-      
+      window.location.href = mailtoLink
     }, 1000)
   }
 
@@ -1160,16 +1157,14 @@ export default function Home() {
                  
                  <div className="flex flex-col gap-4">
                     <a 
-                      href="https://wa.me/6285804709019" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
+                      href="mailto:yogaananda205@gmail.com" 
                       onMouseEnter={() => handleCursorEnter('link', 2.5)}
                       onMouseLeave={handleCursorLeave}
                       className="group relative w-fit glass-panel px-8 py-5 rounded-full flex items-center gap-4 border-accent/20 hover:border-accent transition-all duration-500 overflow-hidden"
                     >
                        <div className="absolute inset-0 bg-accent/10 opacity-0 group-hover:opacity-100 transition-opacity" />
-                       <span className="text-xs font-mono tracking-[0.3em] text-white uppercase z-10">Jalur_WhatsApp_Langsung</span>
-                       <ArrowUpRight size={18} className="text-accent group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform z-10" />
+                       <span className="text-xs font-mono tracking-[0.3em] text-white uppercase z-10">Kirim_Email_Langsung</span>
+                       <Mail size={18} className="text-accent group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform z-10" />
                     </a>
                  </div>
               </div>

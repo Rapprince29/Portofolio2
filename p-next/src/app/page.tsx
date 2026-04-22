@@ -75,7 +75,7 @@ const EducationCard = ({ edu }: { edu: any }) => {
 }
 
 // INTERACTIVE COMPONENT FOR CERTIFICATES
-const CertificateCard = ({ cert, addLog }: { cert: any, addLog: (msg: string) => void }) => {
+const CertificateCard = ({ cert }: { cert: any }) {
   const itemRef = useRef<HTMLDivElement>(null)
   const [isExpanded, setIsExpanded] = useState(false)
   const [showModal, setShowModal] = useState(false)
@@ -93,7 +93,7 @@ const CertificateCard = ({ cert, addLog }: { cert: any, addLog: (msg: string) =>
         { height: 0, opacity: 0 }, 
         { height: autoHeight, opacity: 1, duration: 0.8, ease: "expo.out" }
       )
-      addLog(`Declassifying_Credential_${cert.id}...`)
+      
     }
     setIsExpanded(!isExpanded)
   }
@@ -137,7 +137,7 @@ const CertificateCard = ({ cert, addLog }: { cert: any, addLog: (msg: string) =>
                    onClick={(e) => {
                      e.stopPropagation();
                      setShowModal(true);
-                     addLog(`Loading_Full_Resolution_Asset_0${cert.id}...`);
+                     ;
                    }}
                  >
                     {cert.image ? (
@@ -252,7 +252,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true)
   const [progress, setProgress] = useState(0)
   const [time, setTime] = useState('')
-  const [logs, setLogs] = useState<string[]>(['> Initializing_Yoga_Ananda_OS...'])
+  
   const [cursorIcon, setCursorIcon] = useState<string | null>(null)
   const [isMounted, setIsMounted] = useState(false)
   const [hoveredProject, setHoveredProject] = useState<number | null>(null)
@@ -268,9 +268,6 @@ export default function Home() {
   // FORM STATES
   const [formData, setFormData] = useState({ name: '', email: '', message: '' })
 
-  const addLog = (msg: string) => {
-    setLogs(prev => [...prev.slice(-10), `> ${msg}`])
-  }
 
   const handleCursorEnter = (iconType: string, scale = 3) => {
     setCursorIcon(iconType)
@@ -285,16 +282,16 @@ export default function Home() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     if (!formData.name || !formData.message) {
-      addLog('Error:_Incomplete_Transmission_Data')
+      
       return
     }
-    addLog('Finalizing_Transmission...')
+    
     const text = `Halo Muhammad Yoga! Nama saya *${formData.name}* (${formData.email}).\n\n*Pesan:* ${formData.message}`
     const waLink = `https://wa.me/6285804709019?text=${encodeURIComponent(text)}`
     
     setTimeout(() => {
       window.open(waLink, '_blank')
-      addLog('Signal_Transmitted_Successfully!')
+      
     }, 1000)
   }
 
@@ -358,11 +355,11 @@ export default function Home() {
           setIsLoading(false)
           document.body.style.overflow = 'auto'
           ScrollTrigger.refresh()
-          addLog('System_Ready_V.2.0')
+          
           
           // BRAIN TUTORIAL LOGS
-          setTimeout(() => addLog('Environment_Detected: Interactive'), 1000)
-          setTimeout(() => addLog('[Tip]:_Probe_objects_with_cursor'), 2500)
+          setTimeout(() => , 1000)
+          setTimeout(() => , 2500)
         }
       })
 
@@ -444,7 +441,7 @@ export default function Home() {
             toggleActions: "play none none reverse",
             onEnter: () => {
                const section = item.closest('section')?.id
-               if (section) addLog(`Entering_${section}_module...`)
+               if (section) 
                
                // AUTO-TEASE TILT (TELL USER IT'S INTERACTIVE)
                if (item.classList.contains('tilt-card')) {
@@ -540,7 +537,7 @@ export default function Home() {
         })
         skill.addEventListener('mouseenter', () => {
            const name = skill.querySelector('h4')?.textContent
-           addLog(`Analyzing_${name}_matrix...`)
+           
         })
         skill.addEventListener('mouseleave', () => {
           gsap.to(skill, { x: 0, y: 0, duration: 0.6, ease: "elastic.out(1, 0.3)" })
@@ -821,7 +818,7 @@ export default function Home() {
                     key={i} 
                     onMouseMove={handleMagneticMove}
                     onMouseLeave={handleMagneticLeave}
-                    onMouseEnter={() => addLog(`Reading_${skill.name}_Protocol...`)}
+                    onMouseEnter={() => }
                     className="reveal-item skill-tile glass-panel p-6 rounded-2xl flex flex-col items-center justify-center text-center gap-4 group transition-colors hover:bg-white/[0.04] cursor-none"
                  >
                     <div className="w-12 h-12 rounded-full border border-white/5 flex items-center justify-center text-xl font-black text-white group-hover:text-accent group-hover:border-accent/40 transition-all duration-300">
@@ -907,7 +904,7 @@ export default function Home() {
                 key={i} 
                 onMouseEnter={() => {
                   setHoveredProject(i)
-                  addLog(`Scanning_Project_Data:_${proj.title}`)
+                  
                 }}
                 onMouseLeave={() => setHoveredProject(null)}
                 className={`reveal-item project-item tilt-card group relative glass-panel rounded-3xl p-6 md:p-12 transition-all duration-700 
@@ -1044,7 +1041,7 @@ export default function Home() {
                </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
                {[
                   {
                      id: "C_01",
@@ -1146,7 +1143,7 @@ export default function Home() {
                      image: "/certs/react-class.png"
                   }
                ].map((cert, i) => (
-                  <CertificateCard key={i} cert={cert} addLog={addLog} />
+                  <CertificateCard key={i} cert={cert} />
                ))}
             </div>
          </div>
@@ -1190,7 +1187,7 @@ export default function Home() {
                          value={formData.name}
                          onChange={(e) => setFormData({...formData, name: e.target.value})}
                          placeholder="NAME"
-                         onFocus={() => addLog('Initializing_Contact_Form...')}
+                         onFocus={() => }
                          className="w-full bg-white/[0.02] border border-white/5 rounded-xl px-4 py-3 text-sm font-mono focus:border-accent outline-none transition-colors"
                        />
                     </div>
@@ -1214,7 +1211,7 @@ export default function Home() {
                       required
                       value={formData.message}
                       onChange={(e) => setFormData({...formData, message: e.target.value})}
-                      onFocus={() => addLog('Composing_Transmission_Packet...')}
+                      onFocus={() => }
                       className="w-full bg-white/[0.02] border border-white/5 rounded-xl px-4 py-3 text-sm font-mono focus:border-accent outline-none transition-colors resize-none"
                     ></textarea>
                  </div>
@@ -1255,22 +1252,6 @@ export default function Home() {
         </div>
       </footer>
 
-      {/* SYSTEM LOG PANEL (NEW INTERACTION LOG) */}
-      <div className="fixed bottom-8 left-8 z-[100] hidden md:block pointer-events-none">
-         <div className="glass-panel rounded-lg p-4 w-64 border-accent/20 bg-black/60 shadow-2xl">
-            <div className="flex items-center gap-2 mb-3 border-b border-white/5 pb-2">
-               <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-               <span className="text-[9px] font-mono text-white/40 uppercase tracking-widest">System_Console_V.2</span>
-            </div>
-            <div className="space-y-1 h-32 overflow-hidden flex flex-col justify-end">
-               {logs.map((log, i) => (
-                  <p key={i} className="text-[10px] font-mono text-accent/80 opacity-0 animate-in fade-in slide-in-from-left-2 duration-300 fill-mode-forwards">
-                     {log}
-                  </p>
-               ))}
-            </div>
-         </div>
-      </div>
 
       {/* HIDDEN TERMINAL (Ctrl + K) */}
       <div 

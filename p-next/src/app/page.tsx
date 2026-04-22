@@ -887,7 +887,7 @@ export default function Home() {
                 category: "pdbl project — 2024",
                 desc: "solusi komprehensif untuk pemantauan data publik. terintegrasi dengan visualisasi canggih dan tersedia di platform web serta android (playstore).",
                 stack: ["next.js", "laravel", "postgresql", "flutter"],
-                image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200",
+                image: "/projects/moco.png",
                 links: [
                   { label: "web app", url: "https://moco-app.web.id/" },
                   { label: "play store", url: "https://play.google.com/store/apps/details?id=com.moco.moneycontrol" }

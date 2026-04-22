@@ -14,7 +14,7 @@ export default function NeuralBackground() {
     const isMobile = window.innerWidth < 768
     const particleCount = isMobile ? 30 : 60
     const connectionDistance = isMobile ? 100 : 150
-    let mouse = { x: 0, y: 0 }
+    const mouse = { x: 0, y: 0 }
 
     class Particle {
       x: number

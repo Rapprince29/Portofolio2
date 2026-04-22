@@ -804,18 +804,18 @@ export default function Home() {
 
            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
               {[
-                 { name: "next.js", level: "advanced", icon: "N" },
+                 { name: "flutter", level: "advanced", icon: "FL" },
+                 { name: "figma", level: "expert", icon: "F" },
                  { name: "react", level: "expert", icon: "R" },
                  { name: "gsap", level: "advanced", icon: "G" },
-                 { name: "tailwind", level: "expert", icon: "T" },
-                 { name: "typescript", level: "advanced", icon: "Ts" },
-                 { name: "node.js", level: "intermediate", icon: "Node" },
-                 { name: "three.js", level: "exploring", icon: "3J" },
-                 { name: "figma", level: "expert", icon: "F" },
-                 { name: "github", level: "advanced", icon: "Gi" },
                  { name: "laravel", level: "intermediate", icon: "L" },
-                 { name: "framer", level: "advanced", icon: "M" },
-                 { name: "python", level: "basic", icon: "Py" }
+                 { name: "mysql", level: "advanced", icon: "MY" },
+                 { name: "next.js", level: "advanced", icon: "N" },
+                 { name: "nest.js", level: "advanced", icon: "NS" },
+                 { name: "tailwind.css", level: "expert", icon: "T" },
+                 { name: "github", level: "advanced", icon: "GI" },
+                 { name: "typescript", level: "advanced", icon: "TS" },
+                 { name: "node.js", level: "intermediate", icon: "NODE" }
               ].map((skill, i) => (
                  <div 
                     key={i} 

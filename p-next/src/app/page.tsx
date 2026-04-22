@@ -227,10 +227,7 @@ export default function Home() {
             trigger: item,
             start: "top 95%",
             toggleActions: "play none none reverse",
-            onEnter: () => {
-               const section = item.closest('section')?.id
-               if (section) 
-               
+          onEnter: () => {
                // AUTO-TEASE TILT (TELL USER IT'S INTERACTIVE)
                if (item.classList.contains('tilt-card')) {
                  gsap.to(item, { 
@@ -324,8 +321,7 @@ export default function Home() {
           gsap.to(skill, { x: x * 0.3, y: y * 0.3, duration: 0.4, ease: "power2.out" })
         })
         skill.addEventListener('mouseenter', () => {
-           const name = skill.querySelector('h4')?.textContent
-           
+           // const name = skill.querySelector('h4')?.textContent
         })
         skill.addEventListener('mouseleave', () => {
           gsap.to(skill, { x: 0, y: 0, duration: 0.6, ease: "elastic.out(1, 0.3)" })

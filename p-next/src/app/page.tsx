@@ -697,7 +697,7 @@ export default function Home() {
       <div 
         id="custom-cursor"
         ref={cursorRef} 
-        className="fixed top-0 left-0 w-6 h-6 rounded-full border border-accent pointer-events-none z-[99999] hidden lg:flex items-center justify-center mix-blend-difference will-change-transform"
+        className="fixed top-0 left-0 w-6 h-6 rounded-full border border-accent pointer-events-none z-[99999999] hidden lg:flex items-center justify-center mix-blend-difference will-change-transform"
       >
         {cursorIcon === 'top' && <ArrowUp size={10} className="text-white animate-in zoom-in duration-300" />}
         {cursorIcon === 'view' && <ArrowUpRight size={10} className="text-white animate-in zoom-in duration-300" />}

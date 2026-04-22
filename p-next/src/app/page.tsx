@@ -1,4 +1,5 @@
 'use client'
+// YOLUX_BUILD_SYNC: 2026-04-23-01-26
 import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'

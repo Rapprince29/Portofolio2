@@ -1103,6 +1103,17 @@ export default function Home() {
                      desc: "Certification of completion for professional web architecture and system deployment.",
                      icon: <Code2 size={24} />,
                      image: ""
+                  },
+                  {
+                     id: "C_09",
+                     title: "LEARNING REACT.JS",
+                     issuer: "H-TECH CORP",
+                     year: "2024",
+                     serial: "2773/HTECH/SH/XI/2024",
+                     speakers: "Tegar Aprilian — CEO & Founder H-Tech Corp",
+                     desc: "Certification for successful participation in the React.js short class organized by H-Tech Corp.",
+                     icon: <Code2 size={24} />,
+                     image: "/certs/react-class.png"
                   }
                ].map((cert, i) => (
                   <CertificateCard key={i} cert={cert} addLog={addLog} />

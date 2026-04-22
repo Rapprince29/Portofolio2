@@ -14,7 +14,7 @@ import { projects, academicHistory, certificates } from '@/constants/data'
 import { 
   ArrowUpRight, Download, Award, X, Camera, Code2, 
   Cpu, Database, User, Briefcase, LayoutGrid, ShieldCheck,
-  Globe, Mail, Music
+  Globe, Mail, Music, ArrowUp, Link2, ChevronRight, Eye
 } from 'lucide-react'
 
 if (typeof window !== 'undefined') {
@@ -719,30 +719,18 @@ export default function Home() {
                     </div>
 
                     <div className="flex flex-wrap gap-4 pt-4">
-                       {proj.links ? (
-                          proj.links.map((link: any, idx: number) => (
-                             <a 
-                               key={idx} 
-                               href={link.url} 
-                               target="_blank" 
-                               rel="noopener noreferrer"
-                               className="flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full text-[10px] font-mono text-white/60 hover:text-white transition-all uppercase tracking-widest group/link"
-                             >
-                                {link.label}
-                                <ArrowUpRight size={12} className="group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
-                             </a>
-                          ))
-                       ) : (
+                       {proj.links && proj.links.map((link: any, idx: number) => (
                           <a 
-                             href={proj.link} 
+                             key={idx} 
+                             href={link.url} 
                              target="_blank" 
                              rel="noopener noreferrer"
                              className="flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full text-[10px] font-mono text-white/60 hover:text-white transition-all uppercase tracking-widest group/link"
                           >
-                             view project
+                             {link.label}
                              <ArrowUpRight size={12} className="group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
                           </a>
-                       )}
+                       ))}
                     </div>
                  </div>
               </div>

@@ -65,6 +65,7 @@ export default function NeuralBackground() {
       }
     }
 
+    let rafId: number;
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height)
       
@@ -88,7 +89,7 @@ export default function NeuralBackground() {
           }
         }
       })
-      requestAnimationFrame(animate)
+      rafId = requestAnimationFrame(animate)
     }
 
     const handleMouseMove = (e: MouseEvent) => {
@@ -104,6 +105,7 @@ export default function NeuralBackground() {
     return () => {
       window.removeEventListener('resize', init)
       window.removeEventListener('mousemove', handleMouseMove)
+      cancelAnimationFrame(rafId)
     }
   }, [])
 

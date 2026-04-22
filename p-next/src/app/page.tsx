@@ -9,7 +9,7 @@ import profileImg from '@/assets/profile.jpg'
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger)
 }
-import { ArrowUpRight, Globe, Info, Mail, MousePointer2, Camera, Briefcase, Music, Clock, ArrowUp, Link2, User, Code2, Cpu, Database, Layout, Smartphone, Command } from 'lucide-react'
+import { ArrowUpRight, Globe, Info, Mail, MousePointer2, Camera, Briefcase, Music, Clock, ArrowUp, Link2, User, Code2, Cpu, Database, Layout, Smartphone, Command, Award, CheckCircle2, ShieldCheck, FileCheck } from 'lucide-react'
 import Lenis from 'lenis'
 import NeuralBackground from '@/components/NeuralBackground'
 
@@ -171,11 +171,12 @@ export default function Home() {
     // 0.1 SMOOTH SCROLL (LENIS)
     const lenis = new Lenis()
     lenisRef.current = lenis
+    let rafId: number;
     function raf(time: number) {
       lenis.raf(time)
-      requestAnimationFrame(raf)
+      rafId = requestAnimationFrame(raf)
     }
-    requestAnimationFrame(raf)
+    rafId = requestAnimationFrame(raf)
 
     // 0.2 LOADING LOGIC
     if (isLoading) {
@@ -406,6 +407,7 @@ export default function Home() {
       clearInterval(interval)
       window.removeEventListener('mousemove', moveCursor)
       window.removeEventListener('keydown', handleKeyDown)
+      cancelAnimationFrame(rafId)
       lenis.destroy()
       ctx.revert()
     }
@@ -568,8 +570,10 @@ export default function Home() {
                         src={profileImg} 
                         alt="Yoga Ananda" 
                         fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         className="object-cover transition-all grayscale"
                         style={{ filter: 'grayscale(100%)' }}
+                        priority
                      />
                      <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent opacity-60" />
                   </div>
@@ -781,7 +785,7 @@ export default function Home() {
                {[
                   {
                      id: "01",
-                     year: "2016 — 2018",
+                     year: "2018 — 2020",
                      school: "smp negeri 1 sukodono",
                      degree: "junior high school",
                      desc: "langkah awal dalam eksplorasi dunia digital dan logika dasar.",
@@ -792,7 +796,7 @@ export default function Home() {
                   },
                   {
                      id: "02",
-                     year: "2019 — 2024",
+                     year: "2021 — 2024",
                      school: "smk antartika 2 sidoarjo",
                      degree: "vocational high school",
                      desc: "mendalami fondasi pemrograman, sistem komputer, dan praktek industri.",
@@ -816,6 +820,100 @@ export default function Home() {
                ].map((edu, idx) => (
                   <div key={idx} className="tilt-card">
                      <EducationCard edu={edu} />
+                  </div>
+               ))}
+            </div>
+         </div>
+      </section>
+
+      {/* 2.7 DISTINGUISHED CREDENTIALS (CERTIFICATES) */}
+      <section id="certificates" className="relative py-40 px-6 md:px-12 bg-background/80">
+         <div className="max-w-7xl mx-auto space-y-32">
+            <div className="reveal-item flex flex-col md:flex-row justify-between items-end gap-10">
+               <div className="space-y-6">
+                  <span className="text-xs font-mono text-accent uppercase tracking-[0.5em]">[ validation ]</span>
+                  <h2 className="text-5xl md:text-[8rem] font-black text-white tracking-tighter uppercase leading-none italic">
+                     distinguished <br />
+                     <span className="text-gradient not-italic">credentials.</span>
+                  </h2>
+               </div>
+               <p className="max-w-xs text-sm font-mono text-white/30 uppercase leading-relaxed text-right pb-4">
+                  architectural milestones and professional certifications validating the core logic of my craft_
+               </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+               {[
+                  {
+                     id: "C_01",
+                     title: "WEB TECHNOLOGY INTERNSHIP",
+                     issuer: "CV BAROTERA",
+                     year: "2022",
+                     desc: "Certification of completion for professional web architecture and system deployment.",
+                     icon: <Code2 size={24} />
+                  },
+                  {
+                     id: "C_02",
+                     title: "UX DESIGN ARCHITECTURE",
+                     issuer: "PENS LAB",
+                     year: "2024",
+                     desc: "Advanced logic in user experience and interface engineering frameworks.",
+                     icon: <Layout size={24} />
+                  },
+                  {
+                     id: "C_03",
+                     title: "DATA ARCHITECT FUNDAMENTALS",
+                     issuer: "ACADEMIC MODULE",
+                     year: "2023",
+                     desc: "Core principles of structured data systems and relational logic.",
+                     icon: <Database size={24} />
+                  },
+                  {
+                     id: "C_04",
+                     title: "JAVASCRIPT LOGIC EXPERT",
+                     issuer: "HACKATHON SERIES",
+                     year: "2025",
+                     desc: "High-frequency problem solving and algorithmic implementation strategies.",
+                     icon: <Command size={24} />
+                  }
+               ].map((cert, i) => (
+                  <div 
+                    key={i} 
+                    onMouseEnter={() => addLog(`Verifying_${cert.id}_Packet...`)}
+                    className="reveal-item tilt-card group relative glass-panel p-8 rounded-3xl border-white/5 hover:border-accent/40 transition-all duration-700 overflow-hidden"
+                  >
+                     <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-20 transition-opacity">
+                        <ShieldCheck size={120} className="text-accent" />
+                     </div>
+                     
+                     <div className="relative z-10 space-y-8">
+                        <div className="flex justify-between items-start">
+                           <div className="w-12 h-12 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-white transition-all duration-500">
+                              {cert.icon}
+                           </div>
+                           <span className="text-[10px] font-mono text-white/20 uppercase tracking-widest">{cert.year}</span>
+                        </div>
+
+                        <div>
+                           <span className="block text-[10px] font-mono text-accent uppercase tracking-widest mb-2">{cert.issuer}</span>
+                           <h3 className="text-2xl font-black text-white tracking-tighter uppercase leading-tight group-hover:text-accent transition-colors">{cert.title}</h3>
+                        </div>
+
+                        <p className="text-xs text-white/30 font-light leading-relaxed uppercase">
+                           {cert.desc}
+                        </p>
+
+                        <div className="pt-6 flex items-center justify-between border-t border-white/5">
+                           <span className="text-[10px] font-mono text-white/10 uppercase tracking-widest">{cert.id}</span>
+                           <div className="flex items-center gap-2 text-accent opacity-0 group-hover:opacity-100 transition-all duration-500 translate-x-4 group-hover:translate-x-0">
+                              <span className="text-[10px] font-mono tracking-widest uppercase">Validated</span>
+                              <CheckCircle2 size={12} />
+                           </div>
+                        </div>
+                     </div>
+
+                     {/* SCANLINE EFFECT */}
+                     <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/5 to-transparent h-[20%] w-full -top-full group-hover:animate-scanline pointer-events-none" />
                   </div>
                ))}
             </div>

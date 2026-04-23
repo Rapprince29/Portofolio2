@@ -927,43 +927,79 @@ export default function Home() {
       {/* 4. CV VIEWER OVERLAY */}
       {showCVViewer && (
         <div 
-          className="fixed inset-0 z-[2000000] bg-black/95 backdrop-blur-3xl p-6 md:p-12 overflow-y-auto animate-in fade-in duration-500"
+          className="fixed inset-0 z-[2000000] bg-black/98 backdrop-blur-3xl flex flex-col animate-in fade-in duration-700"
           onClick={() => setShowCVViewer(false)}
         >
+          {/* HEADER */}
+          <div className="flex justify-between items-center px-6 md:px-12 py-8 bg-black/40 backdrop-blur-xl border-b border-white/5">
+             <div className="flex items-center gap-4">
+                <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center border border-accent/30">
+                   <Briefcase className="text-accent" size={18} />
+                </div>
+                <div>
+                   <h3 className="text-xl font-black text-white italic uppercase tracking-tighter">Identity_Archives</h3>
+                   <p className="text-[9px] font-mono text-white/40 uppercase tracking-[0.3em]">Vault_Access_Granted // Ver. 2025</p>
+                </div>
+             </div>
+             <div className="flex items-center gap-4">
+                <a href="/CV_Yoga_Ananda.pdf" download className="group flex items-center gap-3 px-6 py-2.5 bg-accent text-white rounded-full text-[10px] font-mono font-bold tracking-widest hover:bg-white hover:text-black transition-all">
+                   DOWNLOAD_PDF <Download size={14} className="group-hover:translate-y-1 transition-transform" />
+                </a>
+                <button onClick={() => setShowCVViewer(false)} className="p-3 bg-white/5 text-white rounded-full hover:bg-red-500/20 hover:text-red-500 transition-all border border-white/10">
+                   <X size={20} />
+                </button>
+             </div>
+          </div>
+
+          {/* MAIN VIEWER (Horizontal Scroll) */}
           <div 
-            className="max-w-4xl mx-auto space-y-12 py-12"
+            className="flex-1 overflow-x-auto overflow-y-hidden snap-x snap-mandatory flex items-center hide-scrollbar"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex flex-col md:flex-row justify-between items-center gap-6 sticky top-0 z-10 bg-black/40 backdrop-blur-lg p-6 rounded-2xl border border-white/5">
-              <div>
-                <h3 className="text-2xl font-black text-white italic uppercase tracking-tighter">Identity_Archives</h3>
-                <p className="text-[10px] font-mono text-accent uppercase tracking-widest">[ Yoga Ananda Satria — Ver. 2025 ]</p>
-              </div>
-              <div className="flex items-center gap-4">
-                 <a href="/CV_Yoga_Ananda.pdf" download className="p-3 bg-accent text-white rounded-xl hover:scale-110 transition-transform"><Download size={20} /></a>
-                 <button onClick={() => setShowCVViewer(false)} className="p-3 bg-white/5 text-white rounded-xl hover:bg-white/10 transition-colors"><X size={20} /></button>
-              </div>
-            </div>
+             <div className="flex gap-12 px-[10vw] md:px-[25vw]">
+                {cvPages.map((page, i) => (
+                  <div 
+                    key={i} 
+                    className="snap-center flex-shrink-0 w-[80vw] md:w-[50vw] aspect-[1/1.414] relative bg-white/5 rounded-2xl overflow-hidden border border-white/10 shadow-2xl group transition-all duration-700 hover:border-accent/50"
+                    id={`cv-page-${i}`}
+                  >
+                     <Image 
+                       src={page} 
+                       alt={`CV Page ${i+1}`} 
+                       fill 
+                       className="object-contain p-4 md:p-8"
+                       priority={i === 0}
+                     />
+                     {/* INDICATOR */}
+                     <div className="absolute top-6 left-6 px-4 py-1.5 bg-black/60 backdrop-blur-md border border-white/10 rounded-full text-[9px] font-mono text-accent uppercase tracking-widest">
+                        PAGE_0{i+1}
+                     </div>
+                     {/* OVERLAY ON HOVER */}
+                     <div className="absolute inset-0 bg-accent/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
+                  </div>
+                ))}
+             </div>
+          </div>
 
-            <div className="space-y-6">
-              {cvPages.map((page, i) => (
-                <div key={i} className="relative w-full aspect-[1/1.4] bg-white/5 rounded-3xl overflow-hidden border border-white/10 group">
-                   <Image 
-                     src={page} 
-                     alt={`CV Page ${i+1}`} 
-                     fill 
-                     className="object-contain"
-                   />
-                   <div className="absolute bottom-6 right-6 px-4 py-2 bg-black/60 backdrop-blur-md border border-white/10 rounded-full text-[9px] font-mono text-white/40 uppercase tracking-widest">
-                      Section_0{i+1}
-                   </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="text-center pb-20">
-               <p className="text-white/20 text-[10px] font-mono uppercase tracking-[0.5em]">--- End of Transmission ---</p>
-            </div>
+          {/* THUMBNAIL NAVIGATION */}
+          <div className="py-8 bg-black/40 border-t border-white/5">
+             <div className="flex justify-center items-center gap-4 md:gap-8 px-6 overflow-x-auto hide-scrollbar">
+                {cvPages.map((page, i) => (
+                  <button 
+                    key={i}
+                    onClick={(e) => {
+                       e.stopPropagation();
+                       document.getElementById(`cv-page-${i}`)?.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
+                    }}
+                    className="flex-shrink-0 group flex flex-col items-center gap-3"
+                  >
+                     <div className="relative w-12 md:w-16 aspect-[1/1.4] bg-white/5 rounded-lg overflow-hidden border border-white/10 group-hover:border-accent transition-all hover:scale-110 active:scale-95">
+                        <Image src={page} alt={`Thumb ${i+1}`} fill className="object-cover opacity-40 group-hover:opacity-100 transition-opacity" />
+                     </div>
+                     <span className="text-[8px] font-mono text-white/20 group-hover:text-accent tracking-widest uppercase">P_0{i+1}</span>
+                  </button>
+                ))}
+             </div>
           </div>
         </div>
       )}

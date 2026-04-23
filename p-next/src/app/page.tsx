@@ -976,7 +976,7 @@ export default function Home() {
 
              {/* ACTIONS */}
              <div className="mt-8 flex items-center gap-6 shrink-0">
-                <a href="/cv/CV YOGA.pdf" download className="flex-1 group flex items-center justify-center gap-3 py-4 bg-white text-black rounded-2xl text-[11px] font-mono font-black tracking-widest hover:bg-accent hover:text-white transition-all uppercase">
+                <a href="/cv/1.png" download className="flex-1 group flex items-center justify-center gap-3 py-4 bg-white text-black rounded-2xl text-[11px] font-mono font-black tracking-widest hover:bg-accent hover:text-white transition-all uppercase">
                    Export_to_PDF <Download size={16} className="group-hover:translate-y-1 transition-transform" />
                 </a>
                 <div className="flex gap-2">

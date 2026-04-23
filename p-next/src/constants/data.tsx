@@ -25,9 +25,9 @@ export const projects = [
 ]
 
 export const cvPages = [
-  '/cv/cv-1.png',
-  '/cv/cv-2.png',
-  '/cv/cv-3.png'
+  '/cv/1.png',
+  '/cv/2.png',
+  '/cv/3.png'
 ]
 
 export const academicHistory = [

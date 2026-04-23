@@ -57,7 +57,7 @@ export default function Home() {
 
   // CV VIEWER STATES
   const [showCVViewer, setShowCVViewer] = useState(false)
-  const cvPages = ['/cv-1.png', '/cv-2.png', '/cv-3.png', '/cv-4.png']
+  const cvPages = ['/cv/cv-1.png', '/cv/cv-2.png', '/cv/cv-3.png', '/cv/cv-4.png']
 
   // FORM STATES
   const [formData, setFormData] = useState({ name: '', email: '', message: '' })

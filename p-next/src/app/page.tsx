@@ -10,7 +10,7 @@ import NeuralBackground from '@/components/NeuralBackground'
 import DossierModal from '@/components/DossierModal'
 import EducationCard from '@/components/EducationCard'
 import CertificateCard from '@/components/CertificateCard'
-import { projects, academicHistory, certificates } from '@/constants/data'
+import { projects, academicHistory, certificates, cvPages } from '@/constants/data'
 import { 
   ArrowUpRight, Download, Award, X, Camera, Code2, 
   Cpu, Database, User, Briefcase, LayoutGrid, ShieldCheck,
@@ -57,7 +57,6 @@ export default function Home() {
 
   // CV VIEWER STATES
   const [showCVViewer, setShowCVViewer] = useState(false)
-  const cvPages = ['/cv/cv-1.png', '/cv/cv-2.png', '/cv/cv-3.png', '/cv/cv-4.png']
 
   // FORM STATES
   const [formData, setFormData] = useState({ name: '', email: '', message: '' })

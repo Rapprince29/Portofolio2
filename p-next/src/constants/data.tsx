@@ -21,6 +21,16 @@ export const projects = [
     links: [
        { label: "Repository", url: "#" }
     ]
+  },
+  {
+    title: "IMMERSIVE PORTFOLIO V2",
+    category: "PERSONAL BRANDING",
+    desc: "A luxury neo-brutalist digital experience featuring high-end motion engineering and cinematic reveals.",
+    image: "/projects/portfolio-hero.png",
+    stack: ["Next.js", "GSAP", "Tailwind", "Framer"],
+    links: [
+       { label: "Live Demo", url: "#" }
+    ]
   }
 ]
 

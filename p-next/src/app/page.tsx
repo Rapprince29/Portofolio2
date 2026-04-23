@@ -10,7 +10,7 @@ import NeuralBackground from '@/components/NeuralBackground'
 import DossierModal from '@/components/DossierModal'
 import EducationCard from '@/components/EducationCard'
 import CertificateCard from '@/components/CertificateCard'
-import { projects, academicHistory, certificates, cvPages } from '@/constants/data'
+import { projects, academicHistory, certificates,  } from '@/constants/data'
 import { 
   ArrowUpRight, Download, Award, X, Camera, Code2, 
   Cpu, Database, User, Briefcase, LayoutGrid, ShieldCheck,
@@ -20,6 +20,8 @@ import {
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger)
 }
+
+
 
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -37,6 +39,12 @@ export default function Home() {
   const [selectedCert, setSelectedCert] = useState<any>(null)
   const [showModal, setShowModal] = useState(false)
   
+  const cvURL = "/cv/CV_YOGA.pdf"
+
+  const handleResume = () => {
+    window.open(cvURL, '_blank');
+  };
+
   const handleOpenModal = (cert: any) => {
     setSelectedCert(cert)
     setShowModal(true)
@@ -54,9 +62,6 @@ export default function Home() {
     { type: 'system', text: 'Y.ANANDA OS v2.0. Type "help" to see available commands.' }
   ])
   const inputRef = useRef<HTMLInputElement>(null)
-
-  // CV VIEWER STATES
-  const [showCVViewer, setShowCVViewer] = useState(false)
 
   // FORM STATES
   const [formData, setFormData] = useState({ name: '', email: '', message: '' })
@@ -508,10 +513,11 @@ export default function Home() {
              
              {/* ACTION: CV CONTROLLER */}
              <div className="flex items-center gap-2 p-1.5 glass-panel rounded-2xl border-white/10">
-                <a 
-                   href="/cv/CV_YOGA.pdf" 
-                   target="_blank"
-                   rel="noopener noreferrer"
+                <a href="/cv/CV_YOGA.pdf"
+                   onClick={(e) => {
+                   e.preventDefault();
+                   handleResume();
+                   }}
                    className="px-6 py-3.5 bg-white/5 text-white/80 rounded-xl font-bold text-xs tracking-widest uppercase flex items-center gap-2 hover:bg-white/10 hover:text-white transition-all"
                 >
                    <Eye size={16} className="text-accent" />

@@ -57,6 +57,7 @@ export default function Home() {
 
   // CV VIEWER STATES
   const [showCVViewer, setShowCVViewer] = useState(false)
+  const [activeCVPage, setActiveCVPage] = useState(0)
 
   // FORM STATES
   const [formData, setFormData] = useState({ name: '', email: '', message: '' })
@@ -927,76 +928,112 @@ export default function Home() {
       {/* 4. CV VIEWER OVERLAY */}
       {showCVViewer && (
         <div 
-          className="fixed inset-0 z-[2000000] bg-black/98 backdrop-blur-3xl flex flex-col animate-in fade-in duration-500 overflow-hidden"
+          className="fixed inset-0 z-[2000000] bg-black/98 backdrop-blur-3xl flex flex-col md:flex-row animate-in fade-in duration-700 overflow-hidden"
           onClick={() => setShowCVViewer(false)}
         >
-          {/* HEADER */}
-          <div className="flex justify-between items-center px-6 md:px-12 py-6 bg-black/60 backdrop-blur-xl border-b border-white/5 shrink-0">
-             <div className="flex items-center gap-4">
-                <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center border border-accent/30 shadow-[0_0_20px_rgba(var(--accent-rgb),0.2)]">
-                   <Briefcase className="text-accent" size={18} />
-                </div>
+          {/* LEFT SIDE: ACTIVE PAGE VIEW */}
+          <div 
+            className="flex-1 h-full flex flex-col p-6 md:p-12 relative border-r border-white/5"
+            onClick={(e) => e.stopPropagation()}
+          >
+             {/* HEADER INFO */}
+             <div className="flex justify-between items-start mb-12 shrink-0">
                 <div>
-                   <h3 className="text-lg md:text-xl font-black text-white italic uppercase tracking-tighter">Identity_Archives</h3>
-                   <p className="text-[8px] md:text-[9px] font-mono text-white/40 uppercase tracking-[0.3em]">Status: Authorized // Ver. 2025</p>
+                   <h3 className="text-3xl font-black text-white italic uppercase tracking-tighter mb-2">Identity_Archives</h3>
+                   <div className="flex items-center gap-3">
+                      <div className="w-2 h-2 rounded-full bg-accent animate-pulse" />
+                      <p className="text-[10px] font-mono text-white/40 uppercase tracking-[0.4em]">Vault_Access: Authorised // PRT_29</p>
                 </div>
-             </div>
-             <div className="flex items-center gap-3 md:gap-4">
-                <a href="/cv/CV YOGA.pdf" download className="group flex items-center gap-3 px-6 py-2.5 bg-accent text-white rounded-full text-[10px] font-mono font-bold tracking-widest hover:bg-white hover:text-black transition-all">
-                   DOWNLOAD_PDF <Download size={14} className="group-hover:translate-y-1 transition-transform" />
-                </a>
-                <button onClick={() => setShowCVViewer(false)} className="p-2 md:p-3 bg-white/5 text-white rounded-full hover:bg-red-500/20 hover:text-red-500 transition-all border border-white/10">
+                </div>
+                <button onClick={() => setShowCVViewer(false)} className="md:hidden p-3 bg-white/5 text-white rounded-full">
                    <X size={20} />
                 </button>
              </div>
-          </div>
 
-          {/* MAIN VIEWER */}
-          <div 
-            className="flex-1 overflow-x-auto overflow-y-hidden snap-x snap-mandatory flex items-center hide-scrollbar py-4 md:py-8"
-            onClick={(e) => e.stopPropagation()}
-          >
-             <div className="flex gap-8 md:gap-20 px-[10vw] md:px-[25vw] h-full items-center">
+             {/* IMAGE CONTAINER */}
+             <div className="flex-1 relative bg-white/5 rounded-3xl overflow-hidden border border-white/10 group shadow-2xl">
                 {cvPages.map((page, i) => (
                   <div 
-                    key={i} 
-                    className="snap-center shrink-0 w-[80vw] md:w-[45vw] lg:w-[35vw] max-h-full aspect-[1/1.414] relative bg-white/5 rounded-2xl overflow-hidden border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)] group transition-all duration-700 hover:border-accent/50"
-                    id={`cv-page-${i}`}
+                    key={i}
+                    className={`absolute inset-0 transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] ${i === activeCVPage ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 translate-y-10 pointer-events-none'}`}
                   >
                      <Image 
                        src={page} 
                        alt={`CV Page ${i+1}`} 
                        fill 
-                       className="object-contain p-2 md:p-4"
-                       priority={i === 0}
+                       className="object-contain p-4 md:p-8"
+                       priority
                      />
-                     {/* INDICATOR */}
-                     <div className="absolute top-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-md border border-white/10 rounded-full text-[8px] font-mono text-accent uppercase tracking-widest">
-                        P_0{i+1}
+                     <div className="absolute bottom-10 left-10 flex items-center gap-4">
+                        <span className="text-[120px] font-black text-white/5 leading-none select-none">0{i+1}</span>
+                        <div className="px-6 py-2 bg-black/60 backdrop-blur-md border border-white/10 rounded-full">
+                           <span className="text-[10px] font-mono text-accent uppercase tracking-[0.5em]">Section_Manifest_v2</span>
+                        </div>
                      </div>
                   </div>
                 ))}
              </div>
+
+             {/* ACTIONS */}
+             <div className="mt-8 flex items-center gap-6 shrink-0">
+                <a href="/cv/CV YOGA.pdf" download className="flex-1 group flex items-center justify-center gap-3 py-4 bg-white text-black rounded-2xl text-[11px] font-mono font-black tracking-widest hover:bg-accent hover:text-white transition-all uppercase">
+                   Export_to_PDF <Download size={16} className="group-hover:translate-y-1 transition-transform" />
+                </a>
+                <div className="flex gap-2">
+                   {cvPages.map((_, i) => (
+                     <div key={i} className={`w-8 h-1 rounded-full transition-all duration-500 ${i === activeCVPage ? 'bg-accent w-16' : 'bg-white/10'}`} />
+                   ))}
+                </div>
+             </div>
           </div>
 
-          {/* FOOTER NAV */}
-          <div className="py-6 md:py-8 bg-black/60 border-t border-white/5 shrink-0">
-             <div className="flex justify-center items-center gap-4 md:gap-8 px-6">
+          {/* RIGHT SIDE: GRID MATRIX & CONTROLS */}
+          <div 
+            className="w-full md:w-[400px] lg:w-[500px] h-full bg-black/40 backdrop-blur-2xl p-8 md:p-12 flex flex-col shrink-0 overflow-y-auto hide-scrollbar"
+            onClick={(e) => e.stopPropagation()}
+          >
+             <div className="flex justify-between items-center mb-16">
+                <span className="text-[10px] font-mono text-accent tracking-[0.5em] uppercase">Document_Matrix</span>
+                <button onClick={() => setShowCVViewer(false)} className="hidden md:flex p-4 bg-white/5 text-white rounded-full hover:bg-red-500/20 hover:text-red-500 transition-all border border-white/10">
+                   <X size={20} />
+                </button>
+             </div>
+
+             <div className="grid grid-cols-1 gap-8">
                 {cvPages.map((page, i) => (
                   <button 
                     key={i}
-                    onClick={(e) => {
-                       e.stopPropagation();
-                       document.getElementById(`cv-page-${i}`)?.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
-                    }}
-                    className="group flex flex-col items-center gap-2"
+                    onClick={() => setActiveCVPage(i)}
+                    className={`group relative text-left transition-all duration-500 ${i === activeCVPage ? 'translate-x-4' : 'hover:translate-x-2'}`}
                   >
-                     <div className="relative w-10 md:w-14 aspect-[1/1.4] bg-white/5 rounded-md overflow-hidden border border-white/10 group-hover:border-accent transition-all hover:-translate-y-1">
-                        <Image src={page} alt={`Thumb ${i+1}`} fill className="object-cover opacity-30 group-hover:opacity-100 transition-opacity" />
+                     <div className="flex items-center gap-8">
+                        <div className={`relative w-24 aspect-[1/1.4] rounded-xl overflow-hidden border transition-all duration-500 ${i === activeCVPage ? 'border-accent shadow-[0_0_30px_rgba(var(--accent-rgb),0.3)]' : 'border-white/10 group-hover:border-white/30'}`}>
+                           <Image src={page} alt={`Thumb ${i+1}`} fill className={`object-cover transition-opacity duration-500 ${i === activeCVPage ? 'opacity-100' : 'opacity-30 group-hover:opacity-60'}`} />
+                        </div>
+                        <div>
+                           <span className={`block text-[10px] font-mono mb-2 tracking-widest ${i === activeCVPage ? 'text-accent' : 'text-white/20'}`}>DOCUMENT_0{i+1}</span>
+                           <h4 className={`text-xl font-black italic uppercase tracking-tighter ${i === activeCVPage ? 'text-white' : 'text-white/40 group-hover:text-white/60'}`}>
+                              {i === 0 ? 'Primary_Profile' : i === 1 ? 'Tech_Arsenal' : 'Experience_Log'}
+                           </h4>
+                        </div>
+                        {i === activeCVPage && (
+                          <div className="ml-auto w-2 h-2 rounded-full bg-accent shadow-[0_0_10px_rgba(var(--accent-rgb),0.8)]" />
+                        )}
                      </div>
-                     <div className="w-1 h-1 rounded-full bg-white/10 group-hover:bg-accent transition-colors" />
                   </button>
                 ))}
+             </div>
+
+             <div className="mt-auto pt-20">
+                <div className="p-8 rounded-3xl border border-white/5 bg-white/[0.02] space-y-4">
+                   <div className="flex items-center gap-3 text-[9px] font-mono text-white/30 tracking-widest uppercase">
+                      <ShieldCheck size={14} className="text-accent" />
+                      Encrypted_Stream
+                   </div>
+                   <p className="text-[10px] font-mono text-white/20 leading-relaxed uppercase tracking-wider">
+                      All data in this dossier is verified and secured. Metadata access limited to current session.
+                   </p>
+                </div>
              </div>
           </div>
         </div>

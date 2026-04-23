@@ -24,12 +24,6 @@ export const projects = [
   }
 ]
 
-export const cvPages = [
-  '/cv/1.png',
-  '/cv/2.png',
-  '/cv/3.png'
-]
-
 export const academicHistory = [
   {
     id: "01",

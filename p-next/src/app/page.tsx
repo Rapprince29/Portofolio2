@@ -509,7 +509,7 @@ export default function Home() {
              {/* ACTION: CV CONTROLLER */}
              <div className="flex items-center gap-2 p-1.5 glass-panel rounded-2xl border-white/10">
                 <a 
-                   href="/cv/CV YOGA.pdf" 
+                   href="/cv/CV_YOGA.pdf" 
                    target="_blank"
                    rel="noopener noreferrer"
                    className="px-6 py-3.5 bg-white/5 text-white/80 rounded-xl font-bold text-xs tracking-widest uppercase flex items-center gap-2 hover:bg-white/10 hover:text-white transition-all"
@@ -519,7 +519,7 @@ export default function Home() {
                 </a>
                 <div className="w-[1px] h-6 bg-white/10 mx-1" />
                 <a 
-                   href="/cv/CV YOGA.pdf" 
+                   href="/cv/CV_YOGA.pdf" 
                    download
                    className="px-6 py-3.5 text-white/40 rounded-xl font-bold text-xs tracking-widest uppercase flex items-center gap-2 hover:bg-accent/10 hover:text-accent transition-all"
                 >

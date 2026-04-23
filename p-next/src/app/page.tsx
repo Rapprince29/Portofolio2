@@ -927,63 +927,61 @@ export default function Home() {
       {/* 4. CV VIEWER OVERLAY */}
       {showCVViewer && (
         <div 
-          className="fixed inset-0 z-[2000000] bg-black/98 backdrop-blur-3xl flex flex-col animate-in fade-in duration-700"
+          className="fixed inset-0 z-[2000000] bg-black/98 backdrop-blur-3xl flex flex-col animate-in fade-in duration-500 overflow-hidden"
           onClick={() => setShowCVViewer(false)}
         >
           {/* HEADER */}
-          <div className="flex justify-between items-center px-6 md:px-12 py-8 bg-black/40 backdrop-blur-xl border-b border-white/5">
+          <div className="flex justify-between items-center px-6 md:px-12 py-6 bg-black/60 backdrop-blur-xl border-b border-white/5 shrink-0">
              <div className="flex items-center gap-4">
-                <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center border border-accent/30">
+                <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center border border-accent/30 shadow-[0_0_20px_rgba(var(--accent-rgb),0.2)]">
                    <Briefcase className="text-accent" size={18} />
                 </div>
                 <div>
-                   <h3 className="text-xl font-black text-white italic uppercase tracking-tighter">Identity_Archives</h3>
-                   <p className="text-[9px] font-mono text-white/40 uppercase tracking-[0.3em]">Vault_Access_Granted // Ver. 2025</p>
+                   <h3 className="text-lg md:text-xl font-black text-white italic uppercase tracking-tighter">Identity_Archives</h3>
+                   <p className="text-[8px] md:text-[9px] font-mono text-white/40 uppercase tracking-[0.3em]">Status: Authorized // Ver. 2025</p>
                 </div>
              </div>
-             <div className="flex items-center gap-4">
-                <a href="/CV_Yoga_Ananda.pdf" download className="group flex items-center gap-3 px-6 py-2.5 bg-accent text-white rounded-full text-[10px] font-mono font-bold tracking-widest hover:bg-white hover:text-black transition-all">
-                   DOWNLOAD_PDF <Download size={14} className="group-hover:translate-y-1 transition-transform" />
+             <div className="flex items-center gap-3 md:gap-4">
+                <a href="/CV_Yoga_Ananda.pdf" download className="group flex items-center gap-2 px-4 md:px-6 py-2 md:py-2.5 bg-accent text-white rounded-full text-[9px] md:text-[10px] font-mono font-bold tracking-widest hover:bg-white hover:text-black transition-all">
+                   <span className="hidden sm:inline">DOWNLOAD_PDF</span> <Download size={14} className="group-hover:translate-y-1 transition-transform" />
                 </a>
-                <button onClick={() => setShowCVViewer(false)} className="p-3 bg-white/5 text-white rounded-full hover:bg-red-500/20 hover:text-red-500 transition-all border border-white/10">
+                <button onClick={() => setShowCVViewer(false)} className="p-2 md:p-3 bg-white/5 text-white rounded-full hover:bg-red-500/20 hover:text-red-500 transition-all border border-white/10">
                    <X size={20} />
                 </button>
              </div>
           </div>
 
-          {/* MAIN VIEWER (Horizontal Scroll) */}
+          {/* MAIN VIEWER */}
           <div 
-            className="flex-1 overflow-x-auto overflow-y-hidden snap-x snap-mandatory flex items-center hide-scrollbar"
+            className="flex-1 overflow-x-auto overflow-y-hidden snap-x snap-mandatory flex items-center hide-scrollbar py-4 md:py-8"
             onClick={(e) => e.stopPropagation()}
           >
-             <div className="flex gap-12 px-[10vw] md:px-[25vw]">
+             <div className="flex gap-8 md:gap-20 px-[10vw] md:px-[25vw] h-full items-center">
                 {cvPages.map((page, i) => (
                   <div 
                     key={i} 
-                    className="snap-center flex-shrink-0 w-[80vw] md:w-[50vw] aspect-[1/1.414] relative bg-white/5 rounded-2xl overflow-hidden border border-white/10 shadow-2xl group transition-all duration-700 hover:border-accent/50"
+                    className="snap-center shrink-0 w-[80vw] md:w-[45vw] lg:w-[35vw] max-h-full aspect-[1/1.414] relative bg-white/5 rounded-2xl overflow-hidden border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)] group transition-all duration-700 hover:border-accent/50"
                     id={`cv-page-${i}`}
                   >
                      <Image 
                        src={page} 
                        alt={`CV Page ${i+1}`} 
                        fill 
-                       className="object-contain p-4 md:p-8"
+                       className="object-contain p-2 md:p-4"
                        priority={i === 0}
                      />
                      {/* INDICATOR */}
-                     <div className="absolute top-6 left-6 px-4 py-1.5 bg-black/60 backdrop-blur-md border border-white/10 rounded-full text-[9px] font-mono text-accent uppercase tracking-widest">
-                        PAGE_0{i+1}
+                     <div className="absolute top-4 left-4 px-3 py-1 bg-black/60 backdrop-blur-md border border-white/10 rounded-full text-[8px] font-mono text-accent uppercase tracking-widest">
+                        P_0{i+1}
                      </div>
-                     {/* OVERLAY ON HOVER */}
-                     <div className="absolute inset-0 bg-accent/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />
                   </div>
                 ))}
              </div>
           </div>
 
-          {/* THUMBNAIL NAVIGATION */}
-          <div className="py-8 bg-black/40 border-t border-white/5">
-             <div className="flex justify-center items-center gap-4 md:gap-8 px-6 overflow-x-auto hide-scrollbar">
+          {/* FOOTER NAV */}
+          <div className="py-6 md:py-8 bg-black/60 border-t border-white/5 shrink-0">
+             <div className="flex justify-center items-center gap-4 md:gap-8 px-6">
                 {cvPages.map((page, i) => (
                   <button 
                     key={i}
@@ -991,12 +989,12 @@ export default function Home() {
                        e.stopPropagation();
                        document.getElementById(`cv-page-${i}`)?.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
                     }}
-                    className="flex-shrink-0 group flex flex-col items-center gap-3"
+                    className="group flex flex-col items-center gap-2"
                   >
-                     <div className="relative w-12 md:w-16 aspect-[1/1.4] bg-white/5 rounded-lg overflow-hidden border border-white/10 group-hover:border-accent transition-all hover:scale-110 active:scale-95">
-                        <Image src={page} alt={`Thumb ${i+1}`} fill className="object-cover opacity-40 group-hover:opacity-100 transition-opacity" />
+                     <div className="relative w-10 md:w-14 aspect-[1/1.4] bg-white/5 rounded-md overflow-hidden border border-white/10 group-hover:border-accent transition-all hover:-translate-y-1">
+                        <Image src={page} alt={`Thumb ${i+1}`} fill className="object-cover opacity-30 group-hover:opacity-100 transition-opacity" />
                      </div>
-                     <span className="text-[8px] font-mono text-white/20 group-hover:text-accent tracking-widest uppercase">P_0{i+1}</span>
+                     <div className="w-1 h-1 rounded-full bg-white/10 group-hover:bg-accent transition-colors" />
                   </button>
                 ))}
              </div>

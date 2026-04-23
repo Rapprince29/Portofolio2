@@ -5,7 +5,7 @@ export const projects = [
     title: "VIRTUAL_REALITY DASHBOARD",
     category: "INTERACTIVE UI",
     desc: "A futuristic data management interface with real-time analytics and neural-inspired visualizations.",
-    image: "/projects/project1.png",
+    image: "/projects/moco.png",
     stack: ["React", "Three.js", "GSAP", "RTK"],
     links: [
        { label: "Github", url: "#" },
@@ -16,7 +16,7 @@ export const projects = [
     title: "E-COMM_X ARCHITECTURE",
     category: "SYSTEM DESIGN",
     desc: "High-performance modular e-commerce backbone optimized for low latency and high concurrency.",
-    image: "/projects/project2.png",
+    image: "/project2.jpg",
     stack: ["Next.js", "Prisma", "PostgreSQL", "Stripe"],
     links: [
        { label: "Repository", url: "#" }

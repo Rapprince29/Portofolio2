@@ -942,8 +942,8 @@ export default function Home() {
                 </div>
              </div>
              <div className="flex items-center gap-3 md:gap-4">
-                <a href="/CV_Yoga_Ananda.pdf" download className="group flex items-center gap-2 px-4 md:px-6 py-2 md:py-2.5 bg-accent text-white rounded-full text-[9px] md:text-[10px] font-mono font-bold tracking-widest hover:bg-white hover:text-black transition-all">
-                   <span className="hidden sm:inline">DOWNLOAD_PDF</span> <Download size={14} className="group-hover:translate-y-1 transition-transform" />
+                <a href="/cv/CV YOGA.pdf" download className="group flex items-center gap-3 px-6 py-2.5 bg-accent text-white rounded-full text-[10px] font-mono font-bold tracking-widest hover:bg-white hover:text-black transition-all">
+                   DOWNLOAD_PDF <Download size={14} className="group-hover:translate-y-1 transition-transform" />
                 </a>
                 <button onClick={() => setShowCVViewer(false)} className="p-2 md:p-3 bg-white/5 text-white rounded-full hover:bg-red-500/20 hover:text-red-500 transition-all border border-white/10">
                    <X size={20} />

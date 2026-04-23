@@ -2,24 +2,24 @@ import { User, Briefcase, Camera, Database, LayoutGrid, ShieldCheck, Cpu, Code2 
 
 export const projects = [
   {
-    title: "VIRTUAL_REALITY DASHBOARD",
-    category: "INTERACTIVE UI",
-    desc: "A futuristic data management interface with real-time analytics and neural-inspired visualizations.",
+    title: "MOCO",
+    category: "FINTECH SOLUTION",
+    desc: "Aplikasi All-in-One: Catat, Anggarkan, dan Investasikan Masa Depanmu. Solusi keuangan cerdas untuk manajemen aset pribadi dengan antarmuka yang intuitif.",
     image: "/projects/moco.png",
-    stack: ["React", "Three.js", "GSAP", "RTK"],
+    stack: ["Flutter", "Firebase", "Node.js", "MySQL"],
     links: [
-       { label: "Github", url: "#" },
-       { label: "Live Demo", url: "#" }
+       { label: "Google Play", url: "https://play.google.com/store/apps/details?id=com.moco.app" },
+       { label: "Web App", url: "https://moco-web.vercel.app" }
     ]
   },
   {
-    title: "E-COMM_X ARCHITECTURE",
-    category: "SYSTEM DESIGN",
-    desc: "High-performance modular e-commerce backbone optimized for low latency and high concurrency.",
+    title: "DASHBOARD KINERJA PENS",
+    category: "WEB SYSTEM",
+    desc: "Sistem dashboard terintegrasi untuk pemantauan kinerja kampus Politeknik Elektronika Negeri Surabaya secara real-time.",
     image: "/project2.jpg",
-    stack: ["Next.js", "Prisma", "PostgreSQL", "Stripe"],
+    stack: ["PHP", "Laravel", "Tailwind CSS", "MySQL"],
     links: [
-       { label: "Repository", url: "#" }
+       { label: "Repository", url: "https://github.com/Rapprince29/Portofolio-Dasboard-Kinerja-Kampus" }
     ]
   },
   {

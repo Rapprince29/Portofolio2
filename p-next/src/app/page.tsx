@@ -130,15 +130,19 @@ export default function Home() {
     }
     window.addEventListener('keydown', handleKeyDown)
 
-    // 0.1 SMOOTH SCROLL (LENIS)
-    const lenis = new Lenis()
-    lenisRef.current = lenis
+    // 0.1 SMOOTH SCROLL (LENIS) - Only on Desktop
+    let lenis: any;
     let rafId: number;
-    function raf(time: number) {
-      lenis.raf(time)
+    
+    if (window.innerWidth >= 1024) {
+      lenis = new Lenis()
+      lenisRef.current = lenis
+      function raf(time: number) {
+        lenis.raf(time)
+        rafId = requestAnimationFrame(raf)
+      }
       rafId = requestAnimationFrame(raf)
     }
-    rafId = requestAnimationFrame(raf)
 
     // 0.2 LOADING LOGIC
     if (isLoading) {
@@ -196,8 +200,10 @@ export default function Home() {
       }, "-=1.8")
     }
 
-    // 1. MOUSE CURSOR
+    // 1. MOUSE CURSOR (Only on Desktop)
     const moveCursor = (e: MouseEvent) => {
+      if (window.innerWidth < 1024) return
+
       gsap.to(cursorRef.current, {
         x: e.clientX,
         y: e.clientY,
@@ -220,21 +226,22 @@ export default function Home() {
       // 3. CINEMATIC REVEALS (Unified Global System)
 
       // 3. CINEMATIC REVEALS (Unified Global System)
+      const isMobile = window.innerWidth < 768
       gsap.utils.toArray<HTMLElement>('.reveal-item').forEach((item) => {
         gsap.from(item, {
-          y: 60,
-          scale: 0.95,
-          filter: "blur(10px)",
+          y: isMobile ? 30 : 60,
+          scale: isMobile ? 1 : 0.95,
+          filter: isMobile ? "none" : "blur(10px)",
           opacity: 0,
-          duration: 1.5,
+          duration: isMobile ? 0.8 : 1.5,
           ease: "expo.out",
           scrollTrigger: {
             trigger: item,
             start: "top 95%",
             toggleActions: "play none none reverse",
           onEnter: () => {
-               // AUTO-TEASE TILT (TELL USER IT'S INTERACTIVE)
-               if (item.classList.contains('tilt-card')) {
+               // AUTO-TEASE TILT (Only on Desktop)
+               if (!isMobile && item.classList.contains('tilt-card')) {
                  gsap.to(item, { 
                    rotateY: 5, 
                    rotateX: -5, 
@@ -246,7 +253,9 @@ export default function Home() {
                }
             }
           },
-          onComplete: () => gsap.set(item, { filter: "none" })
+          onComplete: () => {
+            if (!isMobile) gsap.set(item, { filter: "none" })
+          }
         })
       })
 
@@ -265,25 +274,27 @@ export default function Home() {
         })
       })
 
-      // 4. 3D TILT EFFECT FOR CARDS
-      const tiltCards = document.querySelectorAll('.tilt-card')
-      tiltCards.forEach(card => {
-        card.addEventListener('mousemove', (e: any) => {
-          const { left, top, width, height } = card.getBoundingClientRect()
-          const x = (e.clientX - (left + width / 2)) / 15
-          const y = (e.clientY - (top + height / 2)) / 15
-          gsap.to(card, {
-            rotateY: x,
-            rotateX: -y,
-            transformPerspective: 1000,
-            duration: 0.5,
-            ease: "power2.out"
+      // 4. 3D TILT EFFECT FOR CARDS (Only on Desktop)
+      if (window.innerWidth >= 1024) {
+        const tiltCards = document.querySelectorAll('.tilt-card')
+        tiltCards.forEach(card => {
+          card.addEventListener('mousemove', (e: any) => {
+            const { left, top, width, height } = card.getBoundingClientRect()
+            const x = (e.clientX - (left + width / 2)) / 15
+            const y = (e.clientY - (top + height / 2)) / 15
+            gsap.to(card, {
+              rotateY: x,
+              rotateX: -y,
+              transformPerspective: 1000,
+              duration: 0.5,
+              ease: "power2.out"
+            })
+          })
+          card.addEventListener('mouseleave', () => {
+            gsap.to(card, { rotateX: 0, rotateY: 0, duration: 1, ease: "elastic.out(1, 0.3)" })
           })
         })
-        card.addEventListener('mouseleave', () => {
-          gsap.to(card, { rotateX: 0, rotateY: 0, duration: 1, ease: "elastic.out(1, 0.3)" })
-        })
-      })
+      }
 
       // 5. IMAGE HOVER (GSAP)
       const profileImg = profileImgRef.current
@@ -316,22 +327,21 @@ export default function Home() {
          })
       }
 
-      // 5. MAGNETIC SKILLS EFFECT
-      const skills = document.querySelectorAll('.skill-tile')
-      skills.forEach(skill => {
-        skill.addEventListener('mousemove', (e: any) => {
-          const rect = skill.getBoundingClientRect()
-          const x = e.clientX - rect.left - rect.width / 2
-          const y = e.clientY - rect.top - rect.height / 2
-          gsap.to(skill, { x: x * 0.3, y: y * 0.3, duration: 0.4, ease: "power2.out" })
+      // 5. MAGNETIC SKILLS EFFECT (Only on Desktop)
+      if (window.innerWidth >= 1024) {
+        const skills = document.querySelectorAll('.skill-tile')
+        skills.forEach(skill => {
+          skill.addEventListener('mousemove', (e: any) => {
+            const rect = skill.getBoundingClientRect()
+            const x = e.clientX - rect.left - rect.width / 2
+            const y = e.clientY - rect.top - rect.height / 2
+            gsap.to(skill, { x: x * 0.3, y: y * 0.3, duration: 0.4, ease: "power2.out" })
+          })
+          skill.addEventListener('mouseleave', () => {
+            gsap.to(skill, { x: 0, y: 0, duration: 0.6, ease: "elastic.out(1, 0.3)" })
+          })
         })
-        skill.addEventListener('mouseenter', () => {
-           // const name = skill.querySelector('h4')?.textContent
-        })
-        skill.addEventListener('mouseleave', () => {
-          gsap.to(skill, { x: 0, y: 0, duration: 0.6, ease: "elastic.out(1, 0.3)" })
-        })
-      })
+      }
 
       // 6. PARALLAX PROJECTS
       gsap.utils.toArray<HTMLElement>('.project-image').forEach((img) => {
@@ -364,7 +374,7 @@ export default function Home() {
       window.removeEventListener('mousemove', moveCursor)
       window.removeEventListener('keydown', handleKeyDown)
       cancelAnimationFrame(rafId)
-      lenis.destroy()
+      if (lenis) lenis.destroy()
       ctx.revert()
     }
   }, [])
@@ -414,7 +424,7 @@ export default function Home() {
       <NeuralBackground />
       {/* DECRYPTION + SLIDE-UP LOADING SYSTEM */}
       {isLoading && (
-        <div className="loader-panel fixed inset-0 z-[100000] bg-black/60 backdrop-blur-[60px] flex flex-col items-center justify-center pointer-events-auto overflow-hidden">
+        <div className="loader-panel fixed inset-0 z-[100000] bg-black/80 backdrop-blur-xl flex flex-col items-center justify-center pointer-events-auto overflow-hidden">
           <div className="glitch-overlay fixed inset-0 bg-white pointer-events-none z-[100001] mix-blend-overlay opacity-0" />
           
           <div className="relative flex flex-col items-center gap-12">
@@ -471,8 +481,8 @@ export default function Home() {
       {/* AMBIENT BACKGROUND */}
       <div className="cursor-flashlight" />
       <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute top-[10%] left-[20%] w-[40vw] h-[40vw] bg-accent/20 rounded-full blur-[120px] animate-pulse" />
-        <div className="absolute bottom-[10%] right-[20%] w-[30vw] h-[30vw] bg-accent-secondary/10 rounded-full blur-[100px]" />
+        <div className="absolute top-[10%] left-[20%] w-[40vw] h-[40vw] bg-accent/10 rounded-full blur-[80px]" />
+        <div className="absolute bottom-[10%] right-[20%] w-[30vw] h-[30vw] bg-accent-secondary/5 rounded-full blur-[60px]" />
         <div className="absolute inset-0 swiss-grid opacity-[0.03]" />
       </div>
 

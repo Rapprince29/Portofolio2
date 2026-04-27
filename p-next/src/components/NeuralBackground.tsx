@@ -12,9 +12,9 @@ export default function NeuralBackground() {
 
     let particles: Particle[] = []
     const isMobile = window.innerWidth < 768
-    const particleCount = isMobile ? 30 : 60
-    const connectionDistance = isMobile ? 100 : 150
-    const mouse = { x: 0, y: 0 }
+    const particleCount = isMobile ? 15 : 60 // Reduced mobile particles
+    const connectionDistance = isMobile ? 80 : 150 // Shorter connections on mobile
+    const mouse = { x: -1000, y: -1000 }
 
     class Particle {
       x: number
@@ -26,9 +26,9 @@ export default function NeuralBackground() {
       constructor() {
         this.x = Math.random() * canvas!.width
         this.y = Math.random() * canvas!.height
-        this.vx = (Math.random() - 0.5) * 0.5
-        this.vy = (Math.random() - 0.5) * 0.5
-        this.size = Math.random() * 2
+        this.vx = (Math.random() - 0.5) * 0.4
+        this.vy = (Math.random() - 0.5) * 0.4
+        this.size = Math.random() * 1.5 + 0.5
       }
 
       update() {
@@ -38,13 +38,14 @@ export default function NeuralBackground() {
         if (this.x < 0 || this.x > canvas!.width) this.vx *= -1
         if (this.y < 0 || this.y > canvas!.height) this.vy *= -1
 
-        // Mouse reaction
+        // Optimized mouse reaction
         const dx = mouse.x - this.x
         const dy = mouse.y - this.y
-        const dist = Math.sqrt(dx * dx + dy * dy)
-        if (dist < 200) {
-          this.x -= dx * 0.01
-          this.y -= dy * 0.01
+        const distSq = dx * dx + dy * dy
+        if (distSq < 15000) { // Using distance squared to avoid Math.sqrt
+          const dist = Math.sqrt(distSq)
+          this.x -= (dx / dist) * 0.5
+          this.y -= (dy / dist) * 0.5
         }
       }
 
@@ -52,12 +53,13 @@ export default function NeuralBackground() {
         if (!ctx) return
         ctx.beginPath()
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2)
-        ctx.fillStyle = 'rgba(112, 0, 255, 0.4)'
+        ctx.fillStyle = 'rgba(112, 0, 255, 0.3)'
         ctx.fill()
       }
     }
 
     const init = () => {
+      if (typeof window === 'undefined') return
       canvas.width = window.innerWidth
       canvas.height = window.innerHeight
       particles = []
@@ -70,26 +72,29 @@ export default function NeuralBackground() {
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height)
       
-      particles.forEach((p, i) => {
+      const len = particles.length;
+      for (let i = 0; i < len; i++) {
+        const p = particles[i];
         p.update()
         p.draw()
 
-        for (let j = i + 1; j < particles.length; j++) {
+        for (let j = i + 1; j < len; j++) {
           const p2 = particles[j]
           const dx = p.x - p2.x
           const dy = p.y - p2.y
-          const dist = Math.sqrt(dx * dx + dy * dy)
+          const distSq = dx * dx + dy * dy
 
-          if (dist < connectionDistance) {
+          if (distSq < connectionDistance * connectionDistance) {
+            const dist = Math.sqrt(distSq)
             ctx.beginPath()
-            ctx.strokeStyle = `rgba(112, 0, 255, ${0.15 * (1 - dist / connectionDistance)})`
-            ctx.lineWidth = 0.8
+            ctx.strokeStyle = `rgba(112, 0, 255, ${0.12 * (1 - dist / connectionDistance)})`
+            ctx.lineWidth = 0.5
             ctx.moveTo(p.x, p.y)
             ctx.lineTo(p2.x, p2.y)
             ctx.stroke()
           }
         }
-      })
+      }
       rafId = requestAnimationFrame(animate)
     }
 
@@ -99,7 +104,9 @@ export default function NeuralBackground() {
     }
 
     window.addEventListener('resize', init)
-    window.addEventListener('mousemove', handleMouseMove)
+    if (!isMobile) {
+      window.addEventListener('mousemove', handleMouseMove)
+    }
     init()
     animate()
 

@@ -8,8 +8,8 @@ export const projects = [
     image: "/projects/moco.png",
     stack: ["Flutter", "Firebase", "Node.js", "MySQL"],
     links: [
-       { label: "Google Play", url: "https://play.google.com/store/apps/details?id=com.moco.app" },
-       { label: "Web App", url: "https://moco-web.vercel.app" }
+       { label: "Google Play", url: "https://play.google.com/store/apps/details?id=com.moco.moneycontrol" },
+       { label: "Web App", url: "https://moco-app.web.id/" }
     ]
   },
   {

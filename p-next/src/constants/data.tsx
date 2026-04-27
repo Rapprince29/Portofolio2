@@ -43,8 +43,8 @@ export const academicHistory = [
     degree: "Sekolah Menengah Kejuruan",
     desc: "mendalami fondasi pemrograman, sistem komputer, dan praktek industri.",
     details: [
-      { label: "leader", company: "student council (OSIS)", duration: "2022-2023" },
-      { label: "freelance", company: "graphic design & web", duration: "2022-Present" }
+      { label: "freelance", company: "graphic design & web", duration: "2022-Present" },
+      { label: "freelance", company: "parttime The Hidden Castle Coffe", duration: "2023-2024" },
     ]
   },
   {
@@ -55,7 +55,10 @@ export const academicHistory = [
     desc: "Menekuni arsitektur sistem informasi, rekayasa perangkat lunak, dan kecerdasan buatan di Politeknik Elektronika Negeri Surabaya.",
     details: [
        { label: "student", company: "PENS", duration: "Active" },
-       { label: "member", company: "SurabayaDev", duration: "2024" }
+       { label: "member", company: "SurabayaDev", duration: "2024" },
+       { label: "freelance", company: "sowan coffe", duration: "2025-2026" },
+       { label: "freelance", company: "playgo coffe", duration: "2024" },
+       { label: "freelance", company: "vlog coffe", duration: "2024" }
     ]
   }
 ]

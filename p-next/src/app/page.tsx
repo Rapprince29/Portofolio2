@@ -203,33 +203,18 @@ export default function Home() {
       }, "-=1.8")
     }
 
-    // 1. 3D WIREFRAME CURSOR LOGIC
-    let rotX = 0, rotY = 0;
-    let targetSpeedX = 1;
-    let targetSpeedY = 1;
-    let currentSpeedX = 1;
-    let currentSpeedY = 1;
-    let lastX = window.innerWidth / 2;
-    let lastY = window.innerHeight / 2;
+    // 1. CYBER-EYE OS CURSOR LOGIC
+    let rot1 = 0, rot2 = 0;
     let isHovering = false;
+    let magneticTarget: HTMLElement | null = null;
     
-    // Ticker for continuous rotation
     const tickerFunc = () => {
         if (!isHovering) {
-            currentSpeedX += (targetSpeedX - currentSpeedX) * 0.1;
-            currentSpeedY += (targetSpeedY - currentSpeedY) * 0.1;
-            rotX += currentSpeedX;
-            rotY += currentSpeedY;
+            rot1 += 2.5; // Inner ring spins clockwise
+            rot2 -= 1.5; // Outer ring spins counter-clockwise
 
-            if (cursorDotRef.current) {
-                gsap.set(cursorDotRef.current, {
-                    rotateX: rotX,
-                    rotateY: rotY
-                });
-            }
-            // Decay speed back to idle
-            targetSpeedX += (1 - targetSpeedX) * 0.05;
-            targetSpeedY += (1 - targetSpeedY) * 0.05;
+            gsap.set(".cursor-ring-1", { rotation: rot1 });
+            gsap.set(".cursor-ring-2", { rotation: rot2 });
         }
     };
     gsap.ticker.add(tickerFunc);
@@ -237,24 +222,32 @@ export default function Home() {
     const moveCursor = (e: MouseEvent) => {
       if (window.innerWidth < 1024) return
 
-      const dx = e.clientX - lastX;
-      const dy = e.clientY - lastY;
-      
-      // Increase rotation speed based on movement velocity
-      targetSpeedX = dy * 0.3 + 1;
-      targetSpeedY = dx * 0.3 + 1;
+      let cx = e.clientX;
+      let cy = e.clientY;
 
-      lastX = e.clientX;
-      lastY = e.clientY;
+      if (magneticTarget) {
+         const rect = magneticTarget.getBoundingClientRect();
+         const centerX = rect.left + rect.width / 2;
+         const centerY = rect.top + rect.height / 2;
+         cx = centerX + (e.clientX - centerX) * 0.3;
+         cy = centerY + (e.clientY - centerY) * 0.3;
+      }
 
-      // Container follows mouse smoothly
+      // Container follows mouse smoothly with spring
       gsap.to(cursorRef.current, {
-        x: e.clientX,
-        y: e.clientY,
+        x: cx,
+        y: cy,
         xPercent: -50,
         yPercent: -50,
-        duration: 0.15,
-        ease: "power2.out"
+        duration: magneticTarget ? 0.3 : 0.15,
+        ease: magneticTarget ? "back.out(1.5)" : "power2.out"
+      })
+
+      // Slight delay for the text for fluid trailing
+      gsap.to(".cursor-text", {
+        x: magneticTarget ? 20 : 0, // Push out when hovering
+        duration: 0.4,
+        ease: "power3.out"
       })
 
       // 1.1 FLASHLIGHT FOLLOW
@@ -267,38 +260,35 @@ export default function Home() {
     }
     window.addEventListener('mousemove', moveCursor)
 
-    const ctx = gsap.context(() => {
-      // 2. 3D WIREFRAME HOVER BINDINGS
-      const interactables = document.querySelectorAll('a, button, .magnetic-item, .skill-tile, .project-item');
+      // 2. CYBER-EYE HOVER BINDINGS
+      const interactables = document.querySelectorAll('a, button, .skill-tile, .project-item, .glass-panel');
       interactables.forEach(el => {
          el.addEventListener('mouseenter', () => {
             isHovering = true;
-            // Unfold/Flatten to 2D net shape
-            gsap.to(cursorDotRef.current, {
-               rotateX: 0,
-               rotateY: 0,
-               rotateZ: 45,
-               scale: 1.5,
-               duration: 0.5,
-               ease: "back.out(1.5)"
-            })
-            gsap.to(".wireframe-face", {
-               borderColor: "rgba(255, 255, 255, 0.6)",
-               duration: 0.3
-            })
+            magneticTarget = el as HTMLElement;
+            
+            // Expand ring 1 and lock, fade out ring 2
+            gsap.to(".cursor-ring-1", { scale: 1.8, borderColor: "rgba(112,0,255,0.8)", duration: 0.4, ease: "back.out(2)" });
+            gsap.to(".cursor-ring-2", { scale: 0.5, opacity: 0, duration: 0.3 });
+            
+            // Dynamic OS Text
+            let text = "[ ACCESS_LINK ]";
+            if(el.classList.contains('project-item')) text = "[ VIEW_VISION ]";
+            if(el.classList.contains('skill-tile')) text = "[ SCAN_CORE ]";
+            if(el.tagName === 'BUTTON') text = "[ EXECUTE ]";
+            
+            const textEl = document.querySelector('.cursor-text');
+            if(textEl) textEl.textContent = text;
+            
+            gsap.to(".cursor-text", { opacity: 1, duration: 0.3 });
          })
          el.addEventListener('mouseleave', () => {
             isHovering = false;
-            gsap.to(cursorDotRef.current, {
-               scale: 1,
-               rotateZ: 0,
-               duration: 0.5,
-               ease: "power2.out"
-            })
-            gsap.to(".wireframe-face", {
-               borderColor: "rgba(112, 0, 255, 0.5)",
-               duration: 0.3
-            })
+            magneticTarget = null;
+            
+            gsap.to(".cursor-ring-1", { scale: 1, borderColor: "rgba(112,0,255,0.4)", duration: 0.4 });
+            gsap.to(".cursor-ring-2", { scale: 1, opacity: 1, duration: 0.4 });
+            gsap.to(".cursor-text", { opacity: 0, duration: 0.2 });
          })
       })
 
@@ -544,30 +534,21 @@ export default function Home() {
          <div className="scroll-progress-bar h-full bg-accent origin-left w-full scale-x-0" />
       </div>
 
-      {/* 3D WIREFRAME CURSOR */}
+      {/* CYBER-EYE OS CURSOR */}
       <div 
         ref={cursorRef} 
-        className="fixed top-0 left-0 w-8 h-8 pointer-events-none z-[99999998] hidden lg:block mix-blend-difference will-change-transform"
-        style={{ perspective: "800px" }}
+        className="fixed top-0 left-0 flex items-center justify-center pointer-events-none z-[99999998] hidden lg:flex mix-blend-difference will-change-transform"
       >
-         {/* The rotating cube */}
-         <div 
-           ref={cursorDotRef} 
-           className="relative w-full h-full will-change-transform" 
-           style={{ transformStyle: 'preserve-3d' }}
-         >
-            {/* Front */}
-            <div className="wireframe-face absolute inset-0 border border-accent/50 transition-colors" style={{ transform: "translateZ(16px)" }} />
-            {/* Back */}
-            <div className="wireframe-face absolute inset-0 border border-accent/50 transition-colors" style={{ transform: "rotateY(180deg) translateZ(16px)" }} />
-            {/* Right */}
-            <div className="wireframe-face absolute inset-0 border border-accent/50 transition-colors" style={{ transform: "rotateY(90deg) translateZ(16px)" }} />
-            {/* Left */}
-            <div className="wireframe-face absolute inset-0 border border-accent/50 transition-colors" style={{ transform: "rotateY(-90deg) translateZ(16px)" }} />
-            {/* Top */}
-            <div className="wireframe-face absolute inset-0 border border-accent/50 transition-colors" style={{ transform: "rotateX(90deg) translateZ(16px)" }} />
-            {/* Bottom */}
-            <div className="wireframe-face absolute inset-0 border border-accent/50 transition-colors" style={{ transform: "rotateX(-90deg) translateZ(16px)" }} />
+         {/* Core Dot */}
+         <div ref={cursorDotRef} className="absolute w-1.5 h-1.5 bg-accent rounded-full shadow-[0_0_10px_rgba(112,0,255,1)]" />
+         
+         {/* Orbit Rings */}
+         <div className="cursor-ring-1 absolute w-8 h-8 border-[1px] border-accent/40 rounded-full border-t-transparent" />
+         <div className="cursor-ring-2 absolute w-12 h-12 border-[1px] border-white/20 rounded-full border-b-transparent border-l-transparent" />
+         
+         {/* OS Mini Terminal Text */}
+         <div className="cursor-text absolute left-8 text-[8px] font-mono tracking-[0.2em] text-accent uppercase opacity-0 whitespace-nowrap drop-shadow-[0_0_5px_rgba(112,0,255,0.8)]">
+            [ SYSTEM_READY ]
          </div>
       </div>
 

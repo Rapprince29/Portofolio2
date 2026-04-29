@@ -10,11 +10,10 @@ import NeuralBackground from '@/components/NeuralBackground'
 import DossierModal from '@/components/DossierModal'
 import EducationCard from '@/components/EducationCard'
 import CertificateCard from '@/components/CertificateCard'
-import {  projects, academicHistory, certificates ,  } from '@/constants/data'
+import { projects, academicHistory, certificates } from '@/constants/data'
 import { 
-  ArrowUpRight, Download, Award, X, Camera, Code2, 
-  Cpu, Database, User, Briefcase, LayoutGrid, ShieldCheck,
-  Globe, Mail, Music, ArrowUp, Link2, ChevronRight, Eye
+  ArrowUpRight, Download, Camera, Code2, 
+  Briefcase, Globe, Mail, Music, ChevronRight, Eye
 } from 'lucide-react'
 
 if (typeof window !== 'undefined') {
@@ -32,9 +31,7 @@ export default function Home() {
   
   const [isLoading, setIsLoading] = useState(true)
   const [progress, setProgress] = useState(0)
-  const [time, setTime] = useState('')
   
-  const [cursorIcon, setCursorIcon] = useState<string | null>(null)
   const [isMounted, setIsMounted] = useState(false)
   const [hoveredProject, setHoveredProject] = useState<number | null>(null)
   const [selectedCert, setSelectedCert] = useState<any>(null)
@@ -67,18 +64,6 @@ export default function Home() {
   // FORM STATES
   const [formData, setFormData] = useState({ name: '', email: '', message: '' })
 
-
-  const handleCursorEnter = (iconType: string, scale = 3.5) => {
-    setCursorIcon(iconType)
-    gsap.to(cursorRef.current, { scale: scale, backgroundColor: "rgba(112, 0, 255, 0.05)", borderWidth: "1px", borderColor: "rgba(112, 0, 255, 0.2)", duration: 0.5, ease: "back.out(2)" })
-    gsap.to(cursorDotRef.current, { scale: 0, opacity: 0, duration: 0.3 })
-  }
-
-  const handleCursorLeave = () => {
-    setCursorIcon(null)
-    gsap.to(cursorRef.current, { scale: 1, backgroundColor: "transparent", borderWidth: "1px", borderColor: "rgba(112, 0, 255, 0.5)", duration: 0.4, ease: "power3.out" })
-    gsap.to(cursorDotRef.current, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(2)" })
-  }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -118,9 +103,6 @@ export default function Home() {
 
   useEffect(() => {
     setIsMounted(true)
-    const interval = setInterval(() => {
-      setTime(new Date().toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' }))
-    }, 1000)
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
@@ -260,8 +242,9 @@ export default function Home() {
     }
     window.addEventListener('mousemove', moveCursor)
 
+    const ctx = gsap.context(() => {
       // 2. CYBER-EYE HOVER BINDINGS
-      const interactables = document.querySelectorAll('a, button, .skill-tile, .project-item, .glass-panel');
+      const interactables = document.querySelectorAll('a, button, .skill-tile, .project-item, .glass-panel, .cursor-pointer');
       interactables.forEach(el => {
          el.addEventListener('mouseenter', () => {
             isHovering = true;
@@ -437,7 +420,6 @@ export default function Home() {
     }, containerRef)
 
     return () => {
-      clearInterval(interval)
       window.removeEventListener('mousemove', moveCursor)
       window.removeEventListener('keydown', handleKeyDown)
       gsap.ticker.remove(tickerFunc)
@@ -888,8 +870,6 @@ export default function Home() {
                  <div className="flex flex-col gap-4">
                     <a 
                       href="mailto:yogaananda205@gmail.com" 
-                      onMouseEnter={() => handleCursorEnter('link', 2.5)}
-                      onMouseLeave={handleCursorLeave}
                       className="group relative w-fit glass-panel px-8 py-5 rounded-full flex items-center gap-4 border-accent/20 hover:border-accent transition-all duration-500 overflow-hidden"
                     >
                        <div className="absolute inset-0 bg-accent/10 opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -954,8 +934,6 @@ export default function Home() {
 
               <div 
                 onClick={() => lenisRef.current?.scrollTo(0)}
-                onMouseEnter={() => handleCursorEnter('top', 2.5)}
-                onMouseLeave={handleCursorLeave}
                 className="flex flex-col items-center text-center gap-4 cursor-pointer group"
               >
                  <div className="w-16 h-16 rounded-full glass-panel flex items-center justify-center animate-bounce group-hover:border-accent transition-all duration-500">

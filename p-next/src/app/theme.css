@@ -92,6 +92,7 @@ body::before {
   background: linear-gradient(to right, #FFFFFF 0%, rgba(255,255,255,0.7) 50%, #FFFFFF 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: shine 6s linear infinite;
 }
@@ -99,6 +100,7 @@ body::before {
 .text-gradient {
   background: linear-gradient(135deg, #FFFFFF 50%, var(--accent-secondary) 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 

@@ -26,6 +26,7 @@ if (typeof window !== 'undefined') {
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null)
   const cursorRef = useRef<HTMLDivElement>(null)
+  const cursorDotRef = useRef<HTMLDivElement>(null)
   const profileImgRef = useRef<HTMLDivElement>(null)
   const lenisRef = useRef<any>(null)
   
@@ -67,14 +68,16 @@ export default function Home() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' })
 
 
-  const handleCursorEnter = (iconType: string, scale = 3) => {
+  const handleCursorEnter = (iconType: string, scale = 3.5) => {
     setCursorIcon(iconType)
-    gsap.to(cursorRef.current, { scale: scale, backgroundColor: "rgba(112, 0, 255, 0.05)", duration: 0.4, ease: "back.out(1.7)" })
+    gsap.to(cursorRef.current, { scale: scale, backgroundColor: "rgba(112, 0, 255, 0.05)", borderWidth: "1px", borderColor: "rgba(112, 0, 255, 0.2)", duration: 0.5, ease: "back.out(2)" })
+    gsap.to(cursorDotRef.current, { scale: 0, opacity: 0, duration: 0.3 })
   }
 
   const handleCursorLeave = () => {
     setCursorIcon(null)
-    gsap.to(cursorRef.current, { scale: 1, backgroundColor: "transparent", duration: 0.3, ease: "power2.inOut" })
+    gsap.to(cursorRef.current, { scale: 1, backgroundColor: "transparent", borderWidth: "1px", borderColor: "rgba(112, 0, 255, 0.5)", duration: 0.4, ease: "power3.out" })
+    gsap.to(cursorDotRef.current, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(2)" })
   }
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -204,13 +207,24 @@ export default function Home() {
     const moveCursor = (e: MouseEvent) => {
       if (window.innerWidth < 1024) return
 
+      // Inner dot follows instantly
+      gsap.to(cursorDotRef.current, {
+        x: e.clientX,
+        y: e.clientY,
+        xPercent: -50,
+        yPercent: -50,
+        duration: 0.1,
+        ease: "power2.out"
+      })
+
+      // Outer ring follows with a smooth spring delay
       gsap.to(cursorRef.current, {
         x: e.clientX,
         y: e.clientY,
         xPercent: -50,
         yPercent: -50,
-        duration: 0.08,
-        ease: "power2.out"
+        duration: 0.8,
+        ease: "power3.out"
       })
       // 1.1 FLASHLIGHT FOLLOW
       gsap.to(".cursor-flashlight", {
@@ -466,17 +480,23 @@ export default function Home() {
          <div className="scroll-progress-bar h-full bg-accent origin-left w-full scale-x-0" />
       </div>
 
-      {/* ULTRA-LIGHT ICON CURSOR */}
+      {/* 0. OUTER TRAILING RING CURSOR */}
       <div 
-        id="custom-cursor"
+        id="custom-cursor-ring"
         ref={cursorRef} 
-        className="fixed top-0 left-0 w-6 h-6 rounded-full border border-accent pointer-events-none z-[99999999] hidden lg:flex items-center justify-center mix-blend-difference will-change-transform"
+        className="fixed top-0 left-0 w-8 h-8 rounded-full border border-accent/50 pointer-events-none z-[99999998] hidden lg:flex items-center justify-center mix-blend-difference will-change-transform"
       >
-        {cursorIcon === 'top' && <ArrowUp size={10} className="text-white animate-in zoom-in duration-300" />}
-        {cursorIcon === 'view' && <ArrowUpRight size={10} className="text-white animate-in zoom-in duration-300" />}
-        {cursorIcon === 'link' && <Link2 size={10} className="text-white animate-in zoom-in duration-300" />}
-        {!cursorIcon && <div className="w-1 h-1 bg-accent rounded-full" />}
+        {cursorIcon === 'top' && <ArrowUp size={14} className="text-white animate-in zoom-in duration-300 absolute" />}
+        {cursorIcon === 'view' && <ArrowUpRight size={14} className="text-white animate-in zoom-in duration-300 absolute" />}
+        {cursorIcon === 'link' && <Link2 size={14} className="text-white animate-in zoom-in duration-300 absolute" />}
       </div>
+      
+      {/* 1. INNER INSTANT DOT CURSOR */}
+      <div
+        id="custom-cursor-dot"
+        ref={cursorDotRef}
+        className="fixed top-0 left-0 w-1.5 h-1.5 bg-accent rounded-full pointer-events-none z-[99999999] hidden lg:flex mix-blend-difference will-change-transform shadow-[0_0_10px_rgba(112,0,255,0.8)]"
+      />
 
       {/* AMBIENT BACKGROUND */}
       <div className="cursor-flashlight" />

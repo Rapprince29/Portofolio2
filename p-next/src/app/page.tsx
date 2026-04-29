@@ -469,10 +469,10 @@ export default function Home() {
          <div className="scroll-progress-bar h-full bg-accent origin-left w-full scale-x-0" />
       </div>
 
-      {/* MINIMAL INVERTED CURSOR */}
+      {/* FROSTED GLASS WHITE CURSOR */}
       <div 
         ref={cursorRef} 
-        className="fixed top-0 left-0 w-12 h-12 bg-white rounded-full pointer-events-none z-[99999998] hidden lg:block mix-blend-difference will-change-transform"
+        className="fixed top-0 left-0 w-12 h-12 bg-white/20 backdrop-blur-md border border-white/40 shadow-[0_4px_30px_rgba(255,255,255,0.1)] rounded-full pointer-events-none z-[99999998] hidden lg:block will-change-transform"
       />
 
       {/* AMBIENT BACKGROUND */}

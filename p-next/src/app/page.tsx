@@ -10,7 +10,7 @@ import NeuralBackground from '@/components/NeuralBackground'
 import DossierModal from '@/components/DossierModal'
 import EducationCard from '@/components/EducationCard'
 import CertificateCard from '@/components/CertificateCard'
-import { projects, academicHistory, certificates,  } from '@/constants/data'
+import {  projects, academicHistory, certificates ,  } from '@/constants/data'
 import { 
   ArrowUpRight, Download, Award, X, Camera, Code2, 
   Cpu, Database, User, Briefcase, LayoutGrid, ShieldCheck,

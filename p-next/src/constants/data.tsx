@@ -21,6 +21,16 @@ export const projects = [
     links: [
        { label: "Repository", url: "https://github.com/Rapprince29/Portofolio-Dasboard-Kinerja-Kampus" }
     ]
+  },
+  {
+    title: "KEDAI CORE",
+    category: "DIGITAL MENU",
+    desc: "Aplikasi menu digital eksklusif dengan tema editorial hangat, animasi interaktif, dan antarmuka pengguna yang elegan untuk pengalaman pemesanan premium.",
+    image: "/projects/kedai.png",
+    stack: ["Next.js", "Tailwind CSS", "GSAP", "TypeScript"],
+    links: [
+       { label: "Live Demo", url: "https://kedai-core.vercel.app/" }
+    ]
   }
 ]
 

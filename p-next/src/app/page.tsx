@@ -215,7 +215,7 @@ export default function Home() {
       interactables.forEach(el => {
          el.addEventListener('mouseenter', () => {
             gsap.to(cursorRef.current, { 
-               scale: 3.5, 
+               scale: 2.5, 
                duration: 0.4, 
                ease: "back.out(2)" 
             });
@@ -472,7 +472,7 @@ export default function Home() {
       {/* MINIMAL INVERTED CURSOR */}
       <div 
         ref={cursorRef} 
-        className="fixed top-0 left-0 w-8 h-8 bg-white rounded-full pointer-events-none z-[99999998] hidden lg:block mix-blend-difference will-change-transform"
+        className="fixed top-0 left-0 w-12 h-12 bg-white rounded-full pointer-events-none z-[99999998] hidden lg:block mix-blend-difference will-change-transform"
       />
 
       {/* AMBIENT BACKGROUND */}
@@ -485,8 +485,8 @@ export default function Home() {
 
       {/* 1. HERO SECTION */}
       <section className="relative h-screen flex flex-col items-center justify-center px-6 md:px-12 text-center">
-        <div className="hero-orb absolute w-[600px] h-[600px] border border-white/[0.03] rounded-full flex items-center justify-center">
-          <div className="w-[400px] h-[400px] border border-white/[0.05] rounded-full" />
+        <div className="hero-orb absolute w-[clamp(300px,50vw,600px)] h-[clamp(300px,50vw,600px)] border border-white/[0.03] rounded-full flex items-center justify-center">
+          <div className="w-[clamp(200px,35vw,400px)] h-[clamp(200px,35vw,400px)] border border-white/[0.05] rounded-full" />
           <div className="absolute inset-0 bg-aurora opacity-10" />
         </div>
 
@@ -551,8 +551,8 @@ export default function Home() {
       </section>
 
       {/* 1.5 ABOUT / PROFILE SECTION */}
-      <section id="about" className="relative py-40 px-6 md:px-12">
-         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+      <section id="about" className="relative py-24 md:py-32 lg:py-40 px-6 md:px-12">
+         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
             <div ref={profileImgRef} className="reveal-item relative group cursor-pointer">
                <div className="absolute -inset-4 bg-accent/20 blur-[100px] rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
                <div className="relative glass-panel rounded-[2.5rem] p-4 overflow-hidden shadow-2xl">
@@ -577,7 +577,7 @@ export default function Home() {
             <div className="space-y-12">
                <div className="reveal-item space-y-4">
                   <span className="text-xs font-mono text-accent uppercase tracking-widest">[ identity ]</span>
-                  <h2 className="text-5xl md:text-7xl font-black text-white tracking-tighter uppercase italic">
+                  <h2 className="text-5xl md:text-6xl lg:text-7xl font-black text-white tracking-tighter uppercase italic">
                      digital <br />
                      <span className="text-gradient not-italic">craftsman.</span>
                   </h2>
@@ -609,10 +609,10 @@ export default function Home() {
       </section>
 
       {/* 1.7 TECH STACK BENTO GRID */}
-      <section id="skills" className="relative py-40 px-6 md:px-12 bg-background/30">
+      <section id="skills" className="relative py-24 md:py-32 lg:py-40 px-6 md:px-12 bg-background/30">
         <div className="max-w-7xl mx-auto space-y-20">
            <div className="reveal-item flex flex-col md:flex-row justify-between items-end gap-8">
-              <h2 className="text-5xl md:text-8xl font-black text-white tracking-tighter uppercase italic">
+              <h2 className="text-5xl lg:text-7xl xl:text-8xl font-black text-white tracking-tighter uppercase italic">
                  tech <br />
                  <span className="text-gradient not-italic">arsenal.</span>
               </h2>
@@ -685,10 +685,10 @@ export default function Home() {
        </div>
 
       {/* 2. FEATURED PROJECTS */}
-      <section id="projects" className="relative py-40 px-6 md:px-12 bg-background/50 backdrop-blur-3xl border-y border-white/[0.05]">
+      <section id="projects" className="relative py-24 md:py-32 lg:py-40 px-6 md:px-12 bg-background/50 backdrop-blur-3xl border-y border-white/[0.05]">
         <div className="max-w-7xl mx-auto">
-          <div className="reveal-item flex flex-col md:flex-row justify-between items-end mb-32 gap-10">
-            <h2 className="text-6xl md:text-[8rem] font-black tracking-tighter text-white uppercase italic">
+          <div className="reveal-item flex flex-col md:flex-row justify-between items-end mb-16 lg:mb-32 gap-10">
+            <h2 className="text-5xl lg:text-7xl xl:text-[8rem] font-black tracking-tighter text-white uppercase italic">
               selected <br />
               <span className="text-gradient not-italic">visions.</span>
             </h2>
@@ -754,11 +754,11 @@ export default function Home() {
       </section>
 
       {/* 2.5 ACADEMIC HISTORY SECTION (INTERACTIVE) */}
-      <section id="education" className="relative py-40 px-6 md:px-12 bg-background">
-         <div className="max-w-7xl mx-auto space-y-32">
+      <section id="education" className="relative py-24 md:py-32 lg:py-40 px-6 md:px-12 bg-background">
+         <div className="max-w-7xl mx-auto space-y-16 lg:space-y-32">
             <div className="reveal-item text-center space-y-6">
                <span className="text-xs font-mono text-accent uppercase tracking-[0.5em]">[ academic & track ]</span>
-               <h2 className="text-5xl md:text-[8rem] font-black text-white tracking-tighter uppercase leading-none">the <span className="text-gradient">foundation.</span></h2>
+               <h2 className="text-5xl lg:text-7xl xl:text-[8rem] font-black text-white tracking-tighter uppercase leading-none">the <span className="text-gradient">foundation.</span></h2>
                <p className="text-white/20 font-mono text-[10px] uppercase tracking-widest animate-pulse">klik untuk memperluas riwayat_</p>
             </div>
 
@@ -773,12 +773,12 @@ export default function Home() {
       </section>
 
       {/* 2.7 DISTINGUISHED CREDENTIALS (CERTIFICATES) */}
-      <section id="certificates" className="relative py-40 px-6 md:px-12 bg-background/80">
-         <div className="max-w-7xl mx-auto space-y-32">
+      <section id="certificates" className="relative py-24 md:py-32 lg:py-40 px-6 md:px-12 bg-background/80">
+         <div className="max-w-7xl mx-auto space-y-16 lg:space-y-32">
             <div className="reveal-item flex flex-col md:flex-row justify-between items-end gap-10">
                <div className="space-y-6">
                   <span className="text-xs font-mono text-accent uppercase tracking-[0.5em]">[ validation ]</span>
-                  <h2 className="text-5xl md:text-[8rem] font-black text-white tracking-tighter uppercase leading-none italic">
+                  <h2 className="text-5xl lg:text-7xl xl:text-[8rem] font-black text-white tracking-tighter uppercase leading-none italic">
                      distinguished <br />
                      <span className="text-gradient not-italic">credentials.</span>
                   </h2>
@@ -797,11 +797,11 @@ export default function Home() {
       </section>
 
       {/* 3. CONTACT / FOOTER */}
-      <footer id="contact" className="relative py-40 px-6 md:px-12 bg-background border-t border-white/[0.05]">
+      <footer id="contact" className="relative py-24 md:py-32 lg:py-40 px-6 md:px-12 bg-background border-t border-white/[0.05]">
         <div className="max-w-7xl mx-auto">
-           <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 mb-32">
+           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 mb-16 lg:mb-32">
               <div className="reveal-item space-y-12">
-                 <h2 className="text-6xl md:text-[8rem] font-black tracking-tighter text-white uppercase italic leading-[0.85] text-gradient">
+                 <h2 className="text-5xl lg:text-7xl xl:text-[8rem] font-black tracking-tighter text-white uppercase italic leading-[0.85] text-gradient">
                     Let&apos;s Build <br />The Future.
                  </h2>
                  <p className="text-xl text-white/40 font-light max-w-md">

@@ -26,7 +26,7 @@ export const projects = [
     title: "KEDAI CORE",
     category: "DIGITAL MENU",
     desc: "Aplikasi menu digital eksklusif dengan tema editorial hangat, animasi interaktif, dan antarmuka pengguna yang elegan untuk pengalaman pemesanan premium.",
-    image: "/projects/kedai.png",
+    image: "/projects/Kedai_Core.png",
     stack: ["Next.js", "Tailwind CSS", "GSAP", "TypeScript"],
     links: [
        { label: "Live Demo", url: "https://kedai-core.vercel.app/" }

@@ -16,10 +16,10 @@ export const projects = [
     title: "DASHBOARD KINERJA PENS",
     category: "WEB SYSTEM",
     desc: "Sistem dashboard terintegrasi untuk pemantauan kinerja kampus Politeknik Elektronika Negeri Surabaya secara real-time.",
-    image: "/project2.jpg",
+    image: "/projects/DasboardKinerjaPens.png",
     stack: ["PHP", "Laravel", "Tailwind CSS", "MySQL"],
     links: [
-       { label: "Repository", url: "https://github.com/Rapprince29/Portofolio-Dasboard-Kinerja-Kampus" }
+       { label: "Live Demo", url: "https://portofolio-dasboard-kinerja-kampus.vercel.app/login" }
     ]
   },
   {

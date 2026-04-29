@@ -203,43 +203,60 @@ export default function Home() {
       }, "-=1.8")
     }
 
-    // 1. MOUSE CURSOR (Only on Desktop)
-    let magneticTarget: HTMLElement | null = null;
+    // 1. 3D WIREFRAME CURSOR LOGIC
+    let rotX = 0, rotY = 0;
+    let targetSpeedX = 1;
+    let targetSpeedY = 1;
+    let currentSpeedX = 1;
+    let currentSpeedY = 1;
+    let lastX = window.innerWidth / 2;
+    let lastY = window.innerHeight / 2;
+    let isHovering = false;
     
+    // Ticker for continuous rotation
+    const tickerFunc = () => {
+        if (!isHovering) {
+            currentSpeedX += (targetSpeedX - currentSpeedX) * 0.1;
+            currentSpeedY += (targetSpeedY - currentSpeedY) * 0.1;
+            rotX += currentSpeedX;
+            rotY += currentSpeedY;
+
+            if (cursorDotRef.current) {
+                gsap.set(cursorDotRef.current, {
+                    rotateX: rotX,
+                    rotateY: rotY
+                });
+            }
+            // Decay speed back to idle
+            targetSpeedX += (1 - targetSpeedX) * 0.05;
+            targetSpeedY += (1 - targetSpeedY) * 0.05;
+        }
+    };
+    gsap.ticker.add(tickerFunc);
+
     const moveCursor = (e: MouseEvent) => {
       if (window.innerWidth < 1024) return
 
-      let cx = e.clientX;
-      let cy = e.clientY;
+      const dx = e.clientX - lastX;
+      const dy = e.clientY - lastY;
+      
+      // Increase rotation speed based on movement velocity
+      targetSpeedX = dy * 0.3 + 1;
+      targetSpeedY = dx * 0.3 + 1;
 
-      if (magneticTarget) {
-         const rect = magneticTarget.getBoundingClientRect();
-         const centerX = rect.left + rect.width / 2;
-         const centerY = rect.top + rect.height / 2;
-         // Magnetic snap (pulls cursor toward the center of the button)
-         cx = centerX + (e.clientX - centerX) * 0.2;
-         cy = centerY + (e.clientY - centerY) * 0.2;
-      }
+      lastX = e.clientX;
+      lastY = e.clientY;
 
-      // Inner dot follows instantly
-      gsap.to(cursorDotRef.current, {
-        x: cx,
-        y: cy,
+      // Container follows mouse smoothly
+      gsap.to(cursorRef.current, {
+        x: e.clientX,
+        y: e.clientY,
         xPercent: -50,
         yPercent: -50,
-        duration: magneticTarget ? 0.2 : 0.1,
+        duration: 0.15,
         ease: "power2.out"
       })
 
-      // Outer ring follows with a smooth spring delay
-      gsap.to(cursorRef.current, {
-        x: cx,
-        y: cy,
-        xPercent: -50,
-        yPercent: -50,
-        duration: magneticTarget ? 0.4 : 0.8,
-        ease: magneticTarget ? "back.out(2)" : "power3.out"
-      })
       // 1.1 FLASHLIGHT FOLLOW
       gsap.to(".cursor-flashlight", {
         x: e.clientX,
@@ -251,28 +268,37 @@ export default function Home() {
     window.addEventListener('mousemove', moveCursor)
 
     const ctx = gsap.context(() => {
-      // 2. MAGNETIC HOVER BINDINGS
-      const interactables = document.querySelectorAll('a, button, .magnetic-item, .skill-tile');
+      // 2. 3D WIREFRAME HOVER BINDINGS
+      const interactables = document.querySelectorAll('a, button, .magnetic-item, .skill-tile, .project-item');
       interactables.forEach(el => {
          el.addEventListener('mouseenter', () => {
-            magneticTarget = el as HTMLElement;
-            gsap.to(cursorRef.current, {
+            isHovering = true;
+            // Unfold/Flatten to 2D net shape
+            gsap.to(cursorDotRef.current, {
+               rotateX: 0,
+               rotateY: 0,
+               rotateZ: 45,
                scale: 1.5,
-               backgroundColor: "rgba(112, 0, 255, 0.05)",
-               borderColor: "rgba(112, 0, 255, 0.4)",
+               duration: 0.5,
+               ease: "back.out(1.5)"
+            })
+            gsap.to(".wireframe-face", {
+               borderColor: "rgba(255, 255, 255, 0.6)",
                duration: 0.3
             })
-            gsap.to(cursorDotRef.current, { scale: 0, duration: 0.2 })
          })
          el.addEventListener('mouseleave', () => {
-            magneticTarget = null;
-            gsap.to(cursorRef.current, {
+            isHovering = false;
+            gsap.to(cursorDotRef.current, {
                scale: 1,
-               backgroundColor: "transparent",
+               rotateZ: 0,
+               duration: 0.5,
+               ease: "power2.out"
+            })
+            gsap.to(".wireframe-face", {
                borderColor: "rgba(112, 0, 255, 0.5)",
                duration: 0.3
             })
-            gsap.to(cursorDotRef.current, { scale: 1, duration: 0.2 })
          })
       })
 
@@ -424,6 +450,7 @@ export default function Home() {
       clearInterval(interval)
       window.removeEventListener('mousemove', moveCursor)
       window.removeEventListener('keydown', handleKeyDown)
+      gsap.ticker.remove(tickerFunc)
       cancelAnimationFrame(rafId)
       if (lenis) lenis.destroy()
       ctx.revert()
@@ -517,23 +544,32 @@ export default function Home() {
          <div className="scroll-progress-bar h-full bg-accent origin-left w-full scale-x-0" />
       </div>
 
-      {/* 0. OUTER TRAILING RING CURSOR */}
+      {/* 3D WIREFRAME CURSOR */}
       <div 
-        id="custom-cursor-ring"
         ref={cursorRef} 
-        className="fixed top-0 left-0 w-8 h-8 rounded-full border border-accent/50 pointer-events-none z-[99999998] hidden lg:flex items-center justify-center mix-blend-difference will-change-transform"
+        className="fixed top-0 left-0 w-8 h-8 pointer-events-none z-[99999998] hidden lg:block mix-blend-difference will-change-transform"
+        style={{ perspective: "800px" }}
       >
-        {cursorIcon === 'top' && <ArrowUp size={14} className="text-white animate-in zoom-in duration-300 absolute" />}
-        {cursorIcon === 'view' && <ArrowUpRight size={14} className="text-white animate-in zoom-in duration-300 absolute" />}
-        {cursorIcon === 'link' && <Link2 size={14} className="text-white animate-in zoom-in duration-300 absolute" />}
+         {/* The rotating cube */}
+         <div 
+           ref={cursorDotRef} 
+           className="relative w-full h-full will-change-transform" 
+           style={{ transformStyle: 'preserve-3d' }}
+         >
+            {/* Front */}
+            <div className="wireframe-face absolute inset-0 border border-accent/50 transition-colors" style={{ transform: "translateZ(16px)" }} />
+            {/* Back */}
+            <div className="wireframe-face absolute inset-0 border border-accent/50 transition-colors" style={{ transform: "rotateY(180deg) translateZ(16px)" }} />
+            {/* Right */}
+            <div className="wireframe-face absolute inset-0 border border-accent/50 transition-colors" style={{ transform: "rotateY(90deg) translateZ(16px)" }} />
+            {/* Left */}
+            <div className="wireframe-face absolute inset-0 border border-accent/50 transition-colors" style={{ transform: "rotateY(-90deg) translateZ(16px)" }} />
+            {/* Top */}
+            <div className="wireframe-face absolute inset-0 border border-accent/50 transition-colors" style={{ transform: "rotateX(90deg) translateZ(16px)" }} />
+            {/* Bottom */}
+            <div className="wireframe-face absolute inset-0 border border-accent/50 transition-colors" style={{ transform: "rotateX(-90deg) translateZ(16px)" }} />
+         </div>
       </div>
-      
-      {/* 1. INNER INSTANT DOT CURSOR */}
-      <div
-        id="custom-cursor-dot"
-        ref={cursorDotRef}
-        className="fixed top-0 left-0 w-1.5 h-1.5 bg-accent rounded-full pointer-events-none z-[99999999] hidden lg:flex mix-blend-difference will-change-transform shadow-[0_0_10px_rgba(112,0,255,0.8)]"
-      />
 
       {/* AMBIENT BACKGROUND */}
       <div className="cursor-flashlight" />

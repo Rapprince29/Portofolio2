@@ -89,7 +89,7 @@ body::before {
 }
 
 .hero-gradient {
-  background: linear-gradient(to right, #FFFFFF 0%, rgba(255,255,255,0.7) 50%, #FFFFFF 100%);
+  background: linear-gradient(to right, var(--foreground) 0%, color-mix(in srgb, var(--foreground) 70%, transparent) 50%, var(--foreground) 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
@@ -98,7 +98,7 @@ body::before {
 }
 
 .text-gradient {
-  background: linear-gradient(135deg, #FFFFFF 50%, var(--accent-secondary) 100%);
+  background: linear-gradient(135deg, var(--foreground) 50%, var(--accent-secondary) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;

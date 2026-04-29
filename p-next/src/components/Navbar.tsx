@@ -1,6 +1,6 @@
 'use client'
 import { useState, useEffect, useRef } from 'react'
-import { Menu, X, ArrowRight, Circle } from 'lucide-react'
+import { Menu, X, ArrowRight, Circle, Sun, Moon } from 'lucide-react'
 import gsap from 'gsap'
 
 import Image from 'next/image'
@@ -17,8 +17,17 @@ export default function Navbar() {
   const [isCollapsed, setIsCollapsed] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
   const [time, setTime] = useState('')
+  const [theme, setTheme] = useState('dark')
   const lastScrollY = useRef(0)
   const navRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (theme === 'light') {
+      document.documentElement.classList.add('light')
+    } else {
+      document.documentElement.classList.remove('light')
+    }
+  }, [theme])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -77,9 +86,24 @@ export default function Navbar() {
                  ))}
                </div>
 
-               <a href="#contact" className="hidden md:flex items-center gap-3 bg-white text-black px-6 py-2 rounded-full text-[10px] font-mono font-bold tracking-widest hover:bg-accent hover:text-white transition-all whitespace-nowrap">
-                 AYO BICARA <ArrowRight size={14} />
-               </a>
+               <div className="hidden md:flex items-center gap-4 ml-auto">
+                 <button 
+                   onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                   className="relative w-[72px] h-9 glass-panel rounded-full flex items-center p-1 cursor-none transition-all duration-500 border-white/20 hover:border-accent overflow-hidden"
+                 >
+                    <div className="absolute inset-0 flex justify-between items-center px-2.5 opacity-50 pointer-events-none">
+                       <Moon size={14} className="text-white" />
+                       <Sun size={14} className="text-white" />
+                    </div>
+                    <div className={`relative w-7 h-7 rounded-full flex items-center justify-center transition-transform duration-500 z-10 ${theme === 'light' ? 'translate-x-9 bg-black' : 'translate-x-0 bg-white'}`}>
+                       {theme === 'dark' ? <Moon size={14} className="text-black" /> : <Sun size={14} className="text-white" />}
+                    </div>
+                 </button>
+
+                 <a href="#contact" className="flex items-center gap-3 bg-white text-black px-6 py-2 rounded-full text-[10px] font-mono font-bold tracking-widest hover:bg-accent hover:text-white transition-all whitespace-nowrap">
+                   AYO BICARA <ArrowRight size={14} />
+                 </a>
+               </div>
 
                <button className="md:hidden text-white ml-auto" onClick={() => setIsOpen(true)}>
                  <Menu size={20} />

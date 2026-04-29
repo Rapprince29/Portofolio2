@@ -13,8 +13,7 @@ import CertificateCard from '@/components/CertificateCard'
 import { projects, academicHistory, certificates } from '@/constants/data'
 import { 
   ArrowUpRight, Download, Camera, Code2, 
-  Briefcase, Globe, Mail, Music, ChevronRight, Eye,
-  Sun, Moon
+  Briefcase, Globe, Mail, Music, ChevronRight, Eye
 } from 'lucide-react'
 
 if (typeof window !== 'undefined') {
@@ -34,18 +33,9 @@ export default function Home() {
   const [progress, setProgress] = useState(0)
   
   const [isMounted, setIsMounted] = useState(false)
-  const [theme, setTheme] = useState('dark')
   const [hoveredProject, setHoveredProject] = useState<number | null>(null)
   const [selectedCert, setSelectedCert] = useState<any>(null)
   const [showModal, setShowModal] = useState(false)
-
-  useEffect(() => {
-    if (theme === 'light') {
-      document.documentElement.classList.add('light')
-    } else {
-      document.documentElement.classList.remove('light')
-    }
-  }, [theme])
   
   const cvURL = "/cv/CV_YOGA.pdf"
 
@@ -484,22 +474,6 @@ export default function Home() {
         ref={cursorRef} 
         className="fixed top-0 left-0 w-12 h-12 bg-[#fff] rounded-full pointer-events-none z-[99999998] hidden lg:block mix-blend-difference will-change-transform"
       />
-
-      {/* THEME TOGGLE BUTTON */}
-      <button 
-        onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-        onMouseEnter={() => gsap.to(cursorRef.current, { scale: 2.5, duration: 0.4, ease: "back.out(2)" })}
-        onMouseLeave={() => gsap.to(cursorRef.current, { scale: 1, duration: 0.4, ease: "power2.out" })}
-        className="fixed bottom-8 right-8 md:bottom-12 md:right-12 z-[1000] w-[72px] h-9 glass-panel rounded-full flex items-center p-1 cursor-pointer transition-all duration-500 border-white/20 hover:border-accent shadow-[0_0_20px_rgba(0,0,0,0.5)] overflow-hidden"
-      >
-         <div className="absolute inset-0 flex justify-between items-center px-2.5 opacity-50 pointer-events-none">
-            <Moon size={14} className="text-white" />
-            <Sun size={14} className="text-white" />
-         </div>
-         <div className={`relative w-7 h-7 rounded-full flex items-center justify-center transition-transform duration-500 z-10 ${theme === 'light' ? 'translate-x-9 bg-black' : 'translate-x-0 bg-white'}`}>
-            {theme === 'dark' ? <Moon size={14} className="text-black" /> : <Sun size={14} className="text-white" />}
-         </div>
-      </button>
 
       {/* AMBIENT BACKGROUND */}
       <div className="cursor-flashlight" />

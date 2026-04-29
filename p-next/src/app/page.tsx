@@ -204,27 +204,41 @@ export default function Home() {
     }
 
     // 1. MOUSE CURSOR (Only on Desktop)
+    let magneticTarget: HTMLElement | null = null;
+    
     const moveCursor = (e: MouseEvent) => {
       if (window.innerWidth < 1024) return
 
+      let cx = e.clientX;
+      let cy = e.clientY;
+
+      if (magneticTarget) {
+         const rect = magneticTarget.getBoundingClientRect();
+         const centerX = rect.left + rect.width / 2;
+         const centerY = rect.top + rect.height / 2;
+         // Magnetic snap (pulls cursor toward the center of the button)
+         cx = centerX + (e.clientX - centerX) * 0.2;
+         cy = centerY + (e.clientY - centerY) * 0.2;
+      }
+
       // Inner dot follows instantly
       gsap.to(cursorDotRef.current, {
-        x: e.clientX,
-        y: e.clientY,
+        x: cx,
+        y: cy,
         xPercent: -50,
         yPercent: -50,
-        duration: 0.1,
+        duration: magneticTarget ? 0.2 : 0.1,
         ease: "power2.out"
       })
 
       // Outer ring follows with a smooth spring delay
       gsap.to(cursorRef.current, {
-        x: e.clientX,
-        y: e.clientY,
+        x: cx,
+        y: cy,
         xPercent: -50,
         yPercent: -50,
-        duration: 0.8,
-        ease: "power3.out"
+        duration: magneticTarget ? 0.4 : 0.8,
+        ease: magneticTarget ? "back.out(2)" : "power3.out"
       })
       // 1.1 FLASHLIGHT FOLLOW
       gsap.to(".cursor-flashlight", {
@@ -237,7 +251,30 @@ export default function Home() {
     window.addEventListener('mousemove', moveCursor)
 
     const ctx = gsap.context(() => {
-      // 3. CINEMATIC REVEALS (Unified Global System)
+      // 2. MAGNETIC HOVER BINDINGS
+      const interactables = document.querySelectorAll('a, button, .magnetic-item, .skill-tile');
+      interactables.forEach(el => {
+         el.addEventListener('mouseenter', () => {
+            magneticTarget = el as HTMLElement;
+            gsap.to(cursorRef.current, {
+               scale: 1.5,
+               backgroundColor: "rgba(112, 0, 255, 0.05)",
+               borderColor: "rgba(112, 0, 255, 0.4)",
+               duration: 0.3
+            })
+            gsap.to(cursorDotRef.current, { scale: 0, duration: 0.2 })
+         })
+         el.addEventListener('mouseleave', () => {
+            magneticTarget = null;
+            gsap.to(cursorRef.current, {
+               scale: 1,
+               backgroundColor: "transparent",
+               borderColor: "rgba(112, 0, 255, 0.5)",
+               duration: 0.3
+            })
+            gsap.to(cursorDotRef.current, { scale: 1, duration: 0.2 })
+         })
+      })
 
       // 3. CINEMATIC REVEALS (Unified Global System)
       const isMobile = window.innerWidth < 768

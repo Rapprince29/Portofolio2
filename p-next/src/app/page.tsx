@@ -185,51 +185,18 @@ export default function Home() {
       }, "-=1.8")
     }
 
-    // 1. CYBER-EYE OS CURSOR LOGIC
-    let rot1 = 0, rot2 = 0;
-    let isHovering = false;
-    let magneticTarget: HTMLElement | null = null;
-    
-    const tickerFunc = () => {
-        if (!isHovering) {
-            rot1 += 2.5; // Inner ring spins clockwise
-            rot2 -= 1.5; // Outer ring spins counter-clockwise
-
-            gsap.set(".cursor-ring-1", { rotation: rot1 });
-            gsap.set(".cursor-ring-2", { rotation: rot2 });
-        }
-    };
-    gsap.ticker.add(tickerFunc);
-
+    // 1. MINIMAL INVERTED CURSOR LOGIC
     const moveCursor = (e: MouseEvent) => {
       if (window.innerWidth < 1024) return
 
-      let cx = e.clientX;
-      let cy = e.clientY;
-
-      if (magneticTarget) {
-         const rect = magneticTarget.getBoundingClientRect();
-         const centerX = rect.left + rect.width / 2;
-         const centerY = rect.top + rect.height / 2;
-         cx = centerX + (e.clientX - centerX) * 0.3;
-         cy = centerY + (e.clientY - centerY) * 0.3;
-      }
-
-      // Container follows mouse smoothly with spring
+      // Circle follows mouse smoothly
       gsap.to(cursorRef.current, {
-        x: cx,
-        y: cy,
+        x: e.clientX,
+        y: e.clientY,
         xPercent: -50,
         yPercent: -50,
-        duration: magneticTarget ? 0.3 : 0.15,
-        ease: magneticTarget ? "back.out(1.5)" : "power2.out"
-      })
-
-      // Slight delay for the text for fluid trailing
-      gsap.to(".cursor-text", {
-        x: magneticTarget ? 20 : 0, // Push out when hovering
-        duration: 0.4,
-        ease: "power3.out"
+        duration: 0.15,
+        ease: "power2.out"
       })
 
       // 1.1 FLASHLIGHT FOLLOW
@@ -243,35 +210,22 @@ export default function Home() {
     window.addEventListener('mousemove', moveCursor)
 
     const ctx = gsap.context(() => {
-      // 2. CYBER-EYE HOVER BINDINGS
+      // 2. INVERTED CURSOR HOVER BINDINGS
       const interactables = document.querySelectorAll('a, button, .skill-tile, .project-item, .glass-panel, .cursor-pointer');
       interactables.forEach(el => {
          el.addEventListener('mouseenter', () => {
-            isHovering = true;
-            magneticTarget = el as HTMLElement;
-            
-            // Expand ring 1 and lock, fade out ring 2
-            gsap.to(".cursor-ring-1", { scale: 1.8, borderColor: "rgba(112,0,255,0.8)", duration: 0.4, ease: "back.out(2)" });
-            gsap.to(".cursor-ring-2", { scale: 0.5, opacity: 0, duration: 0.3 });
-            
-            // Dynamic OS Text
-            let text = "[ ACCESS_LINK ]";
-            if(el.classList.contains('project-item')) text = "[ VIEW_VISION ]";
-            if(el.classList.contains('skill-tile')) text = "[ SCAN_CORE ]";
-            if(el.tagName === 'BUTTON') text = "[ EXECUTE ]";
-            
-            const textEl = document.querySelector('.cursor-text');
-            if(textEl) textEl.textContent = text;
-            
-            gsap.to(".cursor-text", { opacity: 1, duration: 0.3 });
+            gsap.to(cursorRef.current, { 
+               scale: 3.5, 
+               duration: 0.4, 
+               ease: "back.out(2)" 
+            });
          })
          el.addEventListener('mouseleave', () => {
-            isHovering = false;
-            magneticTarget = null;
-            
-            gsap.to(".cursor-ring-1", { scale: 1, borderColor: "rgba(112,0,255,0.4)", duration: 0.4 });
-            gsap.to(".cursor-ring-2", { scale: 1, opacity: 1, duration: 0.4 });
-            gsap.to(".cursor-text", { opacity: 0, duration: 0.2 });
+            gsap.to(cursorRef.current, { 
+               scale: 1, 
+               duration: 0.4, 
+               ease: "power2.out" 
+            });
          })
       })
 
@@ -422,7 +376,6 @@ export default function Home() {
     return () => {
       window.removeEventListener('mousemove', moveCursor)
       window.removeEventListener('keydown', handleKeyDown)
-      gsap.ticker.remove(tickerFunc)
       cancelAnimationFrame(rafId)
       if (lenis) lenis.destroy()
       ctx.revert()
@@ -516,23 +469,11 @@ export default function Home() {
          <div className="scroll-progress-bar h-full bg-accent origin-left w-full scale-x-0" />
       </div>
 
-      {/* CYBER-EYE OS CURSOR */}
+      {/* MINIMAL INVERTED CURSOR */}
       <div 
         ref={cursorRef} 
-        className="fixed top-0 left-0 flex items-center justify-center pointer-events-none z-[99999998] hidden lg:flex mix-blend-difference will-change-transform"
-      >
-         {/* Core Dot */}
-         <div ref={cursorDotRef} className="absolute w-1.5 h-1.5 bg-accent rounded-full shadow-[0_0_10px_rgba(112,0,255,1)]" />
-         
-         {/* Orbit Rings */}
-         <div className="cursor-ring-1 absolute w-8 h-8 border-[1px] border-accent/40 rounded-full border-t-transparent" />
-         <div className="cursor-ring-2 absolute w-12 h-12 border-[1px] border-white/20 rounded-full border-b-transparent border-l-transparent" />
-         
-         {/* OS Mini Terminal Text */}
-         <div className="cursor-text absolute left-8 text-[8px] font-mono tracking-[0.2em] text-accent uppercase opacity-0 whitespace-nowrap drop-shadow-[0_0_5px_rgba(112,0,255,0.8)]">
-            [ SYSTEM_READY ]
-         </div>
-      </div>
+        className="fixed top-0 left-0 w-8 h-8 bg-white rounded-full pointer-events-none z-[99999998] hidden lg:block mix-blend-difference will-change-transform"
+      />
 
       {/* AMBIENT BACKGROUND */}
       <div className="cursor-flashlight" />

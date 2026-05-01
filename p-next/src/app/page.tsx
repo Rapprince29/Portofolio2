@@ -639,7 +639,7 @@ export default function Home() {
                 onMouseEnter={() => setHoveredProject(i)}
                 onMouseLeave={() => setHoveredProject(null)}
                 className={`reveal-item project-item tilt-card group relative glass-panel rounded-3xl p-6 md:p-12 transition-[opacity,filter,transform] duration-500 
-                ${hoveredProject !== null && hoveredProject !== i ? 'opacity-30 blur-sm scale-[0.98]' : 'scale-100 opacity-100 blur-none'}`}
+                ${hoveredProject !== null && hoveredProject !== i ? 'lg:opacity-30 lg:blur-sm lg:scale-[0.98]' : 'scale-100 opacity-100 blur-none'}`}
               >
                  <div className="relative aspect-[16/10] overflow-hidden rounded-2xl mb-10">
                     <div className="project-image relative w-full h-[120%] -top-[10%]">
@@ -674,7 +674,7 @@ export default function Home() {
                              href={link.url} 
                              target="_blank" 
                              rel="noopener noreferrer"
-                             className="flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full text-[10px] font-mono text-white/60 hover:text-white transition-all uppercase tracking-widest group/link"
+                             className="relative z-20 flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full text-[10px] font-mono text-white/60 hover:text-white transition-all uppercase tracking-widest group/link pointer-events-auto"
                           >
                              {link.label}
                              <ArrowUpRight size={12} className="group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />

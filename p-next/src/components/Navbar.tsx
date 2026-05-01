@@ -55,10 +55,10 @@ export default function Navbar() {
     <>
       <nav 
         ref={navRef}
-        className={`fixed top-8 left-1/2 -translate-x-1/2 z-[999] transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] ${isCollapsed ? 'w-16 h-16' : 'w-[90%] md:w-auto h-16'}`}
+        className={`fixed top-8 left-1/2 -translate-x-1/2 z-[999] transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] ${isCollapsed ? 'w-16 h-16' : 'w-[90%] md:w-auto h-16'}`}
       >
         <div 
-          className={`glass-panel rounded-full w-full h-full flex items-center justify-between px-6 transition-all duration-700 ${isCollapsed ? 'p-0 justify-center' : 'md:px-10'}`}
+          className={`glass-panel rounded-full w-full h-full flex items-center justify-between px-6 transition-all duration-500 ${isCollapsed ? 'p-0 justify-center' : 'md:px-10'}`}
           onClick={() => isCollapsed && setIsCollapsed(false)}
         >
           {/* EXPANDED CONTENT */}
@@ -113,7 +113,7 @@ export default function Navbar() {
 
           {/* COLLAPSED CONTENT (ZEN ORB) */}
           {isCollapsed && (
-            <div className="flex items-center justify-center w-full h-full animate-in fade-in zoom-in-75 duration-700">
+            <div className="flex items-center justify-center w-full h-full animate-in fade-in zoom-in-75 duration-500">
                <div className="relative w-8 h-8 rounded-full overflow-hidden border border-white/20">
                   <Image src="/logo.png" alt="Logo" fill className="object-cover" />
                </div>
@@ -123,7 +123,7 @@ export default function Navbar() {
       </nav>
 
       {/* Mobile Menu */}
-      <div className={`fixed inset-0 bg-background/98 backdrop-blur-2xl z-[1000] flex flex-col justify-center items-center gap-10 transition-all duration-700 ${isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-10 pointer-events-none'}`}>
+      <div className={`fixed inset-0 bg-background/98 backdrop-blur-2xl z-[1000] flex flex-col justify-center items-center gap-10 transition-all duration-500 ${isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-10 pointer-events-none'}`}>
         <button className="absolute top-10 right-10 text-white" onClick={() => setIsOpen(false)}>
            <X size={32} />
         </button>

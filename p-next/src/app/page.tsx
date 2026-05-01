@@ -145,34 +145,34 @@ export default function Home() {
       const counter = { val: 0 }
       tl.to(counter, {
         val: 100,
-        duration: 3,
+        duration: 1.5,
         ease: "power2.inOut",
         onUpdate: () => setProgress(Math.floor(counter.val))
       })
       .to(".loader-panel", { 
         yPercent: -100, 
-        duration: 1.2, 
+        duration: 0.8, 
         ease: "power4.inOut" 
       })
       .from(".reveal-text-line", { 
-        y: 100, 
-        rotateX: -45,
+        y: 80, 
+        rotateX: -30,
         opacity: 0, 
-        filter: "blur(20px)",
-        duration: 1.5, 
-        stagger: 0.1, 
+        filter: "blur(15px)",
+        duration: 1.0, 
+        stagger: 0.08, 
         ease: "expo.out",
         onComplete: () => gsap.set(".reveal-text-line", { filter: "none", rotateX: 0 })
-      }, "-=0.8")
+      }, "-=0.5")
       .from(".reveal-sub", { 
-        y: 20,
+        y: 15,
         opacity: 0, 
-        filter: "blur(10px)",
-        duration: 1.2, 
-        stagger: 0.05,
+        filter: "blur(8px)",
+        duration: 0.8, 
+        stagger: 0.04,
         ease: "power3.out",
         onComplete: () => gsap.set(".reveal-sub", { filter: "none" })
-      }, "-=1.2")
+      }, "-=0.8")
     }
 
     // 1. MINIMAL INVERTED CURSOR LOGIC
@@ -189,7 +189,7 @@ export default function Home() {
       gsap.to(".cursor-flashlight", {
         x: e.clientX,
         y: e.clientY,
-        duration: 0.6,
+        duration: 0.4,
         ease: "power3.out"
       })
     }

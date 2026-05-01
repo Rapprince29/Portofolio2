@@ -12,8 +12,8 @@ export default function NeuralBackground() {
 
     let particles: Particle[] = []
     const isMobile = window.innerWidth < 768
-    const particleCount = isMobile ? 15 : 60 // Reduced mobile particles
-    const connectionDistance = isMobile ? 80 : 150 // Shorter connections on mobile
+    const particleCount = isMobile ? 12 : 55 // Reduced mobile particles
+    const connectionDistance = isMobile ? 70 : 140 // Shorter connections on mobile
     const mouse = { x: -1000, y: -1000 }
 
     class Particle {

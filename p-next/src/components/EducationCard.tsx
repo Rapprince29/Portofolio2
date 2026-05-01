@@ -12,13 +12,13 @@ const EducationCard = ({ edu }: { edu: any }) => {
     if (!detailsEl || gsap.isTweening(detailsEl)) return 
 
     if (isExpanded) {
-      gsap.to(detailsEl, { height: 0, opacity: 0, duration: 0.6, ease: "expo.inOut" })
+      gsap.to(detailsEl, { height: 0, opacity: 0, duration: 0.4, ease: "power2.inOut" })
     } else {
       gsap.set(detailsEl, { height: "auto" })
       const autoHeight = detailsEl?.clientHeight
       gsap.fromTo(detailsEl, 
         { height: 0, opacity: 0 }, 
-        { height: autoHeight, opacity: 1, duration: 0.8, ease: "expo.out" }
+        { height: autoHeight, opacity: 1, duration: 0.5, ease: "power4.out" }
       )
     }
     setIsExpanded(!isExpanded)
@@ -28,7 +28,7 @@ const EducationCard = ({ edu }: { edu: any }) => {
     <div 
       ref={itemRef}
       onClick={toggleExpand}
-      className={`reveal-item group glass-panel rounded-3xl p-8 md:p-12 transition-all duration-700 cursor-pointer ${isExpanded ? 'border-accent/40 bg-white/[0.04]' : 'hover:bg-white/[0.02]'}`}
+      className={`reveal-item group glass-panel rounded-3xl p-8 md:p-12 transition-[border-color,background-color,box-shadow] duration-500 cursor-pointer ${isExpanded ? 'border-accent/40 bg-white/[0.04]' : 'hover:bg-white/[0.02]'}`}
     >
       <div className="flex flex-col md:flex-row justify-between items-center gap-8">
         <div className="flex items-center gap-12">

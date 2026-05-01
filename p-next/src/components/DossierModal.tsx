@@ -17,10 +17,10 @@ const DossierModal = ({ show, cert, onClose }: DossierModalProps) => {
     if (show && cert) {
       document.body.style.overflow = 'hidden'
       const tl = gsap.timeline()
-      tl.fromTo(".modal-backdrop", { opacity: 0 }, { opacity: 1, duration: 0.5 })
-        .fromTo(".modal-left", { x: -100, opacity: 0 }, { x: 0, opacity: 1, duration: 0.8, ease: "expo.out" }, "-=0.3")
-        .fromTo(".modal-right", { x: 100, opacity: 0 }, { x: 0, opacity: 1, duration: 0.8, ease: "expo.out" }, "-=0.6")
-        .fromTo(".modal-item", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, stagger: 0.1, ease: "power2.out" }, "-=0.4")
+      tl.fromTo(".modal-backdrop", { opacity: 0 }, { opacity: 1, duration: 0.4 })
+        .fromTo(".modal-left", { x: -50, opacity: 0 }, { x: 0, opacity: 1, duration: 0.6, ease: "power4.out" }, "-=0.3")
+        .fromTo(".modal-right", { x: 50, opacity: 0 }, { x: 0, opacity: 1, duration: 0.6, ease: "power4.out" }, "-=0.45")
+        .fromTo(".modal-item", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, stagger: 0.08, ease: "power3.out" }, "-=0.3")
     } else {
       document.body.style.overflow = 'auto'
     }

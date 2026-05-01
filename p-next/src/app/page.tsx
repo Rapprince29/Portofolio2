@@ -203,7 +203,7 @@ export default function Home() {
           y: isMobile ? 20 : 40,
           scale: isMobile ? 1 : 0.98,
           opacity: 0,
-          duration: isMobile ? 0.6 : 1.2,
+          duration: isMobile ? 0.5 : 0.8,
           ease: "power3.out",
           scrollTrigger: {
             trigger: item,
@@ -638,7 +638,7 @@ export default function Home() {
                 key={i} 
                 onMouseEnter={() => setHoveredProject(i)}
                 onMouseLeave={() => setHoveredProject(null)}
-                className={`reveal-item project-item tilt-card group relative glass-panel rounded-3xl p-6 md:p-12 transition-all duration-700 
+                className={`reveal-item project-item tilt-card group relative glass-panel rounded-3xl p-6 md:p-12 transition-[opacity,filter,transform] duration-500 
                 ${hoveredProject !== null && hoveredProject !== i ? 'opacity-30 blur-sm scale-[0.98]' : 'scale-100 opacity-100 blur-none'}`}
               >
                  <div className="relative aspect-[16/10] overflow-hidden rounded-2xl mb-10">

@@ -10,7 +10,7 @@ const CertificateCard = ({ cert, onOpen }: { cert: any, onOpen: (c: any) => void
     <div 
       ref={itemRef}
       onClick={() => onOpen(cert)}
-      className="reveal-item group relative bg-[#0a0a0a] rounded-[2rem] border border-white/5 transition-all duration-700 cursor-pointer overflow-hidden shadow-2xl hover:border-accent/30"
+      className="reveal-item group relative bg-[#0a0a0a] rounded-[2rem] border border-white/5 transition-[border-color,box-shadow] duration-500 cursor-pointer overflow-hidden shadow-2xl hover:border-accent/30"
     >
       {/* UPPER IMAGE SECTION (THE HERO) */}
       <div className="relative aspect-[4/3] w-full overflow-hidden">
@@ -19,7 +19,7 @@ const CertificateCard = ({ cert, onOpen }: { cert: any, onOpen: (c: any) => void
              src={cert.image} 
              alt={cert.title} 
              fill 
-             className="object-cover transition-all duration-1000 grayscale group-hover:grayscale-0 group-hover:scale-110"
+             className="object-cover transition-all duration-700 grayscale group-hover:grayscale-0 group-hover:scale-110"
            />
          ) : (
            <div className="absolute inset-0 bg-white/[0.02] flex items-center justify-center">
@@ -36,7 +36,7 @@ const CertificateCard = ({ cert, onOpen }: { cert: any, onOpen: (c: any) => void
             </span>
          </div>
 
-         <div className="absolute bottom-6 left-8 right-8 z-10 transition-transform duration-700 group-hover:-translate-y-2">
+         <div className="absolute bottom-6 left-8 right-8 z-10 transition-transform duration-500 group-hover:-translate-y-2">
             <div className="flex flex-col gap-1">
                <span className="text-[10px] font-mono text-accent uppercase tracking-[0.3em] font-black">{cert.issuer}</span>
                <h3 className="text-3xl font-black text-white leading-none uppercase italic tracking-tighter shadow-black drop-shadow-md text-nowrap">
@@ -53,7 +53,7 @@ const CertificateCard = ({ cert, onOpen }: { cert: any, onOpen: (c: any) => void
       {/* LOWER UTILITY BAR */}
       <div className="relative px-8 py-6 flex items-center justify-between bg-white/[0.02] backdrop-blur-xl border-t border-white/5">
          <div className="flex items-center gap-4">
-            <div className="p-2 rounded-lg bg-accent/10 border border-accent/20 text-accent group-hover:bg-accent group-hover:text-white transition-colors duration-500">
+            <div className="p-2 rounded-lg bg-accent/10 border border-accent/20 text-accent group-hover:bg-accent group-hover:text-white transition-colors duration-300">
                <Award size={16} />
             </div>
             <div className="flex flex-col">
@@ -64,7 +64,7 @@ const CertificateCard = ({ cert, onOpen }: { cert: any, onOpen: (c: any) => void
 
          <div className="flex items-center gap-3 text-accent group/btn">
             <span className="text-[10px] font-mono tracking-[0.2em] font-black uppercase">VIEW_DETAIL</span>
-            <div className="p-1.5 rounded-full border border-accent/20 group-hover:bg-accent group-hover:text-white transition-all duration-500 group-hover:translate-x-1">
+            <div className="p-1.5 rounded-full border border-accent/20 group-hover:bg-accent group-hover:text-white transition-all duration-300 group-hover:translate-x-1">
                <ArrowUpRight size={12} />
             </div>
          </div>

@@ -139,141 +139,76 @@ export default function Home() {
           setIsLoading(false)
           document.body.style.overflow = 'auto'
           ScrollTrigger.refresh()
-          
-          
-          // BRAIN TUTORIAL LOGS
         }
       })
 
       const counter = { val: 0 }
       tl.to(counter, {
         val: 100,
-        duration: 3.5,
-        ease: "none",
+        duration: 3,
+        ease: "power2.inOut",
         onUpdate: () => setProgress(Math.floor(counter.val))
       })
       .to(".loader-panel", { 
         yPercent: -100, 
         duration: 1.2, 
-        ease: "expo.inOut" 
+        ease: "power4.inOut" 
       })
-      // START REVEALING HERO AS THE PANEL SLIDES UP
       .from(".reveal-text-line", { 
-        y: 120, 
-        skewY: 7,
+        y: 100, 
+        rotateX: -45,
         opacity: 0, 
         filter: "blur(20px)",
-        duration: 2, 
-        stagger: 0.15, 
+        duration: 1.5, 
+        stagger: 0.1, 
         ease: "expo.out",
-        onComplete: () => gsap.set(".reveal-text-line", { filter: "none" })
-      }, "-=1.0")
+        onComplete: () => gsap.set(".reveal-text-line", { filter: "none", rotateX: 0 })
+      }, "-=0.8")
       .from(".reveal-sub", { 
         y: 20,
         opacity: 0, 
-        filter: "blur(15px)",
-        duration: 1.5, 
-        stagger: 0.1,
+        filter: "blur(10px)",
+        duration: 1.2, 
+        stagger: 0.05,
         ease: "power3.out",
         onComplete: () => gsap.set(".reveal-sub", { filter: "none" })
-      }, "-=1.5")
-      .from(".hero-orb", {
-        scale: 0.8,
-        opacity: 0,
-        duration: 2.5,
-        ease: "expo.out"
-      }, "-=1.8")
+      }, "-=1.2")
     }
 
     // 1. MINIMAL INVERTED CURSOR LOGIC
     const moveCursor = (e: MouseEvent) => {
       if (window.innerWidth < 1024) return
 
-      // Circle follows mouse smoothly
       gsap.to(cursorRef.current, {
         x: e.clientX,
         y: e.clientY,
-        xPercent: -50,
-        yPercent: -50,
-        duration: 0.15,
+        duration: 0.2,
         ease: "power2.out"
       })
 
-      // 1.1 FLASHLIGHT FOLLOW
       gsap.to(".cursor-flashlight", {
         x: e.clientX,
         y: e.clientY,
-        duration: 0.5,
-        ease: "power2.out"
+        duration: 0.6,
+        ease: "power3.out"
       })
     }
     window.addEventListener('mousemove', moveCursor)
 
     const ctx = gsap.context(() => {
-      // 2. INVERTED CURSOR HOVER BINDINGS
-      const interactables = document.querySelectorAll('a, button, .skill-tile, .project-item, .glass-panel, .cursor-pointer');
-      interactables.forEach(el => {
-         el.addEventListener('mouseenter', () => {
-            gsap.to(cursorRef.current, { 
-               scale: 2.5, 
-               duration: 0.4, 
-               ease: "back.out(2)" 
-            });
-         })
-         el.addEventListener('mouseleave', () => {
-            gsap.to(cursorRef.current, { 
-               scale: 1, 
-               duration: 0.4, 
-               ease: "power2.out" 
-            });
-         })
-      })
-
       // 3. CINEMATIC REVEALS (Unified Global System)
       const isMobile = window.innerWidth < 768
       gsap.utils.toArray<HTMLElement>('.reveal-item').forEach((item) => {
         gsap.from(item, {
-          y: isMobile ? 30 : 60,
-          scale: isMobile ? 1 : 0.95,
-          filter: isMobile ? "none" : "blur(10px)",
+          y: isMobile ? 20 : 40,
+          scale: isMobile ? 1 : 0.98,
           opacity: 0,
-          duration: isMobile ? 0.8 : 1.5,
-          ease: "expo.out",
+          duration: isMobile ? 0.6 : 1.2,
+          ease: "power3.out",
           scrollTrigger: {
             trigger: item,
-            start: "top 95%",
+            start: "top 92%",
             toggleActions: "play none none reverse",
-          onEnter: () => {
-               // AUTO-TEASE TILT (Only on Desktop)
-               if (!isMobile && item.classList.contains('tilt-card')) {
-                 gsap.to(item, { 
-                   rotateY: 5, 
-                   rotateX: -5, 
-                   duration: 0.6, 
-                   yoyo: true, 
-                   repeat: 1, 
-                   ease: "power2.inOut" 
-                 })
-               }
-            }
-          },
-          onComplete: () => {
-            if (!isMobile) gsap.set(item, { filter: "none" })
-          }
-        })
-      })
-
-      // 3.1 SECTION TITLE LETTER-SPACING SCRUB (REFINED)
-      gsap.utils.toArray<HTMLElement>('.text-gradient').forEach((title) => {
-        gsap.from(title, {
-          letterSpacing: "-0.05em",
-          opacity: 0,
-          y: 20,
-          scrollTrigger: {
-            trigger: title,
-            start: "top bottom",
-            end: "top 70%",
-            scrub: 1
           }
         })
       })
@@ -284,18 +219,18 @@ export default function Home() {
         tiltCards.forEach(card => {
           card.addEventListener('mousemove', (e: any) => {
             const { left, top, width, height } = card.getBoundingClientRect()
-            const x = (e.clientX - (left + width / 2)) / 15
-            const y = (e.clientY - (top + height / 2)) / 15
+            const x = (e.clientX - (left + width / 2)) / 20
+            const y = (e.clientY - (top + height / 2)) / 20
             gsap.to(card, {
               rotateY: x,
               rotateX: -y,
-              transformPerspective: 1000,
-              duration: 0.5,
-              ease: "power2.out"
+              transformPerspective: 1200,
+              duration: 0.4,
+              ease: "power1.out"
             })
           })
           card.addEventListener('mouseleave', () => {
-            gsap.to(card, { rotateX: 0, rotateY: 0, duration: 1, ease: "elastic.out(1, 0.3)" })
+            gsap.to(card, { rotateX: 0, rotateY: 0, duration: 1, ease: "elastic.out(1, 0.4)" })
           })
         })
       }

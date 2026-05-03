@@ -230,3 +230,7 @@ body::before {
     transform: none !important;
   }
 }
+
+section {
+  scroll-margin-top: 120px;
+}

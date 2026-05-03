@@ -8,7 +8,9 @@ import Image from 'next/image'
 const navLinks = [
   { name: 'INDEX', href: '#' },
   { name: 'ABOUT', href: '#about' },
+  { name: 'SKILL', href: '#skills' },
   { name: 'KARYA', href: '#projects' },
+  { name: 'EDUKASI', href: '#education' },
   { name: 'SERTIFIKASI', href: '#certificates' },
   { name: 'HUBUNGI', href: '#contact' },
 ]
@@ -77,7 +79,7 @@ export default function Navbar() {
                </div>
 
                {/* Desktop Nav */}
-               <div className="hidden md:flex items-center gap-10 mx-auto">
+               <div className="hidden md:flex items-center gap-6 mx-auto">
                  {navLinks.map((link) => (
                    <a key={link.name} href={link.href} className="group flex flex-col overflow-hidden h-4">
                      <span className="text-[10px] font-mono tracking-[0.3em] text-white/40 group-hover:-translate-y-full transition-transform duration-500 uppercase">{link.name}</span>

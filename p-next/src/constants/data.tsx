@@ -31,6 +31,16 @@ export const projects = [
     links: [
        { label: "Live Demo", url: "https://kedai-core.vercel.app/" }
     ]
+  },
+  {
+    title: "JOKIN JAY",
+    category: "ACADEMIC SOLUTIONS",
+    desc: "Platform penyedia layanan akademik profesional seperti penulisan karya ilmiah, pembuatan presentasi, solusi pemrograman, analisis data, dan bantuan kuis dengan tampilan modern dan futuristik yang dirancang untuk membantu mahasiswa menyelesaikan tugas dengan cepat dan aman.",
+    image: "/projects/jokinjay.png",
+    stack: ["Next.js", "React", "Tailwind CSS", "Framer Motion"],
+    links: [
+       { label: "Live Demo", url: "https://jokinjay.vercel.app/" }
+    ]
   }
 ]
 
